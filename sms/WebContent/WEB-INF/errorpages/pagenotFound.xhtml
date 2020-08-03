@@ -1,0 +1,91 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html >
+<html
+	lang="fr"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<f:view contentType="text/html">
+	<h:head>
+		<title>iSMS | Page Introuvable</title>
+
+		<h:outputStylesheet
+			library="css"
+			name="errors.css" />
+
+		<link
+			rel="shortcut icon"
+			type="image/png"
+			href="#{request.contextPath}/resources/img/iplans_icon.png" />
+
+
+	</h:head>
+
+	<h:body>
+
+		<div id="bloc_page">
+			<header>
+
+				<div>
+					<h:graphicImage
+						style="margin-top:7px"
+						id="logo"
+						library="img"
+						name="isms_logo_original.png"
+						alt="Enete iSMS" />
+					<br /> <br /> <br /> <br />
+				</div>
+
+			</header>
+
+			<section id="notfound">
+				<h:form>
+
+					<p:panel
+						id="pageNotFound"
+						header="iSMS | Page introuvable!"
+						style="margin:auto">
+
+						<h:panelGrid style="text-align:center">
+
+							<h:graphicImage
+								style="margin-top:7px"
+								id="notF"
+								library="img"
+								name="404.jpg"
+								alt="notFound" />
+
+							<p:commandButton styleClass="dash"
+								id="dash"
+								value="Retourner à l'accueil"
+								action="#{ismsBean.dashboard()}" />
+
+						</h:panelGrid>
+
+					</p:panel>
+
+				</h:form>
+
+			</section>
+
+			<footer>
+
+				<div id="copyrights">
+					<p>iPLANS SA Head Office, IPLANS building - Bonamoussadi/Denver
+						PO Box: 8215 Douala - Cameroon</p>
+					<p>Tel.: (Std) +237 (2) 33 47 28 66 | Tel.: (Std) +237 (2) 33
+						47 28 75 | Tel.: (Std) +237 (2) 33 47 28 80 | Tel.: (Std) +237 (6)
+						66 00 13 00 | E-mail: info@iplans.cm</p>
+
+					<p>Copyright iPLANS SA - Tous droits reserves</p>
+				</div>
+			</footer>
+
+		</div>
+	</h:body>
+</f:view>
+
+</html>

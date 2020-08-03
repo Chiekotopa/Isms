@@ -1,0 +1,100 @@
+<!DOCTYPE html >
+<html 
+	xmlns:p="http://primefaces.org/ui"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"	
+	lang="#{icreditBean.language}"
+	>
+
+<ui:composition template="/WEB-INF/new_templates/template.xhtml">
+
+	<ui:define name="title">#{icreditBean.partenaire.appliname} | Transactions</ui:define>
+	<ui:define name="body">
+		<h:form id="FormCrediterCompte"> 
+			<p:panel
+				id="CrediterCPanel"
+				header="Vos opérations. Votre solde est de : #{ismsBean.clientConnecte.solde} credit(s)"
+				style="height:496px"> 
+					
+			  <p:dataTable
+					id="creditData"
+					var="credit"
+					emptyMessage="Pas d'opération pour l'instant"
+					value="#{ismsBean.listeCreditRevendeur}"
+					widgetVar="creditTable"
+					rows="10"
+                    paginator="true"
+                    paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                    rowsPerPageTemplate="10,20,50,100" 
+					resizableColumns="true"
+					rowHover="true"
+					rowIndexVar="index"
+					scrollable="true"
+					scrollHeight="400" >
+
+					<p:column
+						headerText="Numéro"
+						width="30">
+						<h:outputText value="#{index + 1}" />
+					</p:column>
+
+					<p:column
+						headerText="Client"
+						sortBy="#{credit.client.noms}"
+						filterBy="#{credit.client.noms}"
+						width="110"
+						filterMatchMode="contains">
+						<h:outputText value="#{credit.client.noms}" />
+					</p:column>
+
+					<p:column
+						headerText="Solde initial"
+						sortBy="#{credit.valeurInitiale}"
+						filterBy="#{credit.valeurInitiale}"
+						width="110"
+						filterMatchMode="contains">
+						<h:outputText value="#{credit.valeurInitiale}" />
+					</p:column>
+
+					<p:column headerText="Solde actuel" filterBy="#{credit.valeur}" width="110" filterMatchMode="contains">
+						<h:outputText value="#{credit.valeur}" escape="false" style="white-space:pre-line;"/>
+					</p:column>
+
+					<p:column
+						headerText="Validité initiale"
+						sortBy="#{credit.validiteInitiale}"
+						filterBy="#{credit.validiteInitiale}"
+						width="110"
+						filterMatchMode="contains">
+						<h:outputText value="#{credit.validiteInitiale}" />
+					</p:column>
+
+					<p:column
+						headerText="Validité actuelle"
+						sortBy="#{credit.validite}"
+						filterBy="#{credit.validite}"
+						width="100"
+						filterMatchMode="contains"> 
+						<h:outputText value="#{credit.validite}" />
+					</p:column>
+
+					<p:column
+						headerText="Date de l'opération"
+						sortBy="#{credit.dateAchat}"
+						filterBy="#{credit.dateAchat}"
+						width="120"
+						filterMatchMode="contains">
+						<h:outputText value="#{credit.dateAchat}" />
+					</p:column>
+
+				</p:dataTable>
+					
+ 
+			</p:panel> 
+
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

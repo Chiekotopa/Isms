@@ -1,0 +1,96 @@
+
+#login{
+    display: block;
+    width: 350px;
+    height: auto;
+    padding: 10px;
+    margin-top: 50px;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 2px;
+    background-color: rgba(91, 155, 213, 0.7);
+}
+
+#create{
+    display: block;
+    width: 400px;
+    height: auto;
+    padding: 10px;
+    margin-top: 0px;
+    margin-bottom: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 2px;
+    background-color: rgba(91, 155, 213, 0.7);
+}
+
+#signIn{
+	margin-left: 250px;
+	display: inline-block;
+}
+
+#signIn a:hover{
+    color: #760001;
+	border-bottom: 1px solid #760001;
+}
+
+#signIn a{
+	font-size: small;
+	color: blue;
+	text-decoration: none;
+}
+
+/* ===========================En-tete page =========================== */
+header{
+    background: url("#{resource['img:separateur_isms.png']}") repeat-x bottom ;
+}
+
+/* =========================== Corps page =========================== */
+body{
+
+    width: 1300px;
+    height: auto;
+    margin: auto;
+    background: url("#{resource['img/bkg.jpg']}");
+    font-size: 12px;
+    font-family: Verdana, "Verdana CE",  Arial, "Arial CE", "Lucida Grande CE", lucida, "Helvetica CE", sans-serif;
+    color: #181818;
+}
+
+#bloc_page{
+
+    width: 1300px;
+    height: 600px;
+    margin: auto;
+}
+
+/* =========================== Footer =========================== */
+/* Footer */
+
+footer{
+	width:100%;
+	position:absolute;
+	bottom:0;
+	left:0;
+    background-color: rgba(91, 155, 213, 0.7);
+    text-align: center;
+}
+
+footer p, footer ul{
+    font-size: 1em;
+}
+
+
+#copyrights{
+    text-align: center;
+}
+
+
+/* =========================== Primefaces =========================== */
+.ui-widget, .ui-widget .ui-widget {
+    font-size: 100%;
+}
+
+
+
+/*===================== FOR clientLogin ======================*/

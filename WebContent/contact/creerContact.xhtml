@@ -1,0 +1,78 @@
+<!DOCTYPE html >
+<html 
+	xmlns:p="http://primefaces.org/ui"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	lang="#{ismsBean.language}"
+	>
+
+<ui:composition template="/WEB-INF/new_templates/template.xhtml">
+
+	<ui:define name="title">#{ismsBean.partenaire.appliname} |#{msg['creerContact.title']} </ui:define>
+	<ui:define name="body">
+		<h:form id="FormCreerContact">
+		
+			<p:growl
+				id="growl"
+				showSummary="false"
+				showDetail="true"
+				sticky="false"
+				autoUpdate="true" />
+
+			<p:panel
+				id="creationContact"
+				style="height:354px"
+				header="#{msg['creerContact.header.title']}">
+
+				<h:panelGrid
+					id="infos"
+					columns="3"
+					style="margin-top:20px;margin-bottom:140px"
+					cellpadding="10">
+
+					<h:outputLabel
+						for="nomContact"
+						value="#{msg['creerContact.outputLabel.nomContact']}: "
+						 />
+					<p:inputText
+						id="nomContact"
+						required="true"
+						requiredMessage="#{msg['creerContact.outputLabel.requirednomContact']}!"
+						value="#{ismsBean.contactACreer.nom}" />
+					<p:message
+						for="nomContact"
+						showIcon="false"
+						showSummary="false"
+						showDetail="true" />
+
+					<h:outputLabel
+						for="telephoneContact"
+						value="#{msg['creerContact.outputLabel.telephoneContact']}: " />
+					<p:inputText
+						id="telephoneContact"
+						required="true"
+						requiredMessage="#{msg['creerContact.outputLabel.requiredtelephoneContact']}!"
+						value="#{ismsBean.contactACreer.telephone}" />
+					<p:message
+						for="telephoneContact"
+						showIcon="false"
+						showSummary="false"
+						showDetail="true" />
+
+				</h:panelGrid>
+
+				<f:facet name="footer">
+					<p:commandButton
+						value="#{msg['creerContact.commandButton.creer']}"
+						action="#{ismsBean.creerContact()}"
+						actionListener="onContactExist()"
+						style="font-weight:bold"
+						update="infos FormCreerContact:growl" />
+				</f:facet>
+			</p:panel>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

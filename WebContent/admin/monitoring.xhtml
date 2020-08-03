@@ -1,0 +1,132 @@
+<!DOCTYPE html >
+<html 
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	lang="#{ismsBean.language}"
+	>
+
+<ui:composition template="/WEB-INF/new_templates/templateAdmin.xhtml">
+
+	<ui:define name="title">#{ismsBean.partenaire.appliname} | #{msg['smsResearch.titre']}</ui:define>
+	<ui:define name="body">
+	  
+	  	 <h:form id="FormSearchId">
+			<h:panelGrid id="panelgId" columns="8">  
+			   <p:outputLabel for="datetime1" value="#{msg['historiqueEnvoi.outputLabel.datedebut']}:" />
+               <p:calendar id="datetime1" value="#{ismsBean.dated}"  requiredMessage="#{msg['historiqueEnvoi.outputLabel.requireddatedebut']}." pattern="yyyy-MM-dd HH:mm:ss" />
+               
+               <p:outputLabel for="datetime2" value="#{msg['historiqueEnvoi.outputLabel.datefin']}:" />
+               <p:calendar id="datetime2" value="#{ismsBean.datef}"  requiredMessage="#{msg['historiqueEnvoi.outputLabel.requireddatefin']}." pattern="yyyy-MM-dd HH:mm:ss" />
+               
+               <p:outputLabel
+						for="client"
+						value="#{msg['crediterCompte.outputLabel.Client']} :" />
+               <p:selectOneMenu
+						id="client"
+						panelStyle="width:50px"
+						effect="fade"
+						style="width:50px"
+						value="#{ismsBean.client.idClient}"
+						filter="true"
+						filterMatchMode="startsWith">
+
+						<f:selectItem
+							itemLabel="#{msg['crediterCompte.itemLabel.Choisir']}"
+							itemValue=""
+							noSelectionOption="false" />
+
+						<f:selectItems
+							value="#{ismsBean.clients}"
+							var="c"
+							itemLabel="#{c.noms} - #{c.telephone}"
+							itemValue="#{c.idClient}" />
+
+
+					</p:selectOneMenu>
+               
+                   <p:commandButton value="#{msg['historiqueEnvoi.commandButton.rechercher']}" id="dt1" actionListener="#{ismsBean.researchSMS()}" update=":FormStatSMS:smsSubTable" icon="ui-icon-search" />
+                   <p:commandButton value="#{msg['smsResearch.commandButton.envoiDuJr']}" id="dt2"  immediate="true" actionListener="#{ismsBean.allSMS()}" update="panelgId :FormStatSMS:smsSubTable" />
+ 
+			</h:panelGrid>
+		   </h:form>
+	   
+		<h:form id="FormStatSMS"> 
+			<p:panel
+				id="statSMS"
+				header="#{msg['smsResearch.titre']}"
+				style="height:496px">
+
+				<p:dataTable
+					id="smsSubTable"
+					var="sms"
+					value="#{ismsBean.smss}"
+					emptyMessage="#{msg['statistiquesSMS.dataTable.emptyMessage']}"
+					resizableColumns="true"
+					rowHover="true"
+					rowIndexVar="index"
+					scrollable="true"
+					scrollHeight="350">  
+
+					<p:column
+						headerText="#{msg['historiqueEnvoi.dataTable.No']}" width="30">
+						<h:outputText value="#{index + 1}" />
+					</p:column>
+
+					<p:column headerText="#{msg['smsResearch.dataTable.client']}"
+						sortBy="#{sms.client.noms}"
+						filterBy="#{sms.client.noms}" 
+						filterMatchMode="contains">
+						<h:outputText value="#{sms.client.noms}"/>
+					</p:column> 
+					
+					<p:column headerText="#{msg['smsResearch.dataTable.senderId']}"
+				    	sortBy="#{sms.sender}"
+						filterBy="#{sms.sender}" 
+						filterMatchMode="contains">
+						<h:outputText value="#{sms.sender}"/>
+					</p:column> 
+					
+				    <p:column headerText="#{msg['smsResearch.dataTable.destinataire']}"
+				    	sortBy="#{sms.destinataire}"
+						filterBy="#{sms.destinataire}" 
+						filterMatchMode="contains">
+						<h:outputText value="#{sms.destinataire}"/>
+					</p:column> 
+					
+					
+				    <p:column headerText="#{msg['smsResearch.dataTable.contenu']}"
+				        sortBy="#{sms.contenu}"
+						filterBy="#{sms.contenu}" 
+						filterMatchMode="contains">
+						<h:outputText value="#{sms.contenu}"/>
+					</p:column> 
+					
+					 <p:column headerText="#{msg['smsResearch.dataTable.etat']}"
+					    sortBy="#{sms.etat}" 
+						filterMatchMode="contains">
+					    <h:outputText
+							value="#{msg['historiqueEnvoi.outputText.etatenvoye']}"
+							rendered="#{sms.etat}" />
+						<h:outputText
+							value="#{msg['historiqueEnvoi.outputText.etatattente']}"
+							rendered="#{!sms.etat}" />
+					</p:column> 
+					
+				    <p:column headerText="#{msg['smsResearch.dataTable.heureEnvoi']}"
+				        sortBy="#{sms.dateEnvoi}"
+						filterBy="#{sms.dateEnvoi}" 
+						filterMatchMode="contains">
+						<h:outputText value="#{sms.dateEnvoi}"/>
+					</p:column> 
+
+				</p:dataTable>
+
+			</p:panel>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

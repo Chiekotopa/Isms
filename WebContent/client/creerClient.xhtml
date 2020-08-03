@@ -1,0 +1,151 @@
+<!DOCTYPE html >
+<html 
+	xmlns:p="http://primefaces.org/ui"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	lang="#{ismsBean.language}"
+	>
+
+<!-- 
+		Replace path to template, title, header and body
+		with actual data.
+	 -->
+<ui:composition template="/WEB-INF/new_templates/templateAdmin.xhtml">
+
+	<ui:define name="title">#{ismsBean.partenaire.appliname} | #{msg['creerClient.title']}</ui:define>
+
+	<ui:define name="body">
+		<h:form id="FormCreationClient">
+
+			<p:panel
+				id="creationClient"
+				header="#{msg['creerClient.header']}"
+				style="height:496px">
+
+				<h:panelGrid
+					id="infos"
+					columns="1"
+					style="margin-bottom:10px; width:975px;margin-bottom:50px"
+					cellpadding="5">
+
+					<!-- fieldset pour les informations personnelles-->
+					<p:fieldset legend="#{msg['creerClient.legend.infos']}">
+						<h:panelGrid
+							columns="3"
+							cellpadding="5">
+
+							<h:outputLabel
+								for="nomClient"
+								value="#{msg['creerClient.outputLabel.nomClient']} :" />
+							<p:inputText
+								id="nomClient"
+								required="true"
+								requiredMessage="#{msg['creerClient.outputLabel.requiredMessagenomClient']}!"
+								value="#{ismsBean.clientACreer.noms}" />
+							<p:message
+								for="nomClient"
+								showIcon="false"
+								showSummary="false"
+								showDetail="true" />
+
+							<h:outputLabel
+								for="emailClient"
+								value="#{msg['creerClient.outputLabel.emailClient']} :" />
+							<p:inputText
+								id="emailClient"
+								required="true"
+								requiredMessage="#{msg['creerClient.outputLabel.requiredMessageemailClient']}!"
+								value="#{ismsBean.clientACreer.email}" />
+							<p:message
+								for="emailClient"
+								showIcon="false"
+								showSummary="false"
+								showDetail="true" />
+
+
+							<h:outputLabel
+								for="telephoneClient"
+								value="#{msg['creerClient.outputLabel.telephoneClient']} : " />
+							<p:inputText
+								id="telephoneClient"
+								required="true"
+								requiredMessage="#{msg['creerClient.outputLabel.requiredMessagetelephoneClient']}"
+								value="#{ismsBean.clientACreer.telephone}" />
+							<p:message
+								id="telephoneClientMsg"
+								for="telephoneClient"
+								showIcon="false"
+								showSummary="false"
+								showDetail="true" />
+
+						</h:panelGrid>
+
+					</p:fieldset>
+
+					<!-- fieldset pour les informations de connexion-->
+
+					<p:fieldset legend="#{msg['creerClient.legend.connexion']}">
+
+						<p:message
+							for="motdepasse"
+							showIcon="false"
+							showSummary="false"
+							showDetail="true"
+							autoUpdate="true" />
+
+						<p:message
+							for="confirmationmdp"
+							showIcon="false"
+							showSummary="false"
+							showDetail="true"
+							autoUpdate="true" />
+
+						<h:panelGrid
+							id="infoConn"
+							columns="2"
+							cellpadding="5">
+
+							<h:outputLabel
+								for="motdepasse"
+								value="#{msg['creerClient.outputLabel.motdepasse']} :" />
+							<p:password
+								id="motdepasse"
+								match="confirmationmdp"
+								label="motdepasse"
+								required="true"
+								requiredMessage="#{msg['creerClient.outputLabel.requiredMessagemotdepasse']}!"
+								value="#{ismsBean.clientACreer.password}" />
+
+							<h:outputLabel
+								for="confirmationmdp"
+								value="#{msg['creerClient.outputLabel.confirmationmdp']} :" />
+							<p:password
+								id="confirmationmdp"
+								label="confirmationmdp"
+								required="true"
+								requiredMessage="#{msg['creerClient.outputLabel.requiredMessageconfirmationmdp']}!"
+								value="#{ismsBean.confirmation}" />
+
+						</h:panelGrid>
+					</p:fieldset>
+
+				</h:panelGrid>
+
+
+
+				<f:facet name="footer">
+					<p:commandButton
+						value="#{msg['creerClient.commandButton.creer']}"
+						action="#{ismsBean.creerClient}"
+						style="font-weight:bold"
+						update="infos" />
+				</f:facet>
+			</p:panel>
+
+		</h:form>
+	</ui:define>
+</ui:composition>
+
+</html>

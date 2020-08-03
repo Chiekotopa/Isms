@@ -1,0 +1,208 @@
+<!DOCTYPE html >
+<html
+	lang="fr"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
+
+<ui:composition template="/WEB-INF/new_templates/template.xhtml">
+
+	<ui:define name="title">iSMS | Envoyer un SMS</ui:define>
+	<ui:define name="body">
+		<h:form id="FormEnvoiSMS">
+			<p:growl
+				id="growl"
+				showSummary="false"
+				showDetail="true"
+				sticky="false"
+				autoUpdate="true" />
+
+			<p:panel
+				id="sendSMS"
+				style="height:523px"
+				header="Envoyer un SMS">
+
+				<h:panelGrid
+					id="envoiSMS"
+					columns="2">
+
+					<h:panelGrid
+						columns="2"
+						cellpadding="5"
+						width="700px">
+
+						<p:outputLabel
+							for="sender"
+							value="Sender ID (nom exp.): " />
+
+						<h:panelGrid columns="2">
+
+							<p:selectOneMenu
+								id="sender"
+								value="#{ismsBean.smsACreer.sender}"
+								effect="fold"
+								style="width:150px"
+								editable="false">
+								<p:ajax update="senderID" />
+								<f:selectItem
+									itemLabel="Choisir un senderID"
+									itemValue="" />
+								<f:selectItems
+									var="senderID"
+									value="#{ismsBean.senderIDs}"
+									itemLabel="#{senderID.nom}"
+									itemValue="#{senderID.nom}" />
+							</p:selectOneMenu>
+							<p:inputText
+								style="margin-left:8px"
+								id="senderID"
+								maxlength="11"
+								value="#{ismsBean.smsACreer.sender}"
+								required="true"
+								requiredMessage="Entrez un nom d'expéditeur!" />
+							<p:watermark
+								for="senderID"
+								value="Nom exp." />
+						</h:panelGrid>
+
+						<p:outputLabel
+							for="destinataire"
+							value="Destinataire: " />
+
+						<h:panelGrid columns="2">
+
+							<p:selectOneMenu
+								id="destinataire"
+								value="#{ismsBean.smsACreer.destinataire}"
+								effect="fold"
+								style="width:150px"
+								editable="false">
+								<p:ajax update="numTel" />
+								<f:selectItem
+									itemLabel="Choisir un contact"
+									itemValue="" />
+								<f:selectItems
+									var="contact"
+									value="#{ismsBean.contacts}"
+									itemLabel="#{contact.nom}"
+									itemValue="#{contact.telephone}" />
+							</p:selectOneMenu>
+							<p:inputText
+								style="margin-left:8px"
+								id="numTel"
+								value="#{ismsBean.smsACreer.destinataire}"
+								required="true"
+								requiredMessage="Choisir un destinataire" />
+							<p:watermark
+								for="numTel"
+								value="Numéro tel." />
+						</h:panelGrid>
+
+
+						<p:outputLabel
+							for="message"
+							value="Message: " />
+						<p:inputTextarea
+							id="message"
+							rows="9"
+							cols="50"
+						    counter="display" 
+							maxlength="160"
+							counterTemplate="{0} caractère(s) restant(s) / 160."
+							value="#{ismsBean.smsACreer.contenu}"
+							autoResize="true" />
+							
+							<h:outputText id="display1" />
+							<h:outputText id="display" />
+
+					</h:panelGrid>
+
+					<h:panelGrid id="infoCredit">
+						<h1>Info crédit</h1>
+
+						<h:panelGrid
+							columns="2"
+							style="padding-bottom:150px">
+
+							<p:outputLabel
+								for="solde"
+								value="Solde: "
+								style="font-weight:bold" />
+							<p:outputLabel
+								id="solde"
+								value="#{ismsBean.solde}" />
+
+							<h:outputText
+								value="&lt;br/&gt;"
+								escape="false" />
+							<p:outputLabel />
+							<p:separator />
+							<h:outputText
+								value="&lt;br/&gt;"
+								escape="false" />
+							<h:outputText
+								value="&lt;br/&gt;"
+								escape="false" />
+							<h:outputText
+								value="&lt;br/&gt;"
+								escape="false" />
+
+							<p:outputLabel
+								for="coutMTN"
+								value="cout SMS MTN : " />
+							<p:outputLabel
+								id="coutMTN"
+								value="#{ismsBean.coutSMS} credits"
+								style="font-weight:bold" />
+
+							<h:outputText
+								value="&lt;br/&gt;"
+								escape="false" />
+							<h:outputText
+								value="&lt;br/&gt;"
+								escape="false" />
+
+							<p:outputLabel
+								for="coutOrange"
+								value="cout SMS Orange : " />
+							<p:outputLabel
+								id="coutOrange"
+								value="#{ismsBean.coutSMS} credits"
+								style="font-weight:bold" />
+
+							<h:outputText
+								value="&lt;br/&gt;"
+								escape="false" />
+							<h:outputText
+								value="&lt;br/&gt;"
+								escape="false" />
+
+							<p:outputLabel
+								for="coutNexttel"
+								value="cout SMS Nexttel : " />
+							<p:outputLabel
+								id="coutNexttel"
+								value="#{ismsBean.coutSMS} credits"
+								style="font-weight:bold" />
+						</h:panelGrid>
+
+					</h:panelGrid>
+
+				</h:panelGrid>
+
+				<f:facet name="footer">
+					<p:commandButton
+						value="Envoyer"
+						style="font-weight:bold"
+						action="#{ismsBean.envoyerSMS()}"
+						update="FormEnvoiSMS" />
+				</f:facet>
+			</p:panel>
+
+		</h:form>
+
+	</ui:define>
+</ui:composition>
+</html>

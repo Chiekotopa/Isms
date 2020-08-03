@@ -1,0 +1,137 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html >
+<html
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	lang="#{ismsBean.language}"
+	>
+	
+<f:view locale="#{ismsBean.locale}" contentType="text/html">
+	<h:head>
+		<title>#{ismsBean.partenaire.appliname} | #{msg['modifierMotDePasse.title']} </title>
+
+		<h:outputStylesheet
+			library="css"
+			name="index.css" />
+
+		<link
+			rel="shortcut icon"
+			type="image/png"
+			href="#{request.contextPath}/resources/img/iplans_icon#{ismsBean.partenaire.id}.png" />
+
+
+	</h:head>
+
+	<h:body>
+
+		<div id="bloc_page">
+			<header>
+				<h:form id="ClientConnexionForm">
+							<p:growl
+								id="growl"
+								showSummary="false"
+								showDetail="true"
+								sticky="false"
+								autoUpdate="true" />
+
+					<h:panelGrid
+						id="connexion"
+						columns="3"
+						cellpadding="0">
+
+						<h:graphicImage
+							id="logo"
+							style="margin-top:5px"
+							library="img"
+							name="isms_logo_original#{ismsBean.partenaire.id}.png"
+							alt="Enete iSMS" />
+
+						<h:panelGrid width="450px" />
+
+
+						
+					</h:panelGrid>  
+				    
+				</h:form>
+				<br /> <br /> <br />
+
+			</header>
+
+			<section id="create">
+				<h:form id="ClientCreationForm"> 
+						<p:panel header="#{msg['modifierMotDePasse.panel.title']}">
+						<h:panelGrid
+							columns="2"
+							cellpadding="10">
+							<h:outputLabel
+								for="nomClient"
+								value="#{msg['modifierMotDePasse.outputLabel.newpwd']} : *" />
+							<p:password
+								id="nomClient"
+								required="true"
+								feedback="true"
+								maxlength="8"
+								requiredMessage="#{msg['modifierMotDePasse.outputLabel.requiredMessage']}!"
+								value="#{ismsBean.newPwd}" /> 
+						</h:panelGrid>
+						
+						<h:panelGrid
+							columns="2"
+							cellpadding="10">
+							<h:outputLabel
+								for="cpwd"
+								value="#{msg['modifierMotDePasse.outputLabel.cpwd']} : *" />
+							<p:password
+								id="cnomClient"
+								required="true"
+								maxlength="8"
+								requiredMessage="#{msg['modifierMotDePasse.outputLabel.requiredcpwd']}!"
+								value="#{ismsBean.confirmNewPwd}" /> 
+						</h:panelGrid>
+
+
+
+						<f:facet name="footer">
+							<p:commandButton
+							 	id="envoiCodeId"
+								value="#{msg['modifierMotDePasse.commandButton.boutonReinitialiser']}"
+								action="#{ismsBean.resetPwd()}" 
+								style="font-weight:bold"/>
+								
+								<p:spacer width="50" height="4" />
+						        <p:link outcome="clientDeconnexion" style="margin-left:0px" value="#{msg['modifierMotDePasse.link.boutonconnecter']}"/> 
+						        <p:spacer width="50" height="3" />
+						         <p:link outcome="clientDeconnexion" style="margin-left:0px" value="#{msg['modifierMotDePasse.link.boutoninscription']}"/> 
+
+							<p:messages
+								id="connexionMsg"
+								showIcon="false"
+								showSummary="false"
+								showDetail="true"
+								closable="true" />
+						</f:facet>
+					 </p:panel> 
+					<p:blockUI block="ClientCreationForm" trigger="envoiCodeId">
+				         #{msg['modifierMotDePasse.p.blockUI.messageconfirmation']}...<br />
+				        <p:graphicImage name="#{request.contextPath}/resources/img/loader.gif"/>
+				    </p:blockUI>
+				</h:form>
+
+			</section>
+
+			<footer> 
+
+				<div id="copyrights">
+					<p>#{ismsBean.partenaire.nom} #{ismsBean.partenaire.adresse} </p>
+					<p>#{ismsBean.partenaire.tel1} #{ismsBean.partenaire.email}</p>
+
+					<p>Copyright iPLANS SA - #{msg['modifierMotDePasse.p.footer.droits']}</p>
+				</div>
+			</footer>
+
+		</div>
+	</h:body>
+</f:view>
+</html>

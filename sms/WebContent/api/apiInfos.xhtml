@@ -1,0 +1,48 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html >
+<html
+	lang="fr"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
+
+<ui:composition template="/WEB-INF/new_templates/template.xhtml">
+
+	<ui:define name="title">iSMS | SMS API</ui:define>
+	<ui:define name="body">
+		<h:form id="FormSMSAPI">
+
+			<p:panel
+				id="smsAPI"
+				header="SMS API"
+				style="height:523px">
+
+				<h:panelGrid>
+
+					<p:outputPanel>
+						<h1>Verifier solde</h1>
+						<p>Pour consulter votre solde, utilisez l'URL suivante dans un
+							navigateur.</p>
+						<h:outputText value="#{ismsBean.soldeAPI}" />
+						<br />
+						<br />
+						<br />
+					</p:outputPanel>
+
+					<p:separator />
+					<br />
+
+					<h1>Envoyer SMS</h1>
+					<p>Pour envoyer un SMS via le navigateur ou une application
+						client, utiliser l'URL ci-dessous.</p>
+					<h:outputText value="#{ismsBean.smsAPI}" />
+				</h:panelGrid>
+
+			</p:panel>
+
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

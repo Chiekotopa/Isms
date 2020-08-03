@@ -1,0 +1,197 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	lang="#{ismsBean.language}"
+	>
+	
+<f:view locale="#{ismsBean.locale}" contentType="text/html">
+	<h:head>
+		<title>#{ismsBean.partenaire.appliname} | #{msg['clientLogin.title']}</title>
+
+		<h:outputStylesheet
+			library="css"
+			name="index.css" />
+
+		<link
+			rel="shortcut icon"
+			type="image/png"
+			href="#{request.contextPath}/resources/img/iplans_icon#{ismsBean.partenaire.id}.png" />
+
+
+	</h:head>
+
+	<h:body>
+
+		<div id="bloc_page">
+			<header>
+			
+					<h:panelGrid
+						id="connexion"
+						columns="5"
+						cellpadding="0">
+						
+						<h:graphicImage
+							id="logo"
+							style="margin-top:5px"
+							library="img"
+							name="isms_logo_original#{ismsBean.partenaire.id}.png"
+							alt="Enete iSMS" />
+
+						<h:panelGrid width="200px"/>
+						
+					  <h:panelGrid
+						id="langueId"
+						columns="1"
+						style="text-align: center"
+						cellpadding="0">
+						<h:graphicImage
+							id="logo2"
+							style="margin-top:5px"
+							library="img"
+							name="lang.png"
+							alt="Logo langue" />
+						   <h:form>
+			                <p:selectOneMenu value="#{ismsBean.language}"  onchange="submit()">
+			                    <f:selectItems value="#{ismsBean.locales}" />
+			                </p:selectOneMenu>
+			              </h:form>
+		              </h:panelGrid> 
+		              
+		              <h:panelGrid width="200px"/>	
+						
+					   <h:form id="ClientConnexionForm">
+						<p:panel
+							style="background-color:rgba(91, 155, 213, 0.7); margin-top:0px">
+							<h:panelGrid
+								columns="5"
+								cellpadding="2">
+
+								<p:inputText
+									id="telephone"
+									value="#{ismsBean.clientConnecte.telephone}"
+									required="true"
+									requiredMessage="empty telephone" />
+								<p:watermark
+									for="telephone"
+									value="#{msg['clientLogin.p.telephone']}" />
+
+
+								<p:password
+									id="password"
+									value="#{ismsBean.clientConnecte.password}"
+									required="true"
+									requiredMessage="empty password!" />
+								<p:watermark
+									for="password"
+									value="#{msg['clientLogin.p.password']}" />
+
+								<p:commandButton
+									id="auth"
+									value="#{msg['clientLogin.button.connexion']}"
+									action="#{ismsBean.authentifierClient()}"
+									actionListener="#{ismsBean.onFailed()}"
+									update="connexion" 
+									style="font-weight:bold"
+									icon="ui-icon-check" />
+								<p:growl
+									id="growl"
+									showIcon="false"
+									showSummary="false"
+									showDetail="true"
+									sticky="false" />
+								
+							</h:panelGrid> 
+							 <p:link outcome="recoverPwd" style="margin-left:0px" value="#{msg['clientLogin.link.fogetpwd']}"/> 
+						</p:panel> 
+						
+						  <p:blockUI block="ClientConnexionForm" trigger="auth">
+					       #{msg['clientLogin.p.blockUI.messageconfirmation']}...<br />
+					        <p:graphicImage name="#{request.contextPath}/resources/img/loader.gif"/>
+					    </p:blockUI> 
+					</h:form> 
+						
+					</h:panelGrid> 
+							
+				<br /> <br /> <br />
+
+			</header>
+
+			<section id="create">
+				<h:form id="ClientCreationForm">
+					<p:fieldset legend="#{msg['clientLogin.p.fieldset.inscription']}" toggleable="true" collapsed="true" toggleSpeed="500">
+						<p:panel header="#{msg['clientLogin.p.panel.titre']}">
+						<h:panelGrid
+							columns="2"
+							cellpadding="10">
+							<h:outputLabel
+								for="nomClient"
+								value="#{msg['clientLogin.h.outputLabel.Nom']} : *" />
+							<p:inputText
+								id="nomClient"
+								required="true"
+								requiredMessage="#{msg['clientLogin.p.inputText.MessageNom']}"
+								value="#{ismsBean.clientACreer.noms}" />
+
+
+
+							<h:outputLabel
+								for="telephone"
+								value="#{msg['clientLogin.h.outputLabel.Telephone']} : *" />
+							<p:inputText
+								id="telephone"
+								required="true"
+								requiredMessage="#{msg['clientLogin.p.inputText.MessageTelephone']}"
+								value="#{ismsBean.clientACreer.telephone}" />
+						</h:panelGrid>
+
+
+
+						<f:facet name="footer">
+							<p:commandButton
+							 	id="envoiCodeId"
+								value="#{msg['clientLogin.p.commandButton.Envoyer']}"
+								action="#{ismsBean.genererCodeVal()}"
+								actionListener="#{ismsBean.onExist()}"
+								style="font-weight:bold"
+								update="ClientCreationForm" />
+
+							<p:messages
+								id="connexionMsg"
+								showIcon="false"
+								showSummary="false"
+								showDetail="true"
+								closable="true" />
+
+							<div id="signIn">
+								<a href="#{request.contextPath}/security/adminLogin.xhtml">
+									 <h7>#{msg['clientLogin.h7.link']}</h7> </a>
+							</div>
+						</f:facet>
+					 </p:panel>
+					</p:fieldset>
+					<p:blockUI block="ClientCreationForm" trigger="envoiCodeId">
+				         #{msg['clientLogin.p.blockUI.messageconfirmation']}<br />
+				        <p:graphicImage name="#{request.contextPath}/resources/img/loader.gif"/>
+				    </p:blockUI>
+				</h:form>
+
+			</section>
+
+			<footer> 
+
+				<div id="copyrights">
+					<p>#{ismsBean.partenaire.nom} #{ismsBean.partenaire.adresse} </p>
+					<p>#{ismsBean.partenaire.tel1} #{ismsBean.partenaire.email}</p>
+
+					<p>Copyright iPLANS SA - #{msg['clientLogin.p.footer.droits']}</p>
+				</div>
+			</footer>
+
+		</div>
+	</h:body>
+</f:view>
+</html>

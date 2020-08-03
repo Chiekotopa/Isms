@@ -1,0 +1,88 @@
+<!DOCTYPE html >
+<html 
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	lang="#{ismsBean.language}"
+	>
+
+<ui:composition template="/WEB-INF/new_templates/templateAdmin.xhtml">
+
+	<ui:define name="title">#{ismsBean.partenaire.appliname} | #{msg['statistiquesSMS.title']}</ui:define>
+	<ui:define name="body">
+		<h:form id="FormStatSMS">
+
+			<p:panel
+				id="statSMS"
+				header="#{msg['statistiquesSMS.header']}"
+				style="height:496px">
+
+				<p:dataTable
+					id="smsSubTable"
+					var="historique"
+					value="#{ismsBean.historiqueSMS}"
+					emptyMessage="#{msg['statistiquesSMS.dataTable.emptyMessage']}"
+					resizableColumns="true"
+					rowHover="true"
+					rowIndexVar="index"
+					scrollable="true"
+					scrollHeight="350">
+
+					<f:facet name="header">
+						<h:outputText value="#{msg['statistiquesSMS.outputText.Historique']}" />
+					</f:facet>
+
+					<p:columnGroup type="header">
+						<p:row>
+							<p:column headerText="#{msg['statistiquesSMS.columnGroup.Sender']}" />
+							<p:column headerText="#{msg['statistiquesSMS.columnGroup.Destinataire']}" />
+							<p:column headerText="#{msg['statistiquesSMS.columnGroup.Cout']}" />
+							<p:column headerText="#{msg['statistiquesSMS.columnGroup.Etat']}" />
+						</p:row>
+					</p:columnGroup>
+
+					<p:subTable
+						var="sms"
+						value="#{historique.sms}">
+
+						<f:facet name="header">
+							<h:outputText value="#{historique.nomClient}" />
+						</f:facet>
+
+						<p:column>
+							<h:outputText value="#{sms.sender}" />
+						</p:column>
+
+						<p:column>
+							<h:outputText
+								value="#{sms.destinataire}"
+								style="float:right" />
+						</p:column>
+
+						<p:column>
+							<h:outputText
+								value="#{sms.cout}"
+								style="float:right" />
+						</p:column>
+
+						<p:column>
+							<h:outputText
+								value="#{msg['statistiquesSMS.outputText.Envoye']}"
+								rendered="#{sms.etat}" />
+							<h:outputText
+								value="#{msg['statistiquesSMS.outputText.attente']}"
+								rendered="#{!sms.etat}" />
+						</p:column>
+
+					</p:subTable>
+
+				</p:dataTable>
+
+			</p:panel>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

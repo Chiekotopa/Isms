@@ -1,0 +1,177 @@
+<!DOCTYPE html >
+<html
+	lang="fr"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<!-- 
+		Replace path to template, title, header and body
+		with actual data.
+	 -->
+<ui:composition template="/WEB-INF/new_templates/templateAdmin.xhtml">
+
+	<ui:define name="title">iSMS | Nouvel utilisateur</ui:define>
+
+	<ui:define name="body">
+		<h:form id="FormCreationUtilisateur">
+			<p:growl
+				id="formUtilisateur"
+				showDetail="true"
+				sticky="true" />
+
+			<p:panel
+				id="creationUtilisateur"
+				header="Créer un nouvel utilisateur">
+
+				<h:panelGrid
+					id="infos"
+					columns="1"
+					style="margin-bottom:10px; width:975px"
+					cellpadding="5">
+
+					<!-- fieldset pour les informations personnelles-->
+					<p:fieldset legend="Informations personnelles">
+						<h:panelGrid
+							columns="3"
+							cellpadding="5">
+
+							<h:outputLabel
+								for="nomUtilisateur"
+								value="Nom: " />
+							<p:inputText
+								id="nomUtilisateur"
+								required="true"
+								requiredMessage="Entrez un nom!"
+								value="#{ismsBean.utilisateurACreer.noms}" />
+							<p:message
+								for="nomUtilisateur"
+								showIcon="false"
+								showSummary="false"
+								showDetail="true" />
+
+							<h:outputLabel
+								for="emailUtilisateur"
+								value="Email: " />
+							<p:inputText
+								id="emailUtilisateur"
+								required="true"
+								requiredMessage="Entrez une adresse mail correcte!"
+								value="#{ismsBean.utilisateurACreer.email}" />
+							<p:message
+								for="emailUtilisateur"
+								showIcon="false"
+								showSummary="false"
+								showDetail="true" />
+
+
+							<h:outputLabel
+								for="telephoneUtilisateur"
+								value="Téléphone: " />
+							<p:inputText
+								id="telephoneUtilisateur"
+								required="true"
+								requiredMessage="Entrez un numéro de téléphone"
+								value="#{ismsBean.utilisateurACreer.telephone}" />
+							<p:message
+								id="telephoneUtilisateurMsg"
+								for="telephoneUtilisateur"
+								showIcon="false"
+								showSummary="false"
+								showDetail="true" />
+
+						</h:panelGrid>
+
+					</p:fieldset>
+
+					<!-- fieldset pour les informations de connexion-->
+
+					<p:fieldset legend="Informations de connexion">
+						<p:message
+							for="login"
+							showIcon="false"
+							showSummary="false"
+							showDetail="true"
+							autoUpdate="true" />
+
+						<p:message
+							for="motdepasse"
+							showIcon="false"
+							showSummary="false"
+							showDetail="true"
+							autoUpdate="true" />
+
+						<p:message
+							for="confirmationmdp"
+							showIcon="false"
+							showSummary="false"
+							showDetail="true"
+							autoUpdate="true" />
+
+						<h:panelGrid
+							id="infoConn"
+							columns="2"
+							cellpadding="5">
+
+							<h:outputLabel
+								for="login"
+								value="Login: " />
+							<p:inputText
+								id="login"
+								required="true"
+								requiredMessage="Entrez un login!"
+								value="#{ismsBean.utilisateurACreer.login}" />
+
+							<h:outputLabel
+								for="motdepasse"
+								value="Mot de passe: " />
+							<p:password
+								id="motdepasse"
+								match="confirmationmdp"
+								label="motdepasse"
+								required="true"
+								requiredMessage="Entrez un mot de passe!"
+								value="#{ismsBean.utilisateurACreer.password}" />
+
+							<h:outputLabel
+								for="confirmationmdp"
+								value="Confirmer mot de passe : " />
+							<p:password
+								id="confirmationmdp"
+								label="confirmationmdp"
+								required="true"
+								requiredMessage="Les mots de passes ne sont pas identiques!"
+								value="#{ismsBean.confirmation}" />
+
+							<h:outputLabel
+								for="admin"
+								value="Admin: " />
+
+							<p:selectBooleanCheckbox
+								id="admin"
+								value="#{ismsBean.utilisateurACreer.admin}" />
+
+						</h:panelGrid>
+					</p:fieldset>
+
+				</h:panelGrid>
+
+
+
+				<f:facet name="footer">
+					<p:commandButton
+						value="Créer"
+						action="#{ismsBean.creerUtilisateur}"
+						style="font-weight:bold"
+						update="infos" />
+
+				</f:facet>
+			</p:panel>
+
+		</h:form>
+	</ui:define>
+</ui:composition>
+
+</html>

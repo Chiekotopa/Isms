@@ -1,0 +1,116 @@
+<!DOCTYPE html >
+<html 
+	xmlns:p="http://primefaces.org/ui"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"	
+	lang="#{ismsBean.language}"
+	>
+
+<ui:composition template="/WEB-INF/new_templates/template.xhtml">
+
+	<ui:define name="title">#{ismsBean.partenaire.appliname} | #{msg['crediterCompte.title']} s</ui:define>
+	<ui:define name="body">
+		<h:form id="FormCrediterCompte">
+
+			<p:panel
+				id="CrediterCPanel"
+				header="#{msg['crediterCompte.header']}"
+				style="height:496px">
+
+				<h:panelGrid
+					columns="3"
+					cellpadding="15"
+					style="margin-top:25px;margin-bottom:200px">
+
+					<p:outputLabel
+						for="valeurCredit"
+						value="#{msg['crediterCompte.outputLabel.Valeur']} : " />
+
+					<p:spinner
+						id="valeurCredit"
+						value="#{ismsBean.creditACreer.valeurInitiale}"
+						rendered="true"
+						min="0"
+						max="1000000000"
+						stepFactor="1000" />
+
+					<p:message
+						for="valeurCredit"
+						showIcon="false"
+						showSummary="false"
+						showDetail="true" />
+
+					<p:outputLabel
+						for="validiteCredit"
+						value="#{msg['crediterCompte.outputLabel.Validite']} : " />
+						
+					<p:spinner
+						id="validiteCredit"
+						value="#{ismsBean.creditACreer.validiteInitiale}"
+						rendered="true"
+						min="0"
+						max="3000000"
+						stepFactor="30" />
+					<p:message
+						for="validiteCredit"
+						showIcon="false"
+						showSummary="false"
+						showDetail="true" />
+
+					<p:outputLabel
+						for="client"
+						value="#{msg['crediterCompte.outputLabel.Client']} :" />
+					<p:selectOneMenu
+						id="client"
+						rendered="true"
+						panelStyle="width:175px"
+						effect="fade"
+						style="width:150px" 
+						maxlength="20"
+						value="#{ismsBean.client.idClient}"
+						filter="true"
+						filterMatchMode="startsWith">
+
+						<f:selectItem
+							itemLabel="#{msg['crediterCompte.itemLabel.Choisir']}"
+							itemValue=""
+							noSelectionOption="false" />
+
+						<f:selectItems
+							value="#{ismsBean.clients}"
+							var="c"
+							itemLabel="#{c.noms} - #{c.telephone}"
+							itemValue="#{c.idClient}" />
+
+
+					</p:selectOneMenu>
+
+					<p:message
+						for="client"
+						showIcon="false"
+						showSummary="false"
+						showDetail="true" />
+
+				</h:panelGrid>
+
+				<f:facet name="footer">
+					<p:commandButton
+					    id="auth"
+						value="#{msg['crediterCompte.commandButton.auth']}"
+						action="#{ismsBean.crediterClientR()}"
+						style="font-weight:bold"
+						update="CrediterCPanel" />
+				</f:facet>
+			</p:panel>
+
+			 <p:blockUI block="FormCrediterCompte" trigger="auth">
+		        #{msg['crediterCompte.blockUI.confirmation']}"...<br />
+		        <p:graphicImage name="#{request.contextPath}/resources/img/loader.gif"/>
+			  </p:blockUI>
+
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

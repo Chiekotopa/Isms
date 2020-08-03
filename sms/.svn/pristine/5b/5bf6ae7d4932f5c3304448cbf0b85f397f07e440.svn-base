@@ -1,0 +1,87 @@
+<!DOCTYPE html >
+<html
+	lang="fr"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
+
+<ui:composition template="/WEB-INF/new_templates/template.xhtml">
+
+	<ui:define name="title">iSMS | Changer mot de passe</ui:define>
+	<ui:define name="body">
+		<h:form id="FormChangeMDP">
+
+			<p:panel
+				id="changePass"
+				header="Changement de mot de passe"
+				style="height:523px">
+
+				<h:panelGrid
+					id="infos"
+					columns="3"
+					cellpadding="10"
+					style="margin-top:10px;margin-bottom:200px">
+
+					<h:outputLabel
+						for="ancienMDP"
+						value="Ancien mot de passe :" />
+					<p:password
+						id="ancienMDP"
+						required="true"
+						requiredMessage="Entrez ancien mot de passe!"
+						value="#{ismsBean.ancienPass}" />
+					<p:message
+						for="ancienMDP"
+						showIcon="false"
+						showSummary="false"
+						showDetail="true" />
+
+					<h:outputLabel
+						for="nouveauMDP"
+						value="Nouveau mot de passe :" />
+					<p:password
+						id="nouveauMDP"
+						match="confirmationmdp"
+						label="motdepasse"
+						required="true"
+						requiredMessage="Entrez un mot de passe!"
+						value="#{ismsBean.nouveauPass}" />
+					<p:message
+						for="nouveauMDP"
+						showIcon="false"
+						showSummary="false"
+						showDetail="true"
+						autoUpdate="true" />
+
+					<h:outputLabel
+						for="confirmationmdp"
+						value="Confirmer mot de passe :" />
+					<p:password
+						id="confirmationmdp"
+						label="confirmationmdp"
+						required="true"
+						requiredMessage="Les mots de passes ne sont pas identiques!"
+						value="#{ismsBean.confirmation}" />
+					<p:message
+						for="confirmationmdp"
+						showIcon="false"
+						showSummary="false"
+						showDetail="true"
+						autoUpdate="true" />
+				</h:panelGrid>
+
+				<f:facet name="footer">
+					<p:commandButton
+						value="Changer"
+						action="#{ismsBean.changerMDP()}"
+						style="font-weight:bold"
+						update="infos" />
+				</f:facet>
+			</p:panel>
+
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html >
+<html
+	lang="fr"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
+
+<ui:composition template="/WEB-INF/new_templates/template.xhtml">
+
+	<ui:define name="title">iSMS | Acheter du crédit</ui:define>
+	<ui:define name="body">
+		<h:form id="FormAchatCredit">
+
+			<p:growl
+				id="growl"
+				showSummary="false"
+				showDetail="true"
+				sticky="false"
+				autoUpdate="true" />
+
+			<p:panel
+				id="achatCredit"
+				header="Achat Crédit"
+				style="height:523px">
+				
+				<h:panelGrid style="margin-bottom:100px">
+
+					<p:outputPanel>
+						<h1>Acheter à iPLANS SA</h1>
+						<p>Rendez-vous à notre siège social situe à cette adresse:</p>
+						<p><b>iPLANS SA Head Office, IPLANS building - Bonamoussadi/Denver PO Box: 8215 Douala - Cameroon</b></p>
+					</p:outputPanel>
+					
+					<p:separator/>
+
+					<p:outputPanel>
+						<h1>Acheter via Mobile Money</h1>
+
+						<ol>
+							<li>Demander du crédit a partir de votre compte en ligne</li>
+							<h:outputText
+								value="&lt;br/&gt;"
+								escape="false" />
+							<li>Faite un dépot Orange Money sur le compte de iplans a ce
+								numéro : <b>699291157</b>
+							</li>
+							<h:outputText
+								value="&lt;br/&gt;"
+								escape="false" />
+							<li>Recevez votre crédit SMS</li>
+
+						</ol>
+					</p:outputPanel>
+
+				</h:panelGrid>
+
+				<h:panelGrid
+					columns="3"
+					cellpadding="10">
+					<p:outputLabel
+						for="nbSMS"
+						value="Nombres de SMS: " />
+
+					<p:spinner
+						id="nbSMS"
+						value="#{ismsBean.nbSMS}"
+						min="0"
+						max="1000000000"
+						stepFactor="1000"
+						required="true"
+						requiredMessage="Entrer le nombre de SMS!" />
+
+					<p:commandButton
+						value="Demander crédit"
+						action="#{ismsBean.demanderCredit()}"
+						style="font-weight:bold"
+						update="growl" />
+				</h:panelGrid>
+
+			</p:panel>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

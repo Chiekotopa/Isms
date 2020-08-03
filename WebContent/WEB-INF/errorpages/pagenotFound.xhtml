@@ -1,0 +1,88 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html >
+<html 
+	xmlns:p="http://primefaces.org/ui"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	lang="#{ismsBean.language}">
+
+<f:view locale="#{ismsBean.locale}" contentType="text/html">
+	<h:head>
+		<title>#{ismsBean.partenaire.appliname} | #{msg['pagenotFound.title']}</title>
+
+		<h:outputStylesheet
+			library="css"
+			name="errors.css" />
+
+		<link
+			rel="shortcut icon"
+			type="image/png"
+			href="#{request.contextPath}/resources/img/iplans_icon#{ismsBean.partenaire.id}.png" />
+
+
+	</h:head>
+
+	<h:body>
+
+		<div id="bloc_page">
+			<header>
+
+				<div>
+					<h:graphicImage
+						style="margin-top:7px"
+						id="logo"
+						library="img"
+						name="isms_logo_original#{ismsBean.partenaire.id}.png"
+						alt="Enete iSMS" />
+					<br /> <br /> <br /> <br />
+				</div>
+
+			</header>
+
+			<section id="notfound">
+				<h:form>
+
+					<p:panel
+						id="pageNotFound"
+						header="#{msg['pagenotFound.panel']}!"
+						style="margin:auto">
+
+						<h:panelGrid style="text-align:center">
+
+							<h:graphicImage
+								style="margin-top:7px"
+								id="notF"
+								library="img"
+								name="404.jpg"
+								alt="notFound" />
+
+							<p:commandButton styleClass="dash"
+								id="dash"
+								value="#{msg['pagenotFound.commandButton']}"
+								action="#{ismsBean.dashboard()}" />
+
+						</h:panelGrid>
+
+					</p:panel>
+
+				</h:form>
+
+			</section>
+
+			<footer>
+
+				<div id="copyrights">
+					<p>#{ismsBean.partenaire.nom} #{ismsBean.partenaire.adresse} </p>
+					<p>#{ismsBean.partenaire.tel1} #{ismsBean.partenaire.email}</p>
+
+					<p>#{msg['pagenotFound.p']}</p>
+				</div>
+			</footer>
+
+		</div>
+	</h:body>
+</f:view>
+
+</html>

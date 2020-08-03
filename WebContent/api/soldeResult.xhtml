@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html 
+	xmlns:p="http://primefaces.org/ui"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	lang="#{ismsBean.language}"
+	>
+
+<ui:composition template="/WEB-INF/new_templates/templateSimple.xhtml">
+	<ui:define name="body">
+		<h:form id="FormSendingResult">
+
+			<p:panel
+				id="smsAPIResult"
+				header="Demande de Solde"
+				style="height:354px">
+
+				<h:panelGrid columns="4" cellpadding="5">
+					<h1>VOTRE SOLDE DU EST DE :</h1>
+
+					<h:outputText style="font-family: Andalus, serif;font-size:25px" value="#{ismsBean.solde}" />
+					<h:outputText style="font-family: Andalus, serif;font-size:25px" value="Credits" />
+					<h:outputText style="font-family: Andalus, serif;font-size:20px" value="(A raison de 1sms = 2 credits)" />
+
+				</h:panelGrid>
+			</p:panel>
+
+
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

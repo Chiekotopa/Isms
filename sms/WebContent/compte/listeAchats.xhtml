@@ -1,0 +1,115 @@
+<!DOCTYPE html >
+<html
+	lang="fr"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
+
+<ui:composition template="/WEB-INF/new_templates/template.xhtml">
+
+	<ui:define name="title">iSMS | Mes achats</ui:define>
+	<ui:define name="body">
+		<h:form id="FormAchatClient">
+
+			<p:panel
+				id="listeCredit"
+				header="Mes achats"
+				style="height:523px">
+
+				<p:dataTable
+					id="creditsData"
+					var="credit"
+					emptyMessage="Pas de crédit acheté"
+					value="#{ismsBean.credits}"
+					rowKey="#{contact.idContact}"
+					rowHover="true"
+					rowIndexVar="index"
+					scrollable="true"
+					scrollHeight="375"
+					resizableColumns="true"
+					rowStyleClass="#{credit.validite le '0' ? 'colored' : null}#{credit.valeur le '0' ? 'colored' : null}">
+
+					<p:columnGroup type="header">
+
+						<p:row>
+							<p:column
+								rowspan="2"
+								headerText="No"
+								width="30" />
+							<p:column
+								colspan="2"
+								headerText="Valeur Crédit" />
+							<p:column
+								colspan="2"
+								headerText="Validité Crédit" />
+							<p:column
+								rowspan="2"
+								headerText="Date d'achat" />
+						</p:row>
+						<p:row>
+							<p:column headerText="Valeur initiale" />
+							<p:column headerText="Valeur actuelle" />
+							<p:column headerText="Validité initiale" />
+							<p:column headerText="Validité actuelle" />
+
+						</p:row>
+					</p:columnGroup>
+
+					<p:column width="30">
+						<h:outputText value="#{index + 1}" />
+					</p:column>
+
+
+					<p:column>
+						<h:outputText value="#{credit.valeurInitiale}" />
+					</p:column>
+
+					<p:column>
+						<h:outputText value="#{credit.valeur}" />
+					</p:column>
+
+					<p:column>
+						<h:outputText value="#{credit.validiteInitiale}" />
+					</p:column>
+
+					<p:column>
+						<h:outputText value="#{credit.validite}" />
+					</p:column>
+
+					<p:column>
+						<h:outputText value="#{credit.dateAchat}" />
+					</p:column>
+
+				</p:dataTable>
+
+				<f:facet name="footer">
+
+					<p:commandButton
+						value="Rafraichir"
+						action="#{ismsBean.reloadCredits()}"
+						style="font-weight:bold"
+						update="listeCredit" />
+
+					<p:commandButton
+						id="pdf"
+						icon="ui-icon-myExport"
+						ajax="false"
+						value="Exporter">
+
+						<p:dataExporter
+							type="pdf"
+							target="creditsData"
+							fileName="CreditsList"
+							preProcessor="#{ismsBean.preProcessPDF}" />
+
+					</p:commandButton>
+				</f:facet>
+
+			</p:panel>
+
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

@@ -1,0 +1,147 @@
+<!DOCTYPE html >
+<html 
+	xmlns:p="http://primefaces.org/ui"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	lang="#{ismsBean.language}"
+	>
+
+<ui:composition template="/WEB-INF/new_templates/template.xhtml">
+
+	<ui:define name="title">#{ismsBean.partenaire.appliname} | #{msg['historiqueEnvoi.title']}</ui:define>
+	<ui:define name="body">
+	       	<h:form id="FormSearchId">
+			<h:panelGrid id="panelgId" columns="6">
+			    <f:facet name="header">
+			        <p:row>
+			            <p:column colspan="7">#{msg['historiqueEnvoi.panelGrid.shear']}</p:column>
+			        </p:row> 
+		       </f:facet>
+		       
+			   <p:outputLabel for="datetime1" value="#{msg['historiqueEnvoi.outputLabel.datedebut']}:" />
+               <p:calendar id="datetime1" value="#{ismsBean.dated}" required="true" requiredMessage="#{msg['historiqueEnvoi.outputLabel.requireddatedebut']}." pattern="yyyy-MM-dd HH:mm:ss" />
+               
+               <p:outputLabel for="datetime2" value="#{msg['historiqueEnvoi.outputLabel.datefin']}:" />
+               <p:calendar id="datetime2" value="#{ismsBean.datef}" required="true" requiredMessage="#{msg['historiqueEnvoi.outputLabel.requireddatefin']}." pattern="yyyy-MM-dd HH:mm:ss" />
+               
+               <p:commandButton value="#{msg['historiqueEnvoi.commandButton.rechercher']}" id="dt1" actionListener="#{ismsBean.findSMSByPeriode()}" update=":FormMesSMS:smsData" icon="ui-icon-search" />
+               <p:commandButton value="#{msg['historiqueEnvoi.commandButton.afficher']}" id="dt2"  immediate="true" actionListener="#{ismsBean.smsInitialisation()}" update=":FormMesSMS:smsData,datetime1,datetime2" />
+ 
+			</h:panelGrid>
+		   </h:form>
+		    <h:form id="FormMesSMS">
+			<p:panel
+				id="listeSMS"
+				header="#{msg['historiqueEnvoi.commandButton.listeSMS']}"
+				style="height:620px">
+
+				<p:dataTable
+					id="smsData"
+					var="sms"
+					emptyMessage="Pas de message envoyé"
+					value="#{ismsBean.smss}"
+					widgetVar="smsTable"
+					rows="10"
+                    paginator="true"
+                    paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                    rowsPerPageTemplate="10,20,50,100"
+					filteredValue="#{ismsBean.filteredSms}"
+					rowStyleClass="#{sms.etat == false ? 'colored' : null}"
+					resizableColumns="true"
+					rowHover="true"
+					rowIndexVar="index"
+					scrollable="true"
+					scrollHeight="400" >
+
+					<p:column
+						headerText="#{msg['historiqueEnvoi.dataTable.No']}"
+						width="30">
+						<h:outputText value="#{index + 1}" />
+					</p:column>
+
+					<p:column
+						headerText="#{msg['historiqueEnvoi.dataTable.senderid']}"
+						sortBy="#{sms.sender}"
+						filterBy="#{sms.sender}"
+						width="120"
+						filterMatchMode="contains">
+						<h:outputText value="#{sms.sender}" />
+					</p:column>
+
+					<p:column
+						headerText="#{msg['historiqueEnvoi.dataTable.destinataire']}"
+						sortBy="#{sms.destinataire}"
+						filterBy="#{sms.destinataire}"
+						width="120"
+						filterMatchMode="contains">
+						<h:outputText value="#{sms.destinataire}" />
+					</p:column>
+
+					<p:column headerText="#{msg['historiqueEnvoi.dataTable.message']}" filterBy="#{sms.contenu}" filterMatchMode="contains">
+						<h:outputText value="#{sms.contenu}" escape="false" style="white-space:pre-line;"/>
+					</p:column>
+
+					<p:column
+						headerText="#{msg['historiqueEnvoi.outputText.cout']}"
+						sortBy="#{sms.cout}"
+						filterBy="#{sms.cout}"
+						width="30"
+						filterMatchMode="contains">
+						<h:outputText value="#{sms.cout}" />
+					</p:column>
+
+					<p:column
+						headerText="#{msg['historiqueEnvoi.outputText.etat']}"
+						sortBy="#{sms.etat}"
+						filterBy="#{sms.etat}"
+						width="100"
+						filterMatchMode="contains">
+						<h:outputText
+							value="#{msg['historiqueEnvoi.outputText.etatenvoye']}"
+							rendered="#{sms.etat}" />
+						<h:outputText
+							value="#{msg['historiqueEnvoi.outputText.etatattente']}"
+							rendered="#{!sms.etat}" />
+					</p:column>
+
+					<p:column
+						headerText="#{msg['historiqueEnvoi.outputText.dateenvois']}"
+						sortBy="#{sms.dateEnvoi}"
+						filterBy="#{sms.dateEnvoi}"
+						width="150"
+						filterMatchMode="contains">
+						<h:outputText value="#{sms.dateEnvoi}" />
+					</p:column>
+
+				</p:dataTable>
+
+				<f:facet name="footer">
+					<p:commandButton
+						value="#{msg['historiqueEnvoi.commandButton.Rafraichir']}"
+						style="font-weight:bold"
+						action="#{ismsBean.reloadSMS()}"
+						update="listeSMS" />
+
+					<p:commandButton
+						id="pdf"
+						icon="ui-icon-myExport"
+						ajax="false"
+						value="#{msg['historiqueEnvoi.commandButton.Exporter']}">
+
+						<p:dataExporter
+							type="pdf"
+							target="smsData"
+							fileName="SmsList"
+							preProcessor="#{ismsBean.preProcessPDF}" />
+
+					</p:commandButton>
+				</f:facet>
+
+			</p:panel>
+
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

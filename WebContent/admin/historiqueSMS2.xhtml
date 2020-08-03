@@ -1,0 +1,103 @@
+<!DOCTYPE html >
+<html 
+	xmlns:p="http://primefaces.org/ui"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+    lang="#{ismsBean.language}"
+	>
+
+<ui:composition template="/WEB-INF/new_templates/template.xhtml">
+
+	<ui:define name="title">#{ismsBean.partenaire.appliname} | Historique des SMS</ui:define>
+	<ui:define name="body">
+		<h:form id="FormAllSMS">
+
+			<p:panel
+				id="listeSMS"
+				header="Historique SMS"
+				style="height:523px">
+
+				<p:dataTable
+					id="smsData"
+					var="sms"
+					emptyMessage="Pas de message envoyé"
+					value="#{ismsBean.allSms}"
+					rowStyleClass="#{sms.etat == false ? 'colored' : null}"
+					resizableColumns="true"
+					rowHover="true"
+					rowIndexVar="index"
+					scrollable="true"
+					scrollHeight="400">
+
+					<p:column
+						headerText="No"
+						width="30">
+						<h:outputText value="#{index + 1}" />
+					</p:column>
+
+					<p:column
+						headerText="Sender ID"
+						width="120">
+						<h:outputText value="#{sms.sender}" />
+					</p:column>
+
+					<p:column
+						headerText="Destinataire"
+						width="120">
+						<h:outputText value="#{sms.destinataire}" />
+					</p:column>
+
+					<p:column headerText="Message">
+						<h:outputText value="#{sms.contenu}" />
+					</p:column>
+
+					<p:column
+						headerText="Cout"
+						width="30">
+						<h:outputText value="#{sms.cout}" />
+					</p:column>
+
+					<p:column
+						headerText="Etat"
+						width="100">
+						<h:outputText
+							value="Envoyé"
+							rendered="#{sms.etat}" />
+						<h:outputText
+							value="En attente"
+							rendered="#{!sms.etat}" />
+					</p:column>
+
+					<p:column
+						headerText="Date d'envoi"
+						width="150">
+						<h:outputText value="#{sms.dateEnvoi}" />
+					</p:column>
+
+				</p:dataTable>
+
+				<f:facet name="footer">
+
+					<p:commandButton
+						id="pdf"
+						icon="ui-icon-myExport"
+						ajax="false"
+						value="Exporter">
+
+						<p:dataExporter
+							type="pdf"
+							target="smsData"
+							fileName="SmsList"
+							preProcessor="#{ismsBean.preProcessPDF}" />
+
+					</p:commandButton>
+				</f:facet>
+
+			</p:panel>
+
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

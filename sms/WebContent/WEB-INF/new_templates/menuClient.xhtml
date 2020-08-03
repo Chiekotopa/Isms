@@ -1,0 +1,103 @@
+<!DOCTYPE html >
+<html
+	xmlns:p="http://primefaces.org/ui"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<f:view>
+	<h:body>
+
+		<ui:composition>
+
+			<h:form>
+
+				<p:panel
+					id="accueil"
+					header="Bienvenue!"
+					style="margin-bottom:10px">
+					<h:panelGrid>
+
+						<h:outputText value="#{ismsBean.clientConnecte.noms}" />
+
+					</h:panelGrid>
+				</p:panel>
+
+				<p:menu style="width:200px">
+
+					<p:submenu
+						label="Mes SMS"
+						style="font-weight:bold">
+						
+						<p:menuitem
+							value="Envoyer un SMS"
+							action="#{ismsBean.mEnvoyerSMS()}" />
+							
+						<p:menuitem
+							value="Envoyer plusieurs SMS"
+							action="#{ismsBean.mEnvoyerPlusSMS()}" />
+
+						<p:menuitem
+							value="Historique SMS"
+							action="#{ismsBean.mHistoriqueEnvoi()}" />
+						<p:menuitem
+							value="API SMS"
+							action="#{ismsBean.mApiInfos()}" />
+					</p:submenu>
+
+					<p:submenu
+						label="Mes Contacts"
+						style="font-weight:bold">
+						<p:menuitem
+							value="Créer un contact"
+							action="#{ismsBean.mCreerContact()}" />
+							
+					    <p:menuitem
+							value="Importer depuis excel"
+							action="#{ismsBean.goToExcelImport()}"/>		
+							
+						<p:menuitem
+							value="Afficher les contacts"
+							action="#{ismsBean.mListeContacts()}" />
+					</p:submenu>
+
+					<p:submenu
+						label="Mon Compte"
+						style="font-weight:bold">
+
+						<p:menuitem
+							value="Dashboard"
+							action="#{ismsBean.mClientDashBoard()}" />
+
+						<p:menuitem
+							value="Sender ID"
+							action="#{ismsBean.mListeSenderIDs()}" />
+
+						<p:menuitem
+							value="Acheter crédit"
+							action="#{ismsBean.mAcheterCredit()}" />
+						<p:menuitem
+							value="Mes achats"
+							action="#{ismsBean.mListeAchats()}" />
+
+						<p:menuitem
+							value="Changer mot de passe"
+							action="#{ismsBean.mChangerMDP()}" />
+
+						<p:menuitem
+							value="Déconnexion"
+							action="#{ismsBean.clientDeconnexion()}" />
+					</p:submenu>
+
+				</p:menu>
+
+			</h:form>
+
+		</ui:composition>
+
+	</h:body>
+
+</f:view>
+
+</html>

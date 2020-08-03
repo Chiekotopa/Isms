@@ -1,0 +1,71 @@
+
+#notfound{
+    display: block;
+    width: 475px;
+    height: auto;
+    padding: 10px;
+    /*margin-top: 50px;*/
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 2px;
+    background-color: rgba(91, 155, 213, 0.7);
+
+}
+
+/* ===========================En-tete page =========================== */
+header{
+    background: url("#{resource['img:separateur_isms.png']}") repeat-x bottom ;
+}
+
+/* =========================== Corps page =========================== */
+body{
+
+    
+    width: 1250px;
+    height: auto;
+    margin: auto;
+    background: url("#{resource['img/bkg.jpg']}");
+    font-size: 12px;
+    font-family: Verdana, "Verdana CE",  Arial, "Arial CE", "Lucida Grande CE", lucida, "Helvetica CE", sans-serif;
+    color: #181818;
+}
+
+#bloc_page{
+
+    width: 1250px;
+    /*height: 600px;*/
+    margin: auto;
+}
+
+/* =========================== Footer =========================== */
+/* Footer */
+
+footer{
+    /*background-color: rgba(91, 155, 213, 0.7);
+    border-radius: 2px;
+    padding: 5px;
+    margin-top: 75px;
+    text-align: center;*/
+    
+    width:100%;
+	position:absolute;
+	bottom:0;
+	left: 0;
+    background-color: rgba(91, 155, 213, 0.7);
+    text-align: center;
+}
+
+footer p, footer ul{
+    font-size: 1em;
+}
+
+
+#copyrights{
+    text-align: center;
+}
+
+
+/* =========================== Primefaces =========================== */
+.ui-widget, .ui-widget .ui-widget {
+    font-size: 100%;
+}

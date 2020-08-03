@@ -1,0 +1,87 @@
+<!DOCTYPE html >
+<html
+	lang="fr"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
+
+<ui:composition template="/WEB-INF/new_templates/templateAdmin.xhtml">
+
+	<ui:define name="title">iSMS | Statistique SMS</ui:define>
+	<ui:define name="body">
+		<h:form id="FormStatSMS">
+
+			<p:panel
+				id="statSMS"
+				header="Statistique des SMS"
+				style="height:496px">
+
+				<p:dataTable
+					id="smsSubTable"
+					var="historique"
+					value="#{ismsBean.historiqueSMS}"
+					emptyMessage="Pas de sms envoyé"
+					resizableColumns="true"
+					rowHover="true"
+					rowIndexVar="index"
+					scrollable="true"
+					scrollHeight="350">
+
+					<f:facet name="header">
+						<h:outputText value="Historique par Client" />
+					</f:facet>
+
+					<p:columnGroup type="header">
+						<p:row>
+							<p:column headerText="Sender ID" />
+							<p:column headerText="Destinataire" />
+							<p:column headerText="Cout (crédit)" />
+							<p:column headerText="Etat" />
+						</p:row>
+					</p:columnGroup>
+
+					<p:subTable
+						var="sms"
+						value="#{historique.sms}">
+
+						<f:facet name="header">
+							<h:outputText value="#{historique.nomClient}" />
+						</f:facet>
+
+						<p:column>
+							<h:outputText value="#{sms.sender}" />
+						</p:column>
+
+						<p:column>
+							<h:outputText
+								value="#{sms.destinataire}"
+								style="float:right" />
+						</p:column>
+
+						<p:column>
+							<h:outputText
+								value="#{sms.cout}"
+								style="float:right" />
+						</p:column>
+
+						<p:column>
+							<h:outputText
+								value="Envoyé"
+								rendered="#{sms.etat}" />
+							<h:outputText
+								value="En attente"
+								rendered="#{!sms.etat}" />
+						</p:column>
+
+					</p:subTable>
+
+				</p:dataTable>
+
+			</p:panel>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

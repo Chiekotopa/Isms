@@ -1,0 +1,43 @@
+<!DOCTYPE html >
+<html 
+	xmlns:p="http://primefaces.org/ui"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	lang="#{ismsBean.language}"
+	>
+
+<f:view locale="#{ismsBean.locale}" contentType="text/html">
+	<h:body>
+		<ui:composition>
+		 <h:panelGrid
+			id="connexion"
+			columns="3"
+			cellpadding="0">
+				 <h:graphicImage library="img" name="isms_logo_original#{ismsBean.partenaire.id}.png" alt="Logo d'iSMS" id="logo"/>
+				 <h:panelGrid width="750px"/>
+				 <h:panelGrid
+						id="langueId"
+						columns="1"
+						style="text-align: center"
+						cellpadding="0">
+						<h:graphicImage
+							id="logo2"
+							style="margin-top:5px"
+							library="img"
+							name="lang.png"
+							alt="Logo langue" />
+						   <h:form>
+			                <p:selectOneMenu value="#{ismsBean.language}"  onchange="submit()">
+			                    <f:selectItems value="#{ismsBean.locales}" />
+			                </p:selectOneMenu>
+			              </h:form>
+		          </h:panelGrid> 
+		 </h:panelGrid> 		
+				<br />
+				<br /> 
+		</ui:composition>
+	</h:body>
+</f:view>
+</html>

@@ -1,0 +1,237 @@
+<!DOCTYPE html >
+<html 
+	xmlns:p="http://primefaces.org/ui"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	lang="#{ismsBean.language}"
+	>
+
+<ui:composition template="/WEB-INF/new_templates/template.xhtml">
+
+	<ui:define name="title">#{ismsBean.partenaire.appliname} | #{msg['envoyerSMS.title']}</ui:define>
+	<ui:define name="body">
+		<h:form id="FormEnvoiSMS">
+			<p:growl
+				id="growl"
+				showSummary="false"
+				showDetail="true"
+				sticky="false"
+				autoUpdate="true" />
+
+			<p:panel
+				id="sendSMS"
+				style="height:523px"
+				header="#{msg['envoyerSMS.panel.title']}">
+
+				<h:panelGrid
+					id="envoiSMS"
+					columns="2">
+
+					<h:panelGrid
+						columns="2"
+						cellpadding="5"
+						width="700px">
+
+						<p:outputLabel
+							for="sender"
+							value="#{msg['envoyerSMS.panelGrid.Sender']}: " />
+
+						<h:panelGrid columns="2">
+
+							<p:selectOneMenu
+								id="sender"
+								value="#{ismsBean.smsACreer.sender}"
+								effect="fold"
+								style="width:150px"
+								editable="false">
+								<p:ajax update="senderID" />
+								<f:selectItem
+									itemLabel="#{msg['envoyerSMS.selectItem.choseSender']}"
+									itemValue="" />
+								<f:selectItems
+									var="senderID"
+									value="#{ismsBean.senderIDs}"
+									itemLabel="#{senderID.nom}"
+									itemValue="#{senderID.nom}" />
+							</p:selectOneMenu>
+							<p:inputText
+								style="margin-left:8px"
+								id="senderID"
+								maxlength="11"
+								value="#{ismsBean.smsACreer.sender}"
+								required="true"
+								requiredMessage="#{msg['envoyerSMS.panelGrid.requiredSender']}!" />
+							<p:watermark
+								for="senderID"
+								value="#{msg['envoyerSMS.watermark.nomexp']}." />
+						</h:panelGrid>
+
+						<p:outputLabel
+							for="destinataire"
+							value="#{msg['envoyerSMS.outputLabel.Destinataire']}: " />
+
+						<h:panelGrid columns="2">
+
+							<p:selectOneMenu
+								id="destinataire"
+								value="#{ismsBean.smsACreer.destinataire}"
+								effect="fold"
+								style="width:150px"
+								editable="false">
+								<p:ajax update="numTel" />
+								<f:selectItem
+									itemLabel="#{msg['envoyerSMS.selectItem.chosecontact']}"
+									itemValue="" />
+								<f:selectItems
+									var="contact"
+									value="#{ismsBean.contacts}"
+									itemLabel="#{contact.nom}"
+									itemValue="#{contact.telephone}" />
+							</p:selectOneMenu>
+							<p:inputText
+								style="margin-left:8px"
+								id="numTel"
+								value="#{ismsBean.smsACreer.destinataire}"
+								required="true"
+								requiredMessage="#{msg['envoyerSMS.inputText.requireddestinataire']}" />
+							<p:watermark
+								for="numTel"
+								value="#{msg['envoyerSMS.watermark.numtel']}." />
+						</h:panelGrid>
+
+
+						<p:outputLabel
+							for="message"
+							value="#{msg['envoyerSMS.outputLabel.Message']}: " />
+						<p:inputTextarea
+							id="message"
+							rows="9"
+							cols="50"
+						    counter="display" 
+						    requiredMessage="#{msg['envoyerSMS.inputTextarea.requiredMessage']}"
+						    immediate="true" 
+							maxlength="480"
+							counterTemplate="{0} #{msg['envoyerSMS.inputTextarea.maxlength']} / 480."
+							value="#{ismsBean.smsACreer.contenu}" 
+							autoResize="true">
+						   <f:validateLength minimum="1" maximum="480" />
+						   <f:ajax event="keyup" listener="#{ismsBean.updateSmsNber()}" render="display1"/>
+					  </p:inputTextarea>
+							
+							<h:outputText id="display1" value="#{msg['envoyerSMS.inputTextarea.Cout']} : #{ismsBean.smsNber} SMS"/>
+							<h:outputText id="display" />
+							
+							<h:outputText id="dateEnvoiId" value="#{msg['envoyerSMS.inputTextarea.sednow']}  : "/>
+							<h:panelGrid columns="3"> 
+							    <p:selectBooleanCheckbox value="#{ismsBean.immediat}" >
+						            <p:ajax listener="#{ismsBean.addMessage}"  update="growl dtId"/>
+						        </p:selectBooleanCheckbox>
+							  <p:calendar id="dtId" disabled="#{ismsBean.immediat}" validatorMessage="#{msg['envoyerSMS.calendar.validatorMessage']}." required="true" value="#{ismsBean.dateEnvoi}" mindate="#{ismsBean.dateMin}" pattern="dd/MM/yyyy HH:mm"/>
+							  <h:outputText id="refId" disabled="#{ismsBean.immediat}" value="#{msg['envoyerSMS.outputText.immediat']}"/>
+							</h:panelGrid>
+							
+							<h:outputText id="dateEnvoiId2" value="Long SMS : "/>
+							<h:panelGrid columns="2"> 
+							    <p:selectBooleanCheckbox value="#{ismsBean.longsms}" >
+						            <p:ajax listener="#{ismsBean.addMessage2}"  update="growl dtId"/>
+						        </p:selectBooleanCheckbox> 
+							  <h:outputText id="refId2" value="Envoyer en 1 seul SMS si contenu > 160 caractères"/>
+							</h:panelGrid>
+
+					</h:panelGrid>
+
+					<h:panelGrid id="infoCredit">
+						<h1>#{msg['envoyerSMS.panelGrid.infoCredit']}</h1>
+
+						<h:panelGrid
+							columns="2"
+							style="padding-bottom:150px">
+
+							<p:outputLabel
+								for="solde"
+								value="#{msg['envoyerSMS.outputLabel.solde']}: "
+								style="font-weight:bold" />
+							<p:outputLabel
+								id="solde"
+								value="#{ismsBean.solde}" />
+
+							<h:outputText
+								value="&lt;br/&gt;"
+								escape="false" />
+							<p:outputLabel />
+							<p:separator />
+							<h:outputText
+								value="&lt;br/&gt;"
+								escape="false" />
+							<h:outputText
+								value="&lt;br/&gt;"
+								escape="false" />
+							<h:outputText
+								value="&lt;br/&gt;"
+								escape="false" />
+
+							<p:outputLabel
+								for="coutMTN"
+								value="#{msg['envoyerSMS.outputLabel.coutMTN']} : " />
+							<p:outputLabel
+								id="coutMTN"
+								value="#{ismsBean.coutSMS} #{msg['envoyerSMS.outputLabel.nbrecredit']}"
+								style="font-weight:bold" />
+
+							<h:outputText
+								value="&lt;br/&gt;"
+								escape="false" />
+							<h:outputText
+								value="&lt;br/&gt;"
+								escape="false" />
+
+							<p:outputLabel
+								for="coutOrange"
+								value="#{msg['envoyerSMS.outputLabel.coutOrange']} : " />
+							<p:outputLabel
+								id="coutOrange"
+								value="#{ismsBean.coutSMS} #{msg['envoyerSMS.outputLabel.nbrecredit']}"
+								style="font-weight:bold" />
+
+							<h:outputText
+								value="&lt;br/&gt;"
+								escape="false" />
+							<h:outputText
+								value="&lt;br/&gt;"
+								escape="false" />
+
+							<p:outputLabel
+								for="coutNexttel"
+								value="#{msg['envoyerSMS.outputLabel.coutNexttel']} : " />
+							<p:outputLabel
+								id="coutNexttel"
+								value="#{ismsBean.coutSMS} #{msg['envoyerSMS.outputLabel.nbrecredit']}"
+								style="font-weight:bold" />
+						</h:panelGrid>
+
+					</h:panelGrid>
+
+				</h:panelGrid>
+
+				<f:facet name="footer">
+					<p:commandButton
+					    id="envoiId"
+						value="#{msg['envoyerSMS.commandButton.Envoyer']}"
+						style="font-weight:bold"
+						action="#{ismsBean.envoyerSMS()}"
+						update="FormEnvoiSMS" />
+				</f:facet>
+			</p:panel>
+			
+			 <p:blockUI block="FormEnvoiSMS" trigger="envoiId">
+		       #{msg['envoyerSMS.blockUI.confirmation']}...<br />
+		        <p:graphicImage name="#{request.contextPath}/resources/img/loader.gif"/>
+		    </p:blockUI>
+
+		</h:form>
+
+	</ui:define>
+</ui:composition>
+</html>

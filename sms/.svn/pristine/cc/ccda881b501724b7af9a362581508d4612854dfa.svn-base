@@ -1,0 +1,31 @@
+<!DOCTYPE html >
+<html
+	lang="fr"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
+
+<ui:composition template="/WEB-INF/new_templates/templateSimple.xhtml">
+	<ui:define name="title">iSMS | API Check Credit</ui:define>
+	<ui:define name="body">
+
+		<f:metadata>
+
+			<f:viewParam
+				name="userID"
+				value="#{ismsBean.userID}"
+				required="true" />
+
+			<f:viewParam
+				name="password"
+				value="#{ismsBean.password}"
+				required="true" />
+
+			<f:viewAction action="#{ismsBean.checkSolde()}"  />
+		</f:metadata>
+
+	</ui:define>
+</ui:composition>
+</html>

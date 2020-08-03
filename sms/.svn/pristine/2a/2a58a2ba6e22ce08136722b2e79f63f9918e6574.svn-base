@@ -1,0 +1,91 @@
+<!DOCTYPE html >
+<html
+	lang="fr"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
+
+<ui:composition template="/WEB-INF/new_templates/template.xhtml">
+
+	<ui:define name="title">iSMS | Historique des crédits</ui:define>
+	<ui:define name="body">
+		<h:form id="FormAllCredits">
+
+			<p:panel
+				id="listeCredits"
+				header="historique crédits"
+				style="height:523px">
+
+				<p:dataTable 
+					id="creditData"
+					var="credit"
+					emptyMessage="Pas de crédit acheté"
+					value="#{icreditBean.allCredits}"
+					resizableColumns="true"
+					rowHover="true"
+					rowIndexVar="index"
+					scrollable="true"
+					scrollHeight="400"
+					rowStyleClass="#{credit.validite le '0' ? 'colored' : null}#{credit.valeur le '0' ? 'colored' : null}">
+
+					<p:column
+						headerText="No"
+						width="30">
+						<h:outputText value="#{index + 1}" />
+					</p:column>
+
+					<p:column>
+						<h:outputText
+							value="#{credit.valeurInitiale}"
+							style="float:right" />
+					</p:column>
+
+					<p:column>
+						<h:outputText
+							value="#{credit.valeur}"
+							style="float:right" />
+					</p:column>
+
+					<p:column>
+						<h:outputText
+							value="#{credit.validiteInitiale}"
+							style="float:right" />
+					</p:column>
+
+					<p:column>
+						<h:outputText
+							value="#{credit.validite}"
+							style="float:right" />
+					</p:column>
+
+					<p:column>
+						<h:outputText value="#{credit.dateAchat}" />
+					</p:column>
+
+				</p:dataTable>
+
+				<f:facet name="footer">
+
+					<p:commandButton
+						id="pdf"
+						icon="ui-icon-myExport"
+						ajax="false"
+						value="Exporter">
+
+						<p:dataExporter
+							type="pdf"
+							target="creditData"
+							fileName="CreditList"
+							preProcessor="#{ismsBean.preProcessPDF}" />
+
+					</p:commandButton>
+				</f:facet>
+
+			</p:panel>
+
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

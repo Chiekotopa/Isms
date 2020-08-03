@@ -1,0 +1,82 @@
+<!DOCTYPE html >
+<html 
+	xmlns:p="http://primefaces.org/ui"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	lang="#{ismsBean.language}"
+	>
+
+<ui:composition template="/WEB-INF/new_templates/template.xhtml">
+
+	<ui:define name="title">#{ismsBean.partenaire.appliname} |  #{msg['listeSenderIDs.title']}</ui:define>
+	<ui:define name="body">
+		<h:form id="FormlisteSenderIDs">
+
+			<p:panel
+				id="listeSenderIDPanel"
+				header="#{msg['listeSenderIDs.header.title']}"
+				style="height:523px">
+
+				<p:dataTable
+					var="senderID"
+					value="#{ismsBean.senderIDs}"
+					emptyMessage="#{msg['listeSenderIDs.emptyMessage']}!"
+					selectionMode="single"
+					selection="#{ismsBean.senderIDSelectionne}"
+					rowKey="#{senderID.idSenderID}"
+					rowHover="true"
+					rowIndexVar="index"
+					scrollable="true"
+					scrollHeight="375"
+					resizableColumns="true">
+
+
+
+					<p:ajax
+						event="rowSelect"
+						listener="#{ismsBean.onRowSelect}"
+						update="FormlisteSenderIDs"
+						delay="" />
+
+					<p:ajax
+						event="rowUnselect"
+						listener="#{ismsBean.onRowUnselect}"
+						update="FormlisteSenderIDs" />
+
+					<p:column headerText="#{msg['listeSenderIDs.headerText.No']} ">
+						#{index + 1}
+					</p:column>
+
+					<p:column
+						headerText="#{msg['listeSenderIDs.headerText.Nom']}"
+						sortBy="#{senderID.nom}"
+						filterBy="#{senderID.nom}"
+						filterMatchMode="contains"
+						filterPosition="top">
+						<h:outputText value="#{senderID.nom}" />
+					</p:column>
+				</p:dataTable>
+
+				<f:facet name="footer">
+					<p:commandButton
+						action="#{ismsBean.mCreerSenderID()}"
+						value="#{msg['listeSenderIDs.commandButton.newsender']}"
+						style="font-weight:bold"
+						icon="ui-icon-plusthick" />
+
+					<p:commandButton
+						id="supprimerBT"
+						action="#{ismsBean.supprimerSenderID()}"
+						disabled="#{ismsBean.disabled}"
+						value="#{msg['listeSenderIDs.commandButton.deletesender']}"
+						update="FormlisteSenderIDs"
+						style="font-weight:bold"
+						icon="ui-icon-trash" />
+				</f:facet>
+			</p:panel>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

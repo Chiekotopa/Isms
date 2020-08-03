@@ -1,0 +1,192 @@
+<!DOCTYPE html >
+<html 
+	xmlns:p="http://primefaces.org/ui"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	lang="#{ismsBean.language}"
+	>
+
+<ui:composition template="/WEB-INF/new_templates/template.xhtml">
+
+	<ui:define name="title">#{ismsBean.partenaire.appliname} | #{msg['acheterCredit.title']} </ui:define>
+	<ui:define name="body">
+		<h:form id="FormAchatCredit">
+
+			<p:growl
+				id="growl"
+				showSummary="false"
+				showDetail="true"
+				sticky="false"
+				autoUpdate="true" />
+
+			<p:scrollPanel
+				id="achatCredit"
+				header="#{msg['acheterCredit.header.title']}"
+				style="height:623px">
+				
+				<h:panelGrid style="margin-bottom:0px">
+
+					<p:outputPanel>
+						<h1>#{msg['acheterCredit.outputPanel.buy']}</h1>
+						<p>#{msg['acheterCredit.outputPanel.title']}:</p>
+						<p><b>#{msg['acheterCredit.outputPanel.adresse']}</b></p>
+					</p:outputPanel>
+					
+					<p:separator/>
+
+					<p:outputPanel>
+						<h1>#{msg['acheterCredit.outputPanel.mobilemoney']}</h1>
+
+						<ol>
+							<li>#{msg['acheterCredit.outputPanel.payPal']}</li>
+							<h:outputText
+								value="&lt;br/&gt;"
+								escape="false" />
+							<li>#{msg['acheterCredit.outputPanel.li.depot']}: <b>694251450</b>
+							</li>
+							<h:outputText
+								value="&lt;br/&gt;"
+								escape="false" />
+							<li>#{msg['acheterCredit.outputPanel.li.recever']}</li>
+
+						</ol>
+					</p:outputPanel>
+ 
+
+				</h:panelGrid>
+				
+					 <p:carousel numVisible="7" effect="easeInStrong"  headerText="#{msg['acheterCredit.headerText.title']}" style="margin-bottom:0">
+				        <p:tab title="#{msg['acheterCredit.tab.pack1']}">
+							<p:panelGrid columns="1">
+							    <f:facet name="header">
+							        <p:row>
+							            <p:column colspan="1">#{msg['acheterCredit.tab.pack1']}</p:column>
+							        </p:row>
+							    </f:facet>
+							 
+							    <h:outputText value="500 #{msg['acheterCredit.outputText.sms']}" />
+							    <h:outputText value="30 #{msg['acheterCredit.outputText.fcf']}" />
+							 
+							    <h:outputText value="15000 #{msg['acheterCredit.outputText.fcf1']}" />
+							    <h:outputText value="#{msg['acheterCredit.outputText.validite']}  : 90 #{msg['acheterCredit.outputText.jours']}" /> 
+							</p:panelGrid>
+				        </p:tab>
+				        <p:tab title="#{msg['acheterCredit.tab.pack2']}">
+							<p:panelGrid columns="1">
+							    <f:facet name="header">
+							        <p:row>
+							            <p:column colspan="1">#{msg['acheterCredit.tab.pack2']}</p:column>
+							        </p:row>
+							    </f:facet>
+							 
+							    <h:outputText value="1000 #{msg['acheterCredit.outputText.sms']}" />
+							    <h:outputText value="25 #{msg['acheterCredit.outputText.fcf']}" />
+							 
+							    <h:outputText value="25000 #{msg['acheterCredit.outputText.fcf1']}" />
+							    <h:outputText value="#{msg['acheterCredit.outputText.validite']} : 90 #{msg['acheterCredit.outputText.jours']}" /> 
+							</p:panelGrid>
+				        </p:tab>
+				        <p:tab title="#{msg['acheterCredit.tab.pack3']}">
+							<p:panelGrid columns="1">
+							    <f:facet name="header">
+							        <p:row>
+							            <p:column colspan="1">#{msg['acheterCredit.tab.pack3']}</p:column>
+							        </p:row>
+							    </f:facet>
+							 
+							    <h:outputText value="2500 #{msg['acheterCredit.outputText.sms']}" />
+							    <h:outputText value="22.5 #{msg['acheterCredit.outputText.fcf']}" />
+							 
+							    <h:outputText value="56225 #{msg['acheterCredit.outputText.fcf1']}" />
+							    <h:outputText value="#{msg['acheterCredit.outputText.validite']} : 90 #{msg['acheterCredit.outputText.jours']}" /> 
+							</p:panelGrid>
+				        </p:tab>
+				        <p:tab title="#{msg['acheterCredit.tab.pack4']}">
+							<p:panelGrid columns="1">
+							    <f:facet name="header">
+							        <p:row>
+							            <p:column colspan="1">#{msg['acheterCredit.tab.pack4']}</p:column>
+							        </p:row>
+							    </f:facet>
+							 
+							    <h:outputText value="5000 #{msg['acheterCredit.outputText.sms']}" />
+							    <h:outputText value="20 #{msg['acheterCredit.outputText.fcf']}" />
+							 
+							    <h:outputText value="100000 #{msg['acheterCredit.outputText.fcf1']}" />
+							    <h:outputText value="#{msg['acheterCredit.outputText.validite']} : 90 #{msg['acheterCredit.outputText.jours']}" /> 
+							</p:panelGrid>
+				        </p:tab>
+				        <p:tab title="#{msg['acheterCredit.tab.pack5']}">
+							<p:panelGrid columns="1">
+							    <f:facet name="header">
+							        <p:row>
+							            <p:column colspan="1">#{msg['acheterCredit.tab.pack5']}</p:column>
+							        </p:row>
+							    </f:facet>
+							 
+							    <h:outputText value="10000 #{msg['acheterCredit.outputText.sms']}" />
+							    <h:outputText value="15 #{msg['acheterCredit.outputText.fcf']}" />
+							 
+							    <h:outputText value="150000 #{msg['acheterCredit.outputText.fcf1']}" />
+							    <h:outputText value="#{msg['acheterCredit.outputText.validite']} : 90 #{msg['acheterCredit.outputText.jours']}" /> 
+							</p:panelGrid>
+				        </p:tab>
+				        <p:tab title="#{msg['acheterCredit.tab.pack6']}">
+							<p:panelGrid columns="1">
+							    <f:facet name="header">
+							        <p:row>
+							            <p:column colspan="1">#{msg['acheterCredit.tab.pack6']}</p:column>
+							        </p:row>
+							    </f:facet>
+							 
+							    <h:outputText value="50000 #{msg['acheterCredit.outputText.sms']}" />
+							    <h:outputText value="11 #{msg['acheterCredit.outputText.fcf']}" />
+							 
+							    <h:outputText value="550000 #{msg['acheterCredit.outputText.fcf1']}" />
+							    <h:outputText value="#{msg['acheterCredit.outputText.validite']} : 90 #{msg['acheterCredit.outputText.jours']}" /> 
+							</p:panelGrid>
+				        </p:tab>
+				        <p:tab title="#{msg['acheterCredit.tab.autres']}">
+							<p:panelGrid columns="1">
+							    <f:facet name="header">
+							        <p:row>
+							            <p:column colspan="1">#{msg['acheterCredit.tab.plus']}</p:column>
+							        </p:row>
+							    </f:facet> 
+							    <h:outputText value="#{msg['acheterCredit.tab.plus50']}." /> 
+							</p:panelGrid>
+				        </p:tab>
+				    </p:carousel> 
+				    
+				    <p:separator/>
+				    
+				<h:panelGrid
+					columns="3"
+					cellpadding="10">
+					<p:outputLabel
+						for="nbSMS"
+						value="#{msg['acheterCredit.tab.nbresms']} : " />
+
+					<p:spinner
+						id="nbSMS"
+						value="#{ismsBean.nbSMS}"
+						min="0"
+						max="1000000000"
+						stepFactor="1000"
+						required="true"
+						requiredMessage="#{msg['acheterCredit.tab.enter']}!" />
+
+					<p:commandButton
+						value="#{msg['acheterCredit.commandButton.Demander']}"
+						action="#{ismsBean.demanderCredit()}"
+						style="font-weight:bold"
+						update="growl" />
+				</h:panelGrid>
+
+			</p:scrollPanel>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

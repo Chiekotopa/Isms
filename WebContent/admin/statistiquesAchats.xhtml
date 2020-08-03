@@ -1,0 +1,99 @@
+<!DOCTYPE html >
+<html 
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+    lang="#{ismsBean.language}"
+	>
+
+<ui:composition template="/WEB-INF/new_templates/templateAdmin.xhtml">
+
+	<ui:define name="title">#{ismsBean.partenaire.appliname} | #{msg['statistiquesAchats.title']}</ui:define>
+	<ui:define name="body">
+		<h:form id="FormStatAchats">
+
+			<p:panel
+				id="statAchat"
+				header="#{msg['statistiquesAchats.header']}"
+				style="height:496px">
+
+				<p:dataTable
+					id="creditSubTable"
+					var="historique"
+					value="#{ismsBean.historiqueCredit}"
+					emptyMessage="#{msg['statistiquesAchats.emptyMessage']}"
+					resizableColumns="true"
+					rowHover="true"
+					rowIndexVar="index"
+					scrollable="true"
+					scrollHeight="350">
+
+					<f:facet name="header">
+	           		#{msg['statistiquesAchats.facet.Credits']}	 
+	        		</f:facet>
+
+					<f:facet name="header">
+			         #{msg['statistiquesAchats.facet.Historique']}   
+			        </f:facet>
+
+					<p:columnGroup type="header">
+
+						<p:row>
+							<p:column headerText="#{msg['statistiquesAchats.headerText.Valeurinitiale']} " />
+							<p:column headerText="#{msg['statistiquesAchats.headerText.Valeuractuelle']}" />
+							<p:column headerText="#{msg['statistiquesAchats.headerText.Validiteinitiale']}" />
+							<p:column headerText="#{msg['statistiquesAchats.headerText.Validiteactuelle']}" />
+							<p:column headerText="#{msg['statistiquesAchats.headerText.DateAchat']}" />
+						</p:row>
+					</p:columnGroup>
+
+					<p:subTable
+						var="credit"
+						value="#{historique.credits}">
+
+						<f:facet name="header">
+							<h:outputText value="#{historique.nomClient}" />
+						</f:facet>
+
+						<p:column>
+							<h:outputText
+								value="#{credit.valeurInitiale}"
+								style="float:right" />
+						</p:column>
+
+						<p:column>
+							<h:outputText
+								value="#{credit.valeur}"
+								style="float:right" />
+						</p:column>
+
+						<p:column>
+							<h:outputText
+								value="#{credit.validiteInitiale}"
+								style="float:right" />
+						</p:column>
+
+						<p:column>
+							<h:outputText
+								value="#{credit.validite}"
+								style="float:right" />
+						</p:column>
+
+						<p:column>
+							<h:outputText value="#{credit.dateAchat}" />
+						</p:column>
+
+					</p:subTable>
+					
+				</p:dataTable>
+
+			</p:panel>
+
+
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

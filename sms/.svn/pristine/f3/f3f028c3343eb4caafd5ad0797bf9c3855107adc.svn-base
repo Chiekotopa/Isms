@@ -1,0 +1,7 @@
+protocol=http
+domainName=154.72.148.106
+port=8080
+webRoot=iSMS
+folder=api
+sendApi=apiSendSMS.xhtml
+checkApi=apiCheckCredit.xhtml

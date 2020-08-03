@@ -1,0 +1,57 @@
+<!DOCTYPE html >
+<html 
+	xmlns:p="http://primefaces.org/ui"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	lang="#{ismsBean.language}"
+	>
+
+<ui:composition template="/WEB-INF/new_templates/template.xhtml">
+
+	<ui:define name="title">#{ismsBean.partenaire.appliname} | #{msg['creerSenderID.title']} </ui:define>
+	<ui:define name="body">
+		<h:form id="FormCreerSenderID">
+
+			<p:panel
+				id="creationContact"
+				style="height:354px"
+				header="#{msg['creerSenderID.header.title']}">
+
+				<h:panelGrid
+					id="infos"
+					columns="3"
+					style="margin-top:20px;margin-bottom:150px"
+					cellpadding="10">
+
+					<h:outputLabel
+						for="nomSenderID"
+						value="#{msg['creerSenderID.outputLabel.nomSenderID']}: "
+						 />
+					<p:inputText
+						id="nomSenderID"
+						required="true"
+						maxlength="11"
+						requiredMessage="#{msg['creerSenderID.outputLabel.requiredMessage']}!"
+						value="#{ismsBean.senderIDACreer.nom}" />
+					<p:message
+						for="nomSenderID"
+						showIcon="false"
+						showSummary="false"
+						showDetail="true" />
+
+				</h:panelGrid>
+
+				<f:facet name="footer">
+					<p:commandButton
+						value="#{msg['creerSenderID.commandButton.creer']}"
+						action="#{ismsBean.creerSenderID()}"
+						style="font-weight:bold"
+						update="infos" />
+				</f:facet>
+			</p:panel>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

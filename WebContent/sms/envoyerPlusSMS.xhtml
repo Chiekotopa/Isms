@@ -1,0 +1,270 @@
+<!DOCTYPE html >
+<html 
+	xmlns:p="http://primefaces.org/ui"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	lang="#{ismsBean.language}"
+	>
+
+<ui:composition template="/WEB-INF/new_templates/template.xhtml">
+
+	<ui:define name="title">#{ismsBean.partenaire.appliname} | #{msg['envoyerPlusSMS.title']}</ui:define>
+	<ui:define name="body">
+		<h:form id="FormEnvoiPlusSMS">
+			<p:growl
+				id="growl"
+				showSummary="false"
+				showDetail="true"
+				sticky="false"
+				autoUpdate="true" />
+
+			<p:panel
+				id="sendPlusSMS"
+				style="height:523px"
+				header="#{msg['envoyerPlusSMS.panel.title']}">
+
+				<h:panelGrid
+					id="envoiSMS"
+					columns="2">
+
+					<h:panelGrid
+						columns="2"
+						cellpadding="5"
+						width="700px">
+
+						<p:outputLabel
+							for="sender"
+							value="#{msg['envoyerPlusSMS.panelGrid.Sender']} " />
+
+						<h:panelGrid columns="2">
+
+							<p:selectOneMenu
+								id="sender"
+								value="#{ismsBean.smsACreer.sender}"
+								effect="fold"
+								style="width:150px"
+								editable="false">
+								<p:ajax update="senderID" />
+								<f:selectItem
+									itemLabel="#{msg['envoyerPlusSMS.selectItem.choseSender']}"
+									itemValue="" />
+								<f:selectItems
+									var="senderID"
+									value="#{ismsBean.senderIDs}"
+									itemLabel="#{senderID.nom}"
+									itemValue="#{senderID.nom}" />
+							</p:selectOneMenu>
+							<p:inputText
+								style="margin-left:8px"
+								id="senderID"
+								maxlength="11"
+								value="#{ismsBean.smsACreer.sender}"
+								required="true"
+								requiredMessage="#{msg['envoyerPlusSMS.panelGrid.requiredSender']}!" />
+							<p:watermark
+								for="senderID"
+								value="#{msg['envoyerPlusSMS.watermark.nomexp']}." />
+						</h:panelGrid>
+
+						<p:outputLabel
+							for="destinataire"
+							value="#{msg['envoyerPlusSMS.outputLabel.Destinataire']}: " />
+
+						<h:panelGrid
+							id="contactPanel"
+							columns="2">
+
+							<p:selectOneMenu
+								id="destinataire"
+								value="#{ismsBean.smsACreer.destinataire}"
+								effect="fold"
+								style="width:150px"
+								editable="false">
+
+								<p:ajax
+									listener="#{ismsBean.onSelectContact()}"
+									update="envoiSMS" />
+
+								<f:selectItem
+									itemLabel="#{msg['envoyerPlusSMS.selectItem.chosecontact']}"
+									itemValue="" />
+								<f:selectItems
+									var="contact"
+									value="#{ismsBean.contacts}"
+									itemLabel="#{contact.nom}"
+									itemValue="#{contact.telephone}" />
+							</p:selectOneMenu>
+
+							<p:inputText
+								style="margin-left:8px"
+								id="numTel"
+								value="#{ismsBean.smsACreer.destinataire}" />
+							<p:watermark
+								for="numTel"
+								value="#{msg['envoyerPlusSMS.watermark.numtel']}." />
+
+						</h:panelGrid>
+
+						<p:outputLabel
+							for="contactList"
+							value="#{msg['envoyerPlusSMS.outputLabel.contactList']} " />
+
+						<p:dataTable
+							id="contactList"
+							style="width:380px"
+							scrollable="true"
+							rowIndexVar="index"
+							value="#{ismsBean.smsContacts}"
+							var="smsContact">
+
+							<p:column
+								headerText="#{msg['envoyerPlusSMS.dataTable.NO']}"
+								width="20">
+								<h:outputText value=" #{index + 1}" />
+
+							</p:column>
+
+							<p:column
+								headerText="#{msg['envoyerPlusSMS.dataTable.Nom']}"
+								width="100">
+								<h:outputText value=" #{smsContact.nom}" />
+							</p:column>
+
+							<p:column
+								headerText="#{msg['envoyerPlusSMS.dataTable.Telephone']}"
+								width="100">
+								<h:outputText value=" #{smsContact.telephone}" />
+							</p:column>
+						</p:dataTable>
+
+
+						<p:outputLabel
+							for="message"
+							value="#{msg['envoyerPlusSMS.dataTable.Message']}: " />  
+					   <p:inputTextarea
+							id="message"
+							rows="9"
+							cols="50"
+						    counter="display" 
+						    requiredMessage="#{msg['envoyerPlusSMS.dataTable.requiredMessage']}"
+							maxlength="480"
+							immediate="true" 
+							counterTemplate="{0} #{msg['envoyerPlusSMS.dataTable.counterTemplate']} / 480."
+							value="#{ismsBean.smsACreer.contenu}" 
+							autoResize="true">
+						   <f:validateLength minimum="1" maximum="480" />
+						   <f:ajax event="keyup"  listener="#{ismsBean.updateSmsNber()}" render="display1" />
+					   </p:inputTextarea>		
+							
+						    <h:outputText id="display1" value="#{msg['envoyerPlusSMS.outputText.cout']} : #{ismsBean.smsNber} #{msg['envoyerPlusSMS.outputText.sms']}"/>
+							<h:outputText id="display" />
+						    <h:outputText id="dateEnvoiId" value="#{msg['envoyerPlusSMS.outputText.sendnow']} : "/>
+							<h:panelGrid columns="3"> 
+							    <p:selectBooleanCheckbox value="#{ismsBean.immediat}" >
+						            <p:ajax listener="#{ismsBean.addMessage}"  update="growl dtId"/>
+						        </p:selectBooleanCheckbox>
+							  <p:calendar id="dtId" disabled="#{ismsBean.immediat}" validatorMessage="#{msg['envoyerPlusSMS.calendar.validatorMessage']}." required="true" value="#{ismsBean.dateEnvoi}" mindate="#{ismsBean.dateMin}" pattern="dd/MM/yyyy HH:mm"/>
+							  <h:outputText id="refId" disabled="#{ismsBean.immediat}" value="#{msg['envoyerPlusSMS.calendar.immediat']}"/>
+							</h:panelGrid>
+
+					</h:panelGrid>
+
+					<h:panelGrid id="infoCredit">
+						<h1>#{msg['envoyerPlusSMS.outputText.infoCredit']}</h1>
+
+						<h:panelGrid
+							columns="2"
+							style="padding-bottom:150px">
+
+							<p:outputLabel
+								for="solde"
+								value="#{msg['envoyerPlusSMS.outputLabel.Solde']}: "
+								style="font-weight:bold" />
+							<p:outputLabel
+								id="solde"
+								value="#{ismsBean.solde}" />
+							<h:outputText
+								value="&lt;br/&gt;"
+								escape="false" />
+							<p:outputLabel />
+							<p:separator />
+							<h:outputText
+								value="&lt;br/&gt;"
+								escape="false" />
+							<h:outputText
+								value="&lt;br/&gt;"
+								escape="false" />
+							<h:outputText
+								value="&lt;br/&gt;"
+								escape="false" />
+
+							<p:outputLabel
+								for="coutMTN"
+								value="#{msg['envoyerPlusSMS.outputLabel.coutMTN']} : " />
+							<p:outputLabel
+								id="coutMTN"
+								value="#{ismsBean.coutSMS} #{msg['envoyerPlusSMS.outputLabel.nbrecredit']}"
+								style="font-weight:bold" />
+
+							<h:outputText
+								value="&lt;br/&gt;"
+								escape="false" />
+							<h:outputText
+								value="&lt;br/&gt;"
+								escape="false" />
+
+							<p:outputLabel
+								for="coutOrange"
+								value="#{msg['envoyerPlusSMS.outputLabel.coutNexttel']} : " />
+							<p:outputLabel
+								id="coutOrange"
+								value="#{ismsBean.coutSMS}  #{msg['envoyerPlusSMS.outputLabel.nbrecredit']}"
+								style="font-weight:bold" />
+
+							<h:outputText
+								value="&lt;br/&gt;"
+								escape="false" />
+							<h:outputText
+								value="&lt;br/&gt;"
+								escape="false" />
+
+							<p:outputLabel
+								for="coutNexttel"
+								value="#{msg['envoyerPlusSMS.outputLabel.coutNexttel']} : " />
+							<p:outputLabel
+								id="coutNexttel"
+								value="#{ismsBean.coutSMS}  #{msg['envoyerPlusSMS.outputLabel.nbrecredit']}"
+								style="font-weight:bold" />
+						</h:panelGrid>
+
+					</h:panelGrid>
+
+				</h:panelGrid>
+
+				<f:facet name="footer">
+					<p:commandButton 
+				        id="envoiId"
+						value="#{msg['envoyerPlusSMS.commandButton.Envoyer']}"
+						style="font-weight:bold"
+						action="#{ismsBean.envoyerPlusSMS()}"
+						update="FormEnvoiPlusSMS" />
+				    <p:commandButton
+						value="#{msg['envoyerPlusSMS.commandButton.importcontacts']}"
+						style="font-weight:bold"
+						immediate="true"
+						action="#{ismsBean.goToExcelImport()}" />		
+				</f:facet>
+			</p:panel>
+			
+		    <p:blockUI block="FormEnvoiPlusSMS" trigger="envoiId">
+		       #{msg['envoyerPlusSMS.blockUI.confirmation']}...<br />
+		        <p:graphicImage name="#{request.contextPath}/resources/img/loader.gif"/>
+		    </p:blockUI>
+			
+		</h:form>
+
+	</ui:define>
+</ui:composition>
+</html>

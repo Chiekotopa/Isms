@@ -1,0 +1,160 @@
+<!DOCTYPE html >
+<html
+	lang="fr"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<!-- 
+		Replace path to template, title, header and body
+		with actual data.
+	 -->
+<ui:composition template="/WEB-INF/new_templates/templateAdmin.xhtml">
+
+	<ui:define name="title">iSMS | Edition d'un utilisateur </ui:define>
+
+	<ui:define name="body">
+		<h:form id="FormSauvegarderModification">
+			<p:panel
+				id="toggleable"
+				header="Modifier un utilisateur : sauvegarde des modifications">
+
+				<h:panelGrid
+				id="infos"
+					columns="1"
+					style="margin-bottom:10px; width:auto"
+					cellpadding="5">
+
+					<!-- fieldset pour les informations personnelles-->
+					<p:fieldset legend="Informations du Utilisateur">
+						<h:panelGrid
+							columns="3"
+							style="margin-bottom:10px"
+							cellpadding="5">
+
+							<h:outputLabel
+								for="nomUtilisateur"
+								value="Nom :"
+								style="font-weight:bold" />
+							<p:inputText
+								id="nomUtilisateur"
+								required="true"
+								value="#{ismsBean.utilisateurSelectionne.noms}" />
+							<p:messages for="nomUtilisateur" />
+
+							<h:outputLabel
+								for="emailUtilisateur"
+								value="Email :"
+								style="font-weight:bold" />
+							<p:inputText
+								id="emailUtilisateur"
+								required="true"
+								value="#{ismsBean.utilisateurSelectionne.email}" />
+							<p:message for="emailUtilisateur" />
+
+							<h:outputLabel
+								for="telephoneUtilisateur"
+								value="Téléphone : "
+								style="font-weight:bold" />
+							<p:inputText
+								id="telephoneUtilisateur"
+								value="#{ismsBean.utilisateurSelectionne.telephone}" />
+							<p:messages for="nomUtilisateur" />
+
+						</h:panelGrid>
+					</p:fieldset>
+
+					<!-- fieldset pour les informations de connexion-->
+
+					<p:fieldset legend="Informations de connexion">
+						<p:message
+							for="login"
+							showSummary="false"
+							showDetail="true"
+							showIcon="false"
+							autoUpdate="true" />
+
+						<p:message
+							for="motdepasse"
+							showSummary="false"
+							showDetail="true"
+							autoUpdate="true" />
+
+						<p:message
+							for="confirmationmdp"
+							showSummary="false"
+							showDetail="true"
+							autoUpdate="true" />
+
+						<h:panelGrid
+							id="infoConn"
+							columns="2"
+							cellpadding="5">
+
+							<h:outputLabel
+								for="login"
+								value="Login :"
+								style="font-weight:bold" />
+							<p:inputText
+								id="login"
+								required="true"
+								requiredMessage="Entrez un login!"
+								value="#{ismsBean.utilisateurSelectionne.login}" />
+
+							<h:outputLabel
+								for="motdepasse"
+								value="Mot de passe :"
+								style="font-weight:bold" />
+							<p:password
+								id="motdepasse"
+								match="confirmationmdp"
+								label="motdepasse"
+								required="true"
+								requiredMessage="Entrez un mot de passe!"
+								value="#{ismsBean.utilisateurSelectionne.password}" />
+
+							<h:outputLabel
+								for="confirmationmdp"
+								value="Confirmer mot de passe :"
+								style="font-weight:bold" />
+							<p:password
+								id="confirmationmdp"
+								label="confirmationmdp"
+								required="true"
+								requiredMessage="Les mots de passes ne sont pas identiques!"
+								value="#{ismsBean.confirmation}" />
+
+							<h:outputLabel
+								for="admin"
+								value="Admin :"
+								style="font-weight:bold" />
+
+							<p:selectBooleanCheckbox
+								id="admin"
+								value="#{ismsBean.utilisateurSelectionne.admin}" />
+
+						</h:panelGrid>
+					</p:fieldset>
+
+				</h:panelGrid>
+
+				<f:facet name="footer">
+					<p:commandButton
+						action="#{ismsBean.sauvegarderModificationU()}"
+						value="Sauvegarder"
+						style="font-weight:bold"  />
+					<p:commandButton
+						action="#{ismsBean.annulerModifUtilisateur()}"
+						value="Annuler"
+						update="infos"
+						style="font-weight:bold"  />
+				</f:facet>
+			</p:panel>
+		</h:form>
+	</ui:define>
+
+</ui:composition>
+
+</html>

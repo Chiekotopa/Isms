@@ -1,0 +1,160 @@
+<!DOCTYPE html >
+<html 
+	xmlns:p="http://primefaces.org/ui"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	lang="#{ismsBean.language}"
+	>
+
+<ui:composition template="/WEB-INF/new_templates/template.xhtml">
+
+	<ui:define name="title">#{ismsBean.partenaire.appliname} | Synthèse</ui:define>
+	<ui:define name="body"> 
+		    <h:form id="FormMesSMS">
+			<p:panel
+				id="listeSMS"
+				header="Synthèse des envois"
+				style="height:620px">
+
+				<p:dataTable
+					id="smsData"
+					var="push"
+					emptyMessage="Pas de Synthèse trouvée"
+					value="#{ismsBean.smsSynthese}"
+					widgetVar="smsTable"
+					rows="10"
+                    paginator="true"
+                    paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                    rowsPerPageTemplate="10,20,50,100" 
+					rowStyleClass="#{push.traite == false ? 'colored' : null}"
+					resizableColumns="true"
+					rowHover="true"
+					rowIndexVar="index"
+					scrollable="true"
+					scrollHeight="400" >
+
+					<p:column style="width:16px">
+			            <p:rowToggler />
+			        </p:column>
+					
+					<p:column
+						headerText="Numéro push"
+						width="30">
+						<h:outputText value="#{push.numeroPush}" />
+					</p:column>
+					
+					<p:column
+						headerText="Etat"
+						sortBy="#{push.traite}"
+						filterBy="#{push.traite}"
+						width="50"
+						filterMatchMode="contains">
+						<h:outputText
+							value="Traité"
+							rendered="#{push.traite}" />
+						<h:outputText
+							value="En cours"
+							rendered="#{!push.traite}" />
+					</p:column>
+
+					<p:column headerText="Message" filterBy="#{push.contenu}" width="120" filterMatchMode="contains">
+						<h:outputText value="#{push.contenu}" escape="false" style="white-space:pre-line;"/>
+					</p:column> 
+
+					<p:column
+						headerText="Date d'envoi"
+						sortBy="#{push.dateEnvoi}"
+						filterBy="#{push.dateEnvoi}"
+						width="70"
+						filterMatchMode="contains">
+						<h:outputText value="#{push.dateEnvoi}" />
+					</p:column> 
+
+					<p:column
+						headerText="Total envois"
+						sortBy="#{push.quantite}"
+						filterBy="#{push.quantite}"
+						width="60"
+						filterMatchMode="contains">
+						<h:outputText value="#{push.quantite}" />
+					</p:column>
+					
+					<p:column
+						headerText="Echecs"
+						sortBy="#{push.echecs}"
+						filterBy="#{push.echecs}"
+						width="40"
+						filterMatchMode="contains">
+						<h:outputText value="#{push.echecs}" />
+					</p:column> 
+
+					<p:rowExpansion> 
+						<p:dataTable
+							id="smsEches"
+							var="sms"
+							emptyMessage="Pas d'echecs trouvés"
+							value="#{push.listEchecs}"
+							widgetVar="smsEchecTable"
+							rows="10"
+		                    paginator="true"  
+							rowHover="true"
+							rowIndexVar="index"
+							scrollable="true"  >
+								<p:column
+									headerText="#{msg['historiqueEnvoi.dataTable.No']}"
+									width="30">
+									<h:outputText value="#{index + 1}" />
+								</p:column>
+								
+								<p:column
+									headerText="Numéros"
+									sortBy="#{sms.destinataire}"
+									filterBy="#{sms.destinataire}"
+									width="120"
+									filterMatchMode="contains">
+									<h:outputText value="#{sms.destinataire}" />
+								</p:column>
+								
+								<p:column
+									headerText="Etat"
+									sortBy="#{sms.etat}"
+									filterBy="#{sms.etat}"
+									width="100"
+									filterMatchMode="contains">
+									<h:outputText
+										value="Envoyé"
+										rendered="#{sms.etat}" />
+									<h:outputText
+										value="En attente"
+										rendered="#{!sms.etat}" />
+								</p:column>
+								
+								<p:column
+									headerText="Status"
+									sortBy="#{sms.status}"
+									filterBy="#{sms.status}"
+									width="120"
+									filterMatchMode="contains">
+									<h:outputText value="#{sms.status}" />
+								</p:column>
+								
+							</p:dataTable>
+			        </p:rowExpansion>
+				</p:dataTable>
+
+				<f:facet name="footer">
+					<p:commandButton
+						value="#{msg['historiqueEnvoi.commandButton.Rafraichir']}"
+						style="font-weight:bold"
+						action="#{ismsBean.initialiseSynthese()}"
+						update="listeSMS" /> 
+				</f:facet>
+
+			</p:panel>
+
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html 
+	xmlns:p="http://primefaces.org/ui"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	lang="#{ismsBean.language}"
+	>
+
+<ui:composition template="/WEB-INF/new_templates/templateSimple.xhtml">
+	<ui:define name="body">
+		<h:form id="FormSendingResult">
+
+			<p:panel
+				id="smsAPIResult"
+				header="Resultat de l'envoi"
+				style="height:354px">
+
+				<h:panelGrid>
+					<h:panelGrid
+						columns="1"
+						cellpadding="10">
+						<h:outputText style="font-weight:bold;font-size:20px" value="#{ismsBean.resultat}" />
+					</h:panelGrid>
+
+					<h:panelGrid
+						columns="2"
+						cellpadding="10">
+						<h:outputLabel
+							value="Expéditeur : "
+							style="font-weight:bold" />
+						<h:outputText value="#{ismsBean.clientConnecte.noms}" />
+
+
+						<h:outputLabel
+							value="Sender ID : "
+							style="font-weight:bold" />
+						<h:outputText value="#{ismsBean.sender}" />
+
+
+						<h:outputLabel
+							value="Destinataire : "
+							style="font-weight:bold" />
+						<h:outputText value="#{ismsBean.to}" />
+
+
+						<h:outputLabel
+							value="Message : "
+							style="font-weight:bold" />
+						<h:outputText value="#{ismsBean.msg}" />
+					</h:panelGrid>
+				</h:panelGrid>
+			</p:panel>
+
+
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

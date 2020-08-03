@@ -1,0 +1,55 @@
+<!DOCTYPE html >
+<html 
+	xmlns:p="http://primefaces.org/ui"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	lang="#{ismsBean.language}"
+	>
+
+<ui:composition template="/WEB-INF/new_templates/template.xhtml">
+
+	<ui:define name="title">#{ismsBean.partenaire.appliname} | #{msg['excelImport.title']}</ui:define>
+	<ui:define name="body">
+
+		<h:form id="FormCreerContact">
+			<p:growl
+				id="growl"
+				showSummary="false"
+				showDetail="true"
+				sticky="false"
+				autoUpdate="true" /> 
+
+			<p:panel
+				id="creationContact"
+				style="height:354px"
+				header="#{msg['excelImport.header.title']}">
+				<h3>#{msg['excelImport.panel.title']} :</h3> 
+                <p:graphicImage value="/resources/img/modeFichierExcel.PNG" onclick="PF('dlg1').show();" />
+                <p:dialog header="#{msg['excelImport.dialog.title']}" widgetVar="dlg1" minHeight="500">
+				     <p:graphicImage value="/resources/img/modeFichierExcelGF.PNG" onclick="PF('dlg1').show();" />
+				</p:dialog> 
+				<p:fileUpload fileUploadListener="#{ismsBean.handleFileUpload}" mode="advanced" dragDropSupport="false"
+         				 update="FormCreerContact:saveExcel, FormCreerContact:sendByExcel, FormCreerContact:growl" fileLimit="1" allowTypes="/(\.|\/)(xls|xlsx)$/" /> 
+
+				<f:facet name="footer"> 
+					 <p:commandButton
+					    id="saveExcel"
+						value="#{msg['excelImport.commandButton.Sauvegarder']}" 
+						action="#{ismsBean.saveContactsFromExcelFile()}"
+						disabled="#{ismsBean.excelSendStatus}"
+						style="font-weight:bold"/>
+						
+					<p:commandButton
+					    id="sendByExcel"
+						value="#{msg['excelImport.commandButton.Envoyer']}" 
+						action="#{ismsBean.goToEnvoiGroupe()}"
+						disabled="#{ismsBean.excelSendStatus}"
+						style="font-weight:bold"/>
+				</f:facet>
+			</p:panel>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

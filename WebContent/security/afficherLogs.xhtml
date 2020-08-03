@@ -1,0 +1,90 @@
+<!DOCTYPE html >
+<html 
+	xmlns:p="http://primefaces.org/ui"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	lang="#{ismsBean.language}"
+	>
+	<!-- 
+		Replace path to template, title, header and body
+		with actual data.
+	 -->
+<ui:composition template="/WEB-INF/new_templates/templateAdmin.xhtml">
+
+	<ui:define name="title">#{ismsBean.partenaire.appliname} |  #{msg['afficherLogs.title']}  </ui:define>
+
+	<ui:define name="body">
+		<h:form id="FormJournalLogs">
+			<p:panel
+				id="journalConn"
+				header="#{msg['afficherLogs.header']}"
+				style="height:496px">
+
+				<p:dataTable
+					var="log"
+					value="#{ismsBean.logs}"
+					emptyMessage="#{msg['afficherLogs.emptyMessage']}!"
+					rowHover="true"
+					rowIndexVar="index"
+					scrollable="true"
+					scrollHeight="400"
+					resizableColumns="true"
+					rowStyleClass="#{log.etatConnexion == false ? 'colored' : null}">
+
+					<p:column headerText="#{msg['afficherLogs.headerText.No']}">
+							 #{index + 1}
+						</p:column>
+
+					<p:column
+						headerText="#{msg['afficherLogs.headerText.Nom']}"
+						filterBy="#{log.utilisateur.noms}"
+						filterMatchMode="contains"
+						filterPosition="top">
+						<h:outputText
+							value="#{log.utilisateur.noms}"
+							rendered="#{!ismsBean.estClient(log)}" />
+						<h:outputText
+							value="#{log.client.noms}"
+							rendered="#{ismsBean.estClient(log)}" />
+					</p:column>
+
+					<p:column headerText="#{msg['afficherLogs.headerText.Login']}">
+						<h:outputText
+							value="#{log.utilisateur.login}"
+							rendered="#{!ismsBean.estClient(log)}" />
+						<h:outputText
+							value="#{log.client.telephone}"
+							rendered="#{ismsBean.estClient(log)}" />
+					</p:column>
+
+					<p:column headerText="#{msg['afficherLogs.headerText.user']}">
+						<h:outputText
+							value="#{msg['afficherLogs.headerText.users']}"
+							rendered="#{!ismsBean.estClient(log)}" />
+						<h:outputText
+							value="#{msg['afficherLogs.headerText.Client']}"
+							rendered="#{ismsBean.estClient(log)}" />
+					</p:column>
+
+					<p:column headerText="#{msg['afficherLogs.headerText.Date']}">
+						<h:outputText value="#{log.dateConnexion}" />
+					</p:column>
+
+					<p:column headerText="#{msg['afficherLogs.headerText.Connexion']}">
+						<h:outputText
+							value="#{msg['afficherLogs.headerText.Connecté']}"
+							rendered="#{log.etatConnexion}" />
+						<h:outputText
+							value="#{msg['afficherLogs.headerText.Echec']}"
+							rendered="#{!log.etatConnexion}" />
+					</p:column>
+				</p:dataTable>
+
+			</p:panel>
+		</h:form>
+	</ui:define>
+</ui:composition>
+
+</html>

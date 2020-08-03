@@ -1,0 +1,111 @@
+<!DOCTYPE html >
+<html
+	lang="fr"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
+
+<ui:composition template="/WEB-INF/new_templates/template.xhtml">
+
+	<ui:define name="title">iSMS | Client DashBoard</ui:define>
+	<ui:define name="body">
+		<h:form
+			id="FormClientBord"
+			onsubmit="#{ismsBean.resetIndex()}">
+
+			<p:scrollPanel
+				mode="native"
+				style="height:529px">
+
+				<p:panel
+					id="dashBPanel"
+					header="Admin Dashboard">
+
+					<p:chart
+						type="line"
+						model="#{ismsBean.lineClient}" />
+
+					<h:panelGrid
+						columns="2"
+						cellpadding="10">
+
+						<p:panel
+							id="sms"
+							style="width:450px;height:250px"
+							header="SMS ENVOYES">
+
+							<h:panelGrid
+								columns="2"
+								cellpadding="10"
+								style="margin-top:30px">
+
+								<p:outputLabel value="Cette semaine : " />
+								<h:outputText value="#{ismsBean.nbSemaineClient} sms" />
+
+								<p:outputLabel value="Ce mois : " />
+								<h:outputText value="#{ismsBean.nbMoisClient} sms" />
+
+								<p:outputLabel value="Cette annee : " />
+								<h:outputText value="#{ismsBean.nbAnneeClient} sms" />
+
+							</h:panelGrid>
+
+						</p:panel>
+
+						<p:panel
+							id="clients"
+							style="width:450px;height:250px"
+							header="CREDITS">
+
+							<h:panelGrid
+								columns="2"
+								cellpadding="5">
+								<p:outputLabel value="Solde : " />
+								<h:outputText value="#{ismsBean.solde} crédits" />
+
+								<p:outputLabel value="Nb Credits valides. : " />
+								<h:outputText value="#{ismsBean.creditsValides.size()}" />
+							</h:panelGrid>
+
+							<h:panelGrid columns="1">
+
+								<p:dataTable
+									var="credit"
+									value="#{ismsBean.credits}"
+									scrollable="true"
+									scrollHeight="100"
+									rowIndexVar="index"
+									rowStyleClass="#{credit.validite le '0' ? 'colored' : null}#{credit.valeur le '0' ? 'colored' : null}">
+
+									<p:column
+										headerText="No"
+										width="30">
+										<h:outputText value=" #{index + 1}" />
+									</p:column>
+
+									<p:column headerText="Valeur">
+										<h:outputText value="#{credit.valeur}" />
+									</p:column>
+
+									<p:column
+										headerText="Validité"
+										width="60">
+										<h:outputText value="#{credit.validite}" />
+									</p:column>
+								</p:dataTable>
+
+							</h:panelGrid>
+
+						</p:panel>
+
+					</h:panelGrid>
+
+				</p:panel>
+			</p:scrollPanel>
+
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

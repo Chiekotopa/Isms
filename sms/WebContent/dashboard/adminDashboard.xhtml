@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html
+	lang="fr"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
+
+<ui:composition template="/WEB-INF/new_templates/templateAdmin.xhtml">
+
+	<ui:define name="title">iSMS | Admin DashBoard</ui:define>
+	<ui:define name="body">
+		<h:form id="FormAdminBord">
+
+			<p:scrollPanel
+				mode="native"
+				style="height:502px">
+
+				<p:panel
+					id="dashBPanel"
+					header="Admin Dashboard">
+
+					<p:chart
+						type="line"
+						model="#{ismsBean.lineAdmin}" />
+
+					<h:panelGrid
+						columns="2"
+						cellpadding="10">
+
+						<p:panel
+							id="utilisateurs"
+							style="width:450px"
+							header="UTILISATEURS; CLIENTS">
+
+							<h:panelGrid
+								columns="2"
+								cellpadding="5">
+								<p:outputLabel value="Admin user : " />
+								<h:outputText value="#{ismsBean.nbAdmin}" />
+
+								<p:outputLabel value="Guest user : " />
+								<h:outputText value="#{ismsBean.nbGuest}" />
+
+								<p:outputLabel value="Total clients : " />
+								<h:outputText value="#{ismsBean.clients.size()}" />
+							</h:panelGrid>
+
+
+						</p:panel>
+
+						<p:panel
+							id="sms"
+							style="width:450px"
+							header="SMS ENVOYES">
+
+							<h:panelGrid
+								columns="2"
+								cellpadding="5">
+								<p:outputLabel value="cette semaine : " />
+								<h:outputText value="#{ismsBean.nbSemaine}" />
+								<p:outputLabel value="Ce mois : " />
+								<h:outputText value="#{ismsBean.nbMois}" />
+								<p:outputLabel value="Cette annee : " />
+								<h:outputText value="#{ismsBean.nbAnnee}" />
+
+							</h:panelGrid>
+
+						</p:panel>
+
+					</h:panelGrid>
+
+					<h:panelGrid>
+						<p:panel
+							id="listeCredits"
+							header="historique crédits">
+
+							<p:dataTable
+								id="creditData"
+								var="credit"
+								emptyMessage="Pas de crédit acheté"
+								value="#{ismsBean.allCredits}"
+								rows="10"
+								paginator="true"
+								paginatorPosition="bottom"
+								resizableColumns="true"
+								rowHover="true"
+								rowIndexVar="index"
+								rowStyleClass="#{credit.validite le '0' ? 'colored' : null}#{credit.valeur le '0' ? 'colored' : null}">
+
+								<p:column
+									headerText="No"
+									width="30">
+									<h:outputText value="#{index + 1}" />
+								</p:column>
+
+								<p:column headerText="Valeur init.">
+									<h:outputText
+										value="#{credit.valeurInitiale}"
+										style="float:right" />
+								</p:column>
+
+								<p:column headerText="Valeur act.">
+									<h:outputText
+										value="#{credit.valeur}"
+										style="float:right" />
+								</p:column>
+
+								<p:column headerText="Validité init.">
+									<h:outputText
+										value="#{credit.validiteInitiale}"
+										style="float:right" />
+								</p:column>
+
+								<p:column headerText="Validité act.">
+									<h:outputText
+										value="#{credit.validite}"
+										style="float:right" />
+								</p:column>
+
+								<p:column headerText="Date achat">
+									<h:outputText value="#{credit.dateAchat}" />
+								</p:column>
+
+							</p:dataTable>
+
+							<f:facet name="footer">
+
+								<p:commandButton
+									id="pdfCredit"
+									icon="ui-icon-myExport"
+									ajax="false"
+									value="Exporter">
+
+
+
+									<p:dataExporter
+										type="pdf"
+										target="creditData"
+										fileName="CreditList"
+										preProcessor="#{ismsBean.preProcessPDF}" />
+
+								</p:commandButton>
+							</f:facet>
+
+						</p:panel>
+					</h:panelGrid>
+
+					<h:panelGrid>
+						<p:panel
+							id="listeSMS"
+							header="Historique SMS">
+
+							<p:dataTable
+								id="smsData"
+								var="sms"
+								emptyMessage="Pas de message envoyé"
+								value="#{ismsBean.allSms}"
+								rowStyleClass="#{sms.etat == false ? 'colored' : null}"
+								resizableColumns="true"
+								rows="10"
+								paginator="true"
+								paginatorPosition="bottom"
+								rowHover="true"
+								rowIndexVar="index">
+
+								<p:column
+									headerText="No"
+									width="30">
+									<h:outputText value="#{index + 1}" />
+								</p:column>
+
+								<p:column
+									headerText="Sender ID"
+									width="120">
+									<h:outputText value="#{sms.sender}" />
+								</p:column>
+
+								<p:column
+									headerText="Destinataire"
+									width="120">
+									<h:outputText value="#{sms.destinataire}" />
+								</p:column>
+
+								<p:column headerText="Message">
+									<h:outputText value="#{sms.contenu}" />
+								</p:column>
+
+								<p:column
+									headerText="Cout"
+									width="30">
+									<h:outputText value="#{sms.cout}" />
+								</p:column>
+
+								<p:column
+									headerText="Etat"
+									width="100">
+									<h:outputText
+										value="Envoyé"
+										rendered="#{sms.etat}" />
+									<h:outputText
+										value="En attente"
+										rendered="#{!sms.etat}" />
+								</p:column>
+
+								<p:column
+									headerText="Date d'envoi"
+									width="150">
+									<h:outputText value="#{sms.dateEnvoi}" />
+								</p:column>
+
+							</p:dataTable>
+
+							<f:facet name="footer">
+
+								<p:commandButton
+									id="pdfSMS"
+									icon="ui-icon-myExport"
+									ajax="false"
+									value="Exporter">
+
+									<p:dataExporter
+										type="pdf"
+										target="smsData"
+										fileName="SmsList"
+										preProcessor="#{ismsBean.preProcessPDF}" />
+
+								</p:commandButton>
+							</f:facet>
+
+						</p:panel>
+					</h:panelGrid>
+
+				</p:panel>
+			</p:scrollPanel>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

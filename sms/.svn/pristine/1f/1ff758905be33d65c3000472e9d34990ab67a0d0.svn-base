@@ -1,0 +1,41 @@
+#links
+logout=D\u00E9connexion
+acceuil=Accueil
+adminLink=Admin
+
+#users links
+creerUser=Cr\u00E9er un utilisateur
+afficherUser=Afficher les utilisateurs
+
+#clients links
+crrerClient=Cr\u00E9er un client
+afficherClient=Afficher les clients
+
+#credit links
+crediterCompte=Cr\u00E9diter un compte
+statistiqueAchat=Statistiques des achats
+afficherCredit=Afficher les cr\u00E9dits
+
+#security link
+afficherOperation=Op\u00E9rations
+journalLog=Journal des logs
+
+
+#users and clients informations labels
+noms=Noms \:
+prenoms=Pr\u00E9noms \:
+email=Email \:
+telephone=T\u00E9l\u00E9phone
+login=Num d'utilisateur \:
+password=Mot de passe \:
+
+#button labels
+annuler=Annuler
+enregistrer=Enregistrer
+sauvegarder=Sauvegarder
+envoyer=Envoyer
+creer=Cr\u00E9er
+modifier=Modifier
+connexion=Se connecter
+
+

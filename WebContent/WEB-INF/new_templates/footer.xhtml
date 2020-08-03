@@ -1,0 +1,20 @@
+<!DOCTYPE html >
+<html
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	lang="#{ismsBean.language}"
+	>
+<f:view locale="#{ismsBean.locale}" contentType="text/html">
+	<h:body>
+		<ui:composition>
+					<p>#{ismsBean.partenaire.nom} #{ismsBean.partenaire.adresse} </p>
+					<p>#{ismsBean.partenaire.tel1} #{ismsBean.partenaire.email}</p>
+
+			        <p>Copyright iPLANS SA - #{msg['footer.footer']}</p>
+		</ui:composition>
+	</h:body>
+</f:view>
+
+</html>

@@ -1,0 +1,90 @@
+<!DOCTYPE html >
+<html
+	lang="fr"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<!-- 
+		Replace path to template, title, header and body
+		with actual data.
+	 -->
+<ui:composition template="/WEB-INF/new_templates/templateAdmin.xhtml">
+
+	<ui:define name="title">iSMS | Journal des logs </ui:define>
+
+	<ui:define name="body">
+		<h:form id="FormJournalLogs">
+			<p:panel
+				id="journalConn"
+				header="Journal des logs"
+				style="height:496px">
+
+				<p:dataTable
+					var="log"
+					value="#{ismsBean.logs}"
+					emptyMessage="Pas de logs!"
+					rowHover="true"
+					rowIndexVar="index"
+					scrollable="true"
+					scrollHeight="400"
+					resizableColumns="true"
+					rowStyleClass="#{log.etatConnexion == false ? 'colored' : null}">
+
+					<p:column headerText="No">
+							 #{index + 1}
+						</p:column>
+
+					<p:column
+						headerText="Nom"
+						filterBy="#{log.utilisateur.noms}"
+						filterMatchMode="contains"
+						filterPosition="top">
+						<h:outputText
+							value="#{log.utilisateur.noms}"
+							rendered="#{!ismsBean.estClient(log)}" />
+						<h:outputText
+							value="#{log.client.noms}"
+							rendered="#{ismsBean.estClient(log)}" />
+					</p:column>
+
+					<p:column headerText="Login">
+						<h:outputText
+							value="#{log.utilisateur.login}"
+							rendered="#{!ismsBean.estClient(log)}" />
+						<h:outputText
+							value="#{log.client.telephone}"
+							rendered="#{ismsBean.estClient(log)}" />
+					</p:column>
+
+					<p:column headerText="User / Client">
+						<h:outputText
+							value="User"
+							rendered="#{!ismsBean.estClient(log)}" />
+						<h:outputText
+							value="Client"
+							rendered="#{ismsBean.estClient(log)}" />
+					</p:column>
+
+					<p:column headerText="Date">
+						<h:outputText value="#{log.dateConnexion}" />
+					</p:column>
+
+					<p:column headerText="Connexion">
+						<h:outputText
+							value="Connecté"
+							rendered="#{log.etatConnexion}" />
+						<h:outputText
+							value="Echèc"
+							rendered="#{!log.etatConnexion}" />
+					</p:column>
+				</p:dataTable>
+
+			</p:panel>
+		</h:form>
+	</ui:define>
+</ui:composition>
+
+</html>

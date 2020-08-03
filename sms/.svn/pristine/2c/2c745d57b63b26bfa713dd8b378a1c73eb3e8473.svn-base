@@ -1,0 +1,120 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html >
+<html
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<f:view contentType="text/html">
+	<h:head>
+		<title>iSMS | Admin Authentication</title>
+
+		<h:outputStylesheet
+			library="css"
+			name="index.css" />
+
+		<link
+			rel="shortcut icon"
+			type="image/png"
+			href="#{request.contextPath}/resources/img/iplans_icon.png" />
+
+
+	</h:head>
+
+	<h:body>
+
+		<div id="bloc_page">
+			<header>
+
+				<div>
+					<h:graphicImage
+						style="margin-top:7px"
+						id="logo"
+						library="img"
+						name="isms_logo_original.png"
+						alt="Enete iSMS" />
+					<br /> <br /> <br /> <br />
+				</div>
+
+			</header>
+
+			<section id="login">
+				<h:form>
+
+					<p:panel
+						id="connexion"
+						header="iSMS | Se Connecter"
+						style="margin:auto">
+
+						<h:panelGrid
+							columns="2"
+							cellpadding="10">
+							<p:outputLabel
+								for="login"
+								value="Login : " />
+							<p:inputText
+								id="login"
+								value="#{ismsBean.utilisateurConnecte.login}"
+								required="true"
+								requiredMessage="empty login!" />
+
+							<p:outputLabel
+								for="password"
+								value="Mot de passe : " />
+							<p:password
+								id="password"
+								value="#{ismsBean.utilisateurConnecte.password}"
+								required="true"
+								requiredMessage="empty password!" />
+
+						</h:panelGrid>
+
+						<f:facet name="footer">
+							<p:commandButton
+								id="auth"
+								value="Connexion"
+								action="#{ismsBean.authentification()}"
+								actionListener="#{ismsBean.onFailed()}"
+								update="connexion"
+								style="font-weight:bold"
+								icon="ui-icon-check" />
+
+							<p:messages
+								id="connexionMsg"
+								autoUpdate="true"
+								showIcon="false"
+								showSummary="false"
+								showDetail="true"
+								closable="true" />
+
+							<div id="signIn">
+								<a href="#{request.contextPath}/security/clientLogin.xhtml">
+									Client </a>
+							</div>
+
+						</f:facet>
+
+					</p:panel>
+
+				</h:form>
+
+			</section>
+
+			<footer>
+
+				<div id="copyrights">
+					<p>iPLANS SA Head Office, IPLANS building - Bonamoussadi/Denver
+						PO Box: 8215 Douala - Cameroon</p>
+					<p>Tel.: (Std) +237 (2) 33 47 28 66 | Tel.: (Std) +237 (2) 33
+						47 28 75 | Tel.: (Std) +237 (2) 33 47 28 80 | Tel.: (Std) +237 (6)
+						66 00 13 00 | E-mail: info@iplans.cm</p>
+
+					<p>Copyright iPLANS SA - Tous droits reserves</p>
+				</div>
+			</footer>
+
+		</div>
+	</h:body>
+</f:view>
+</html>
+

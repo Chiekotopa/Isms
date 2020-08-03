@@ -1,0 +1,51 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html >
+<html 
+	xmlns:p="http://primefaces.org/ui"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	lang="#{ismsBean.language}"
+	>
+
+<ui:composition template="/WEB-INF/new_templates/template.xhtml">
+
+	<ui:define name="title">#{ismsBean.partenaire.appliname} | #{msg['apiInfos.title']}</ui:define>
+	<ui:define name="body">
+		<h:form id="FormSMSAPI">
+
+			<p:panel
+				id="smsAPI"
+				header="SMS API"
+				style="height:523px">
+
+				<h:panelGrid>
+
+					<p:outputPanel>
+						<h1>#{msg['apiInfos.outputPanel.verification']}</h1>
+						<p>#{msg['apiInfos.outputPanel.message']}.</p>
+						<h:outputText value="#{ismsBean.soldeAPI}" />
+						<br />
+						<br />
+						<br />
+					</p:outputPanel>
+
+					<p:separator />
+					<br />
+
+					<h1>#{msg['apiInfos.h1.envoyer']}</h1>
+					<p>#{msg['apiInfos.p.message']}.</p>
+					<h:outputText value="#{ismsBean.smsAPI}" />
+					<p:separator />
+					<p:commandButton value="#{msg['apiInfos.commandButton.telecharger']}" ajax="false" icon="ui-icon-document" onclick="PrimeFaces.monitorDownload(start, stop)">
+					  <p:fileDownload value="#{ismsBean.downloadPDFDoc()}" />  
+					</p:commandButton>
+				</h:panelGrid>
+
+			</p:panel>
+
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

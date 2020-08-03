@@ -1,0 +1,21 @@
+<!DOCTYPE html >
+<html
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<f:view>
+	<h:body>
+		<ui:composition>
+			<p>iPLANS SA Head Office, IPLANS building - Bonamoussadi/Denver
+				PO Box: 8215 Douala - Cameroon</p>
+			<p>Tel.: (Std) +237 (2) 33 47 28 66 | Tel.: (Std) +237 (2) 33 47
+				28 75 | Tel.: (Std) +237 (2) 33 47 28 80 | Tel.: (Std) +237 (6) 66
+				00 13 00 | E-mail: info@iplans.cm</p>
+
+			<p>Copyright iPLANS SA - Tous droits reserves</p>
+		</ui:composition>
+	</h:body>
+</f:view>
+
+</html>

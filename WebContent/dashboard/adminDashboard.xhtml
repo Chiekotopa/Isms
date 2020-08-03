@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html 
+	xmlns:p="http://primefaces.org/ui"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	lang="#{ismsBean.language}"
+	>
+
+<ui:composition template="/WEB-INF/new_templates/templateAdmin.xhtml">
+
+	<ui:define name="title">#{ismsBean.partenaire.appliname} | #{msg['adminDashboard.title']} </ui:define>
+	<ui:define name="body">
+		<h:form id="FormAdminBord">
+
+			<p:scrollPanel
+				mode="native"
+				style="height:502px">
+
+				<p:panel
+					id="dashBPanel"
+					header="#{msg['adminDashboard.header.title']}">
+
+					<p:chart
+						type="line"
+						model="#{ismsBean.lineAdmin}" />
+
+					<h:panelGrid
+						columns="2"
+						cellpadding="10">
+
+						<p:panel
+							id="utilisateurs"
+							style="width:450px"
+							header="#{msg['adminDashboard.panel.title']}">
+
+							<h:panelGrid
+								columns="2"
+								cellpadding="5">
+								<p:outputLabel value="#{msg['adminDashboard.outputLabel.Adminuser']} : " />
+								<h:outputText value="#{ismsBean.nbAdmin}" />
+
+								<p:outputLabel value="#{msg['adminDashboard.outputLabel.Guestuser']} : " />
+								<h:outputText value="#{ismsBean.nbGuest}" />
+
+								<p:outputLabel value="#{msg['adminDashboard.outputLabel.Totalclients']} : " />
+								<h:outputText value="#{ismsBean.clients.size()}" />
+							</h:panelGrid>
+
+
+						</p:panel>
+
+						<p:panel
+							id="sms"
+							style="width:450px"
+							header="#{msg['adminDashboard.panel.SMS']}">
+
+							<h:panelGrid
+								columns="2"
+								cellpadding="5">
+								<p:outputLabel value="#{msg['adminDashboard.outputLabel.cettesemaine']} : " />
+								<h:outputText value="#{ismsBean.nbSemaine}" />
+								<p:outputLabel value="#{msg['adminDashboard.outputLabel.cemois']} : " />
+								<h:outputText value="#{ismsBean.nbMois}" />
+								<p:outputLabel value="#{msg['adminDashboard.outputLabel.cettesannee']} : " />
+								<h:outputText value="#{ismsBean.nbAnnee}" />
+
+							</h:panelGrid>
+
+						</p:panel>
+
+					</h:panelGrid>
+
+					<h:panelGrid>
+						<p:panel
+							id="listeCredits"
+							header="#{msg['adminDashboard.panelGrid.historique']}">
+
+							<p:dataTable
+								id="creditData"
+								var="credit"
+								emptyMessage="#{msg['adminDashboard.dataTable.emptyMessage']}"
+								value="#{ismsBean.allCredits}"
+								rows="10"
+								paginator="true"
+								paginatorPosition="bottom"
+								resizableColumns="true"
+								rowHover="true"
+								rowIndexVar="index"
+								rowStyleClass="#{credit.validite le '0' ? 'colored' : null}#{credit.valeur le '0' ? 'colored' : null}">
+
+								<p:column
+									headerText="#{msg['adminDashboard.column.No']}"
+									width="30">
+									<h:outputText value="#{index + 1}" />
+								</p:column>
+
+								<p:column headerText="#{msg['adminDashboard.column.Valeurinit']}.">
+									<h:outputText
+										value="#{credit.valeurInitiale}"
+										style="float:right" />
+								</p:column>
+
+								<p:column headerText="#{msg['adminDashboard.column.Valeuract']}.">
+									<h:outputText
+										value="#{credit.valeur}"
+										style="float:right" />
+								</p:column>
+
+								<p:column headerText="#{msg['adminDashboard.column.Validiteinit']}.">
+									<h:outputText
+										value="#{credit.validiteInitiale}"
+										style="float:right" />
+								</p:column>
+
+								<p:column headerText="#{msg['adminDashboard.column.Validiteact']}.">
+									<h:outputText
+										value="#{credit.validite}"
+										style="float:right" />
+								</p:column>
+
+								<p:column headerText="#{msg['adminDashboard.column.Dateachat']} ">
+									<h:outputText value="#{credit.dateAchat}" />
+								</p:column>
+
+							</p:dataTable>
+
+							<f:facet name="footer">
+
+								<p:commandButton
+									id="pdfCredit"
+									icon="ui-icon-myExport"
+									ajax="false"
+									value="#{msg['adminDashboard.commandButton.Exporter']}">
+
+
+
+									<p:dataExporter
+										type="pdf"
+										target="creditData"
+										fileName="CreditList"
+										preProcessor="#{ismsBean.preProcessPDF}" />
+
+								</p:commandButton>
+							</f:facet>
+
+						</p:panel>
+					</h:panelGrid>
+
+					<h:panelGrid>
+						<p:panel
+							id="listeSMS"
+							header=" #{msg['adminDashboard.panelGrid.listeSMS']} ">
+
+							<p:dataTable
+								id="smsData"
+								var="sms"
+								emptyMessage="#{msg['adminDashboard.dataTable.emptyMessagelisteSMS']}"
+								value="#{ismsBean.allSms}"
+								rowStyleClass="#{sms.etat == false ? 'colored' : null}"
+								resizableColumns="true"
+								rows="10"
+								paginator="true"
+								paginatorPosition="bottom"
+								rowHover="true"
+								rowIndexVar="index">
+
+								<p:column
+									headerText="#{msg['adminDashboard.column.No']}"
+									width="30">
+									<h:outputText value="#{index + 1}" />
+								</p:column>
+
+								<p:column
+									headerText="#{msg['adminDashboard.column.SenderID']} "
+									width="120">
+									<h:outputText value="#{sms.sender}" />
+								</p:column>
+
+								<p:column
+									headerText="#{msg['adminDashboard.column.Destinataire']} "
+									width="120">
+									<h:outputText value="#{sms.destinataire}" />
+								</p:column>
+
+								<p:column headerText="#{msg['adminDashboard.column.Message']}">
+									<h:outputText value="#{sms.contenu}" />
+								</p:column>
+
+								<p:column
+									headerText="#{msg['adminDashboard.column.Cout']}"
+									width="30">
+									<h:outputText value="#{sms.cout}" />
+								</p:column>
+
+								<p:column
+									headerText="#{msg['adminDashboard.column.Etat']}"
+									width="100">
+									<h:outputText
+										value="#{msg['adminDashboard.column.Envoye']}"
+										rendered="#{sms.etat}" />
+									<h:outputText
+										value="#{msg['adminDashboard.column.attente']}"
+										rendered="#{!sms.etat}" />
+								</p:column>
+
+								<p:column
+									headerText="#{msg['adminDashboard.column.Date']}"
+									width="150">
+									<h:outputText value="#{sms.dateEnvoi}" />
+								</p:column>
+
+							</p:dataTable>
+
+							<f:facet name="footer">
+
+								<p:commandButton
+									id="pdfSMS"
+									icon="ui-icon-myExport"
+									ajax="false"
+									value="#{msg['adminDashboard.commandButton.Exporter']}">
+
+									<p:dataExporter
+										type="pdf"
+										target="smsData"
+										fileName="SmsList"
+										preProcessor="#{ismsBean.preProcessPDF}" />
+
+								</p:commandButton>
+							</f:facet>
+
+						</p:panel>
+					</h:panelGrid>
+
+				</p:panel>
+			</p:scrollPanel>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

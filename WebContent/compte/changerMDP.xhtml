@@ -1,0 +1,88 @@
+<!DOCTYPE html >
+<html 
+	xmlns:p="http://primefaces.org/ui"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	lang="#{ismsBean.language}"
+	>
+
+<ui:composition template="/WEB-INF/new_templates/template.xhtml">
+
+	<ui:define name="title">#{ismsBean.partenaire.appliname} | #{msg['changerMDP.title']} </ui:define>
+	<ui:define name="body">
+		<h:form id="FormChangeMDP">
+
+			<p:panel
+				id="changePass"
+				header=" #{msg['changerMDP.header.title']}"
+				style="height:523px">
+
+				<h:panelGrid
+					id="infos"
+					columns="3"
+					cellpadding="10"
+					style="margin-top:10px;margin-bottom:200px">
+
+					<h:outputLabel
+						for="ancienMDP"
+						value="#{msg['changerMDP.outputLabel.ancienMDP']} :" />
+					<p:password
+						id="ancienMDP"
+						required="true"
+						requiredMessage="#{msg['changerMDP.outputLabel.requiredancienMDP']}!"
+						value="#{ismsBean.ancienPass}" />
+					<p:message
+						for="ancienMDP"
+						showIcon="false"
+						showSummary="false"
+						showDetail="true" />
+
+					<h:outputLabel
+						for="nouveauMDP"
+						value="#{msg['changerMDP.outputLabel.nouveauMDP']} :" />
+					<p:password
+						id="nouveauMDP"
+						match="confirmationmdp"
+						label="motdepasse"
+						required="true"
+						requiredMessage="#{msg['changerMDP.outputLabel.requirednouveauMDP']}!"
+						value="#{ismsBean.nouveauPass}" />
+					<p:message
+						for="nouveauMDP"
+						showIcon="false"
+						showSummary="false"
+						showDetail="true"
+						autoUpdate="true" />
+
+					<h:outputLabel
+						for="confirmationmdp"
+						value="#{msg['changerMDP.outputLabel.confirmationmdp']} :" />
+					<p:password
+						id="confirmationmdp"
+						label="confirmationmdp"
+						required="true"
+						requiredMessage="#{msg['changerMDP.outputLabel.requiredconfirmationmdp']}!"
+						value="#{ismsBean.confirmation}" />
+					<p:message
+						for="confirmationmdp"
+						showIcon="false"
+						showSummary="false"
+						showDetail="true"
+						autoUpdate="true" />
+				</h:panelGrid>
+
+				<f:facet name="footer">
+					<p:commandButton
+						value="#{msg['changerMDP.commandButton.Changer']}"
+						action="#{ismsBean.changerMDP()}"
+						style="font-weight:bold"
+						update="infos" />
+				</f:facet>
+			</p:panel>
+
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

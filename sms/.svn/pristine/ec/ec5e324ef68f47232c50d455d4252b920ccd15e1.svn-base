@@ -1,0 +1,96 @@
+<!DOCTYPE html >
+<html
+	xmlns:p="http://primefaces.org/ui"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<f:view>
+	<h:body>
+
+		<ui:composition>
+
+			<h:form>
+
+				<p:panel
+					id="accueil"
+					header="Bienvenue!"
+					style="margin-bottom:10px">
+					<h:panelGrid>
+
+						<h:outputText value="#{ismsBean.utilisateurConnecte.noms}" />
+
+					</h:panelGrid>
+				</p:panel>
+
+				<p:menu style="width:200px">
+
+					<p:submenu
+						label="SMS"
+						style="font-weight:bold">
+						<p:menuitem
+							value="Créditer un compte"
+							action="#{ismsBean.mCrediterCompte}"
+							disabled="#{!ismsBean.utilisateurConnecte.admin}" />
+						<p:menuitem
+							value="Statistiques achats"
+							action="#{ismsBean.mStatistiquesAchats}" />
+						<p:menuitem
+							value="Statistique SMS"
+							action="#{ismsBean.mStatistiquesSMS}" />
+					</p:submenu>
+
+					<p:submenu
+						label="Comptes clients"
+						style="font-weight:bold">
+						<p:menuitem
+							value="Créer un client"
+							action="#{ismsBean.mCreerClient}"
+							disabled="#{!ismsBean.utilisateurConnecte.admin}" />
+						<p:menuitem
+							value="Afficher les clients"
+							action="#{ismsBean.mListeClients}" />
+					</p:submenu>
+
+					<p:submenu
+						label="Utilisateurs"
+						style="font-weight:bold">
+						<p:menuitem
+							value="Créer un utilisateur"
+							action="#{ismsBean.mCreerUtilisateur}"
+							disabled="#{!ismsBean.utilisateurConnecte.admin}" />
+						<p:menuitem
+							value="Afficher les utilisateurs"
+							action="#{ismsBean.mListeUtilisateurs}" />
+					</p:submenu>
+
+					<p:submenu
+						label="Securité"
+						style="font-weight:bold">
+
+						<p:menuitem
+							value="Dashboard"
+							action="#{ismsBean.mAdminDashBoard()}" />
+
+						<p:menuitem
+							value="Journal des logs"
+							action="#{ismsBean.mJournalLogs}" />
+
+						<p:menuitem
+							value="Déconnexion"
+							action="#{ismsBean.adminDeconnexion}" />
+					</p:submenu>
+
+				</p:menu>
+
+
+			</h:form>
+
+		</ui:composition>
+
+	</h:body>
+
+</f:view>
+
+</html>

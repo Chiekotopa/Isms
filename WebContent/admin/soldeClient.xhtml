@@ -1,0 +1,63 @@
+<!DOCTYPE html >
+<html 
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	lang="#{ismsBean.language}"
+	>
+
+<ui:composition template="/WEB-INF/new_templates/templateAdmin.xhtml">
+
+	<ui:define name="title">#{ismsBean.partenaire.appliname} | #{msg['soldeClient.titre']}</ui:define>
+	<ui:define name="body">
+		<h:form id="FormStatSMS">
+
+			<p:panel
+				id="statSMS"
+				header="#{msg['soldeClient.titre']}"
+				style="height:496px">
+
+				<p:dataTable
+					id="smsSubTable"
+					var="client"
+					value="#{ismsBean.clients}"
+					emptyMessage="#{msg['statistiquesSMS.dataTable.emptyMessage']}"
+					resizableColumns="true"
+					rowHover="true"
+					rowIndexVar="index"
+					scrollable="true"
+					scrollHeight="350">  
+
+					<p:column
+						headerText="#{msg['historiqueEnvoi.dataTable.No']}" width="30">
+						<h:outputText value="#{index + 1}" />
+					</p:column>
+
+					<p:column headerText="#{msg['soldeClient.dataTable.nom']}"
+						sortBy="#{client.noms}"
+						filterBy="#{client.noms}" 
+						filterMatchMode="contains">
+						<h:outputText value="#{client.noms}"/>
+					</p:column> 
+					
+				    <p:column headerText="#{msg['soldeClient.dataTable.tel']}"
+				    	sortBy="#{client.telephone}"
+						filterBy="#{client.telephone}" 
+						filterMatchMode="contains">
+						<h:outputText value="#{client.telephone}"/>
+					</p:column> 
+					
+				    <p:column headerText="#{msg['soldeClient.dataTable.solde']}">
+						<h:outputText value="#{client.getValidCredit()} SMS"/>
+					</p:column> 
+
+				</p:dataTable>
+
+			</p:panel>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

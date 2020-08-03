@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="#{ismsBean.language}">
+<head>
+<title>Session expired</title>
+<meta
+	http-equiv="refresh"
+	content="0;url=#{request.contextPath}/security.clientLogin.xhtml" />
+</head>
+<body>
+	<h1>#{msg['expired.h1']}</h1>
+	<h3>#{msg['expired.h3']}</h3>
+	<p>
+		<a href="#{request.contextPath}/security/clientLogin.xhtml">#{msg['expired.link']}</a>.
+	</p>
+</body>
+</html>

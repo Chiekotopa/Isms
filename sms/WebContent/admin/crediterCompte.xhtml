@@ -1,0 +1,105 @@
+<!DOCTYPE html >
+<html
+	lang="fr"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
+
+<ui:composition template="/WEB-INF/new_templates/templateAdmin.xhtml">
+
+	<ui:define name="title">iSMS | Crediter un compte</ui:define>
+	<ui:define name="body">
+		<h:form id="FormCrediterCompte">
+
+			<p:panel
+				id="CrediterCPanel"
+				header="Crediter un compte Client"
+				style="height:496px">
+
+				<h:panelGrid
+					columns="3"
+					cellpadding="15"
+					style="margin-top:25px;margin-bottom:200px">
+
+					<p:outputLabel
+						for="valeurCredit"
+						value="Valeur : " />
+
+					<p:spinner
+						id="valeurCredit"
+						value="#{ismsBean.creditACreer.valeurInitiale}"
+						min="0"
+						max="1000000000"
+						stepFactor="1000" />
+
+					<p:message
+						for="valeurCredit"
+						showIcon="false"
+						showSummary="false"
+						showDetail="true" />
+
+					<p:outputLabel
+						for="validiteCredit"
+						value="Validité (en jours) : " />
+						
+					<p:spinner
+						id="validiteCredit"
+						value="#{ismsBean.creditACreer.validiteInitiale}"
+						min="0"
+						max="3000000"
+						stepFactor="30" />
+					<p:message
+						for="validiteCredit"
+						showIcon="false"
+						showSummary="false"
+						showDetail="true" />
+
+					<p:outputLabel
+						for="client"
+						value="Client :" />
+					<p:selectOneMenu
+						id="client"
+						panelStyle="width:175px"
+						effect="fade"
+						style="width:150px"
+						value="#{ismsBean.client.idClient}"
+						filter="true"
+						filterMatchMode="startsWith">
+
+						<f:selectItem
+							itemLabel="Choisir un client"
+							itemValue=""
+							noSelectionOption="false" />
+
+						<f:selectItems
+							value="#{ismsBean.clients}"
+							var="c"
+							itemLabel="#{c.noms}"
+							itemValue="#{c.idClient}" />
+
+
+					</p:selectOneMenu>
+
+					<p:message
+						for="client"
+						showIcon="false"
+						showSummary="false"
+						showDetail="true" />
+
+				</h:panelGrid>
+
+				<f:facet name="footer">
+					<p:commandButton
+						value="Créditer"
+						action="#{ismsBean.crediterClient()}"
+						style="font-weight:bold"
+						update="CrediterCPanel" />
+				</f:facet>
+			</p:panel>
+
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

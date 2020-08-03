@@ -1,0 +1,178 @@
+<!DOCTYPE html >
+<html 
+	xmlns:p="http://primefaces.org/ui"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	lang="#{ismsBean.language}"
+	>
+
+<!-- 
+		Replace path to template, title, header and body
+		with actual data.
+	 -->
+<ui:composition template="/WEB-INF/new_templates/templateAdmin.xhtml">
+
+	<ui:define name="title">#{ismsBean.partenaire.appliname} | #{msg['creerUtilisateur.title']} </ui:define>
+
+	<ui:define name="body">
+		<h:form id="FormCreationUtilisateur">
+			<p:growl
+				id="formUtilisateur"
+				showDetail="true"
+				sticky="true" />
+
+			<p:panel
+				id="creationUtilisateur"
+				header="#{msg['creerUtilisateur.header']}">
+
+				<h:panelGrid
+					id="infos"
+					columns="1"
+					style="margin-bottom:10px; width:975px"
+					cellpadding="5">
+
+					<!-- fieldset pour les informations personnelles-->
+					<p:fieldset legend="#{msg['creerUtilisateur.legend.infosperso']}">
+						<h:panelGrid
+							columns="3"
+							cellpadding="5">
+
+							<h:outputLabel
+								for="nomUtilisateur"
+								value="#{msg['creerUtilisateur.outputLabel.nomUtilisateur']}: " />
+							<p:inputText
+								id="nomUtilisateur"
+								required="true"
+								requiredMessage="#{msg['creerUtilisateur.outputLabel.requiredMessagenomUtilisateur']}!"
+								value="#{ismsBean.utilisateurACreer.noms}" />
+							<p:message
+								for="nomUtilisateur"
+								showIcon="false"
+								showSummary="false"
+								showDetail="true" />
+
+							<h:outputLabel
+								for="emailUtilisateur"
+								value="#{msg['creerUtilisateur.outputLabel.emailUtilisateur']}: " />
+							<p:inputText
+								id="emailUtilisateur"
+								required="true"
+								requiredMessage="#{msg['creerUtilisateur.outputLabel.requiredMessageemailUtilisateur']}!"
+								value="#{ismsBean.utilisateurACreer.email}" />
+							<p:message
+								for="emailUtilisateur"
+								showIcon="false"
+								showSummary="false"
+								showDetail="true" />
+
+
+							<h:outputLabel
+								for="telephoneUtilisateur"
+								value="#{msg['creerUtilisateur.outputLabel.telephoneUtilisateur']}: " />
+							<p:inputText
+								id="telephoneUtilisateur"
+								required="true"
+								requiredMessage="#{msg['creerUtilisateur.outputLabel.requiredMessagetelephoneUtilisateur']}"
+								value="#{ismsBean.utilisateurACreer.telephone}" />
+							<p:message
+								id="telephoneUtilisateurMsg"
+								for="telephoneUtilisateur"
+								showIcon="false"
+								showSummary="false"
+								showDetail="true" />
+
+						</h:panelGrid>
+
+					</p:fieldset>
+
+					<!-- fieldset pour les informations de connexion-->
+
+					<p:fieldset legend="#{msg['creerUtilisateur.legend.connexion']} ">
+						<p:message
+							for="login"
+							showIcon="false"
+							showSummary="false"
+							showDetail="true"
+							autoUpdate="true" />
+
+						<p:message
+							for="motdepasse"
+							showIcon="false"
+							showSummary="false"
+							showDetail="true"
+							autoUpdate="true" />
+
+						<p:message
+							for="confirmationmdp"
+							showIcon="false"
+							showSummary="false"
+							showDetail="true"
+							autoUpdate="true" />
+
+						<h:panelGrid
+							id="infoConn"
+							columns="2"
+							cellpadding="5">
+
+							<h:outputLabel
+								for="login"
+								value="#{msg['creerUtilisateur.outputLabel.Login']}: " />
+							<p:inputText
+								id="login"
+								required="true"
+								requiredMessage="#{msg['creerUtilisateur.outputLabel.requiredMessageLogin']}!"
+								value="#{ismsBean.utilisateurACreer.login}" />
+
+							<h:outputLabel
+								for="motdepasse"
+								value="#{msg['creerUtilisateur.outputLabel.password']}: " />
+							<p:password
+								id="motdepasse"
+								match="confirmationmdp"
+								label="motdepasse"
+								required="true"
+								requiredMessage="#{msg['creerUtilisateur.outputLabel.requiredMessagepassword']}!"
+								value="#{ismsBean.utilisateurACreer.password}" />
+
+							<h:outputLabel
+								for="confirmationmdp"
+								value="#{msg['creerUtilisateur.outputLabel.confirmationmdp']} : " />
+							<p:password
+								id="confirmationmdp"
+								label="confirmationmdp"
+								required="true"
+								requiredMessage="#{msg['creerUtilisateur.outputLabel.requiredMessageconfirmationmdp']}!"
+								value="#{ismsBean.confirmation}" />
+
+							<h:outputLabel
+								for="admin"
+								value="#{msg['creerUtilisateur.outputLabel.admin']}: " />
+
+							<p:selectBooleanCheckbox
+								id="admin"
+								value="#{ismsBean.utilisateurACreer.admin}" />
+
+						</h:panelGrid>
+					</p:fieldset>
+
+				</h:panelGrid>
+
+
+
+				<f:facet name="footer">
+					<p:commandButton
+						value="#{msg['creerUtilisateur.commandButton.creer']}"
+						action="#{ismsBean.creerUtilisateur}"
+						style="font-weight:bold"
+						update="infos" />
+
+				</f:facet>
+			</p:panel>
+
+		</h:form>
+	</ui:define>
+</ui:composition>
+
+</html>

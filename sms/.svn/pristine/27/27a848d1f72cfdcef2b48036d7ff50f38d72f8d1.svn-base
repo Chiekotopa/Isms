@@ -1,0 +1,54 @@
+<!DOCTYPE html >
+<html
+	lang="fr"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
+
+<ui:composition template="/WEB-INF/new_templates/template.xhtml">
+
+	<ui:define name="title">iSMS | Importation des contacts</ui:define>
+	<ui:define name="body">
+
+		<h:form id="FormCreerContact">
+			<p:growl
+				id="growl"
+				showSummary="false"
+				showDetail="true"
+				sticky="false"
+				autoUpdate="true" /> 
+
+			<p:panel
+				id="creationContact"
+				style="height:354px"
+				header="Importer les contacts depuis un fichier Excel">
+				<h3>Le fichier à importer doit être de type Excel. Constitué de deux colonnes, la première portant les noms et la seconde les contacts associés comme le montre l'image ci-dessous. Cliqué pour agrandir l'image :</h3> 
+                <p:graphicImage value="/resources/img/modeFichierExcel.PNG" onclick="PF('dlg1').show();" />
+                <p:dialog header="Exemple de structure du fichier Excel" widgetVar="dlg1" minHeight="500">
+				     <p:graphicImage value="/resources/img/modeFichierExcelGF.PNG" onclick="PF('dlg1').show();" />
+				</p:dialog> 
+				<p:fileUpload fileUploadListener="#{ismsBean.handleFileUpload}" mode="advanced" dragDropSupport="false"
+         				 update="FormCreerContact:saveExcel, FormCreerContact:sendByExcel, FormCreerContact:growl" sizeLimit="1000000" fileLimit="1" allowTypes="/(\.|\/)(xls|xlsx)$/" /> 
+
+				<f:facet name="footer"> 
+					 <p:commandButton
+					    id="saveExcel"
+						value="Sauvegarder les contacts de ce fichier" 
+						action="#{ismsBean.saveContactsFromExcelFile()}"
+						disabled="#{ismsBean.excelSendStatus}"
+						style="font-weight:bold"/>
+						
+					<p:commandButton
+					    id="sendByExcel"
+						value="Envoyer un sms aux contacts de ce fichier" 
+						action="#{ismsBean.goToEnvoiGroupe()}"
+						disabled="#{ismsBean.excelSendStatus}"
+						style="font-weight:bold"/>
+				</f:facet>
+			</p:panel>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

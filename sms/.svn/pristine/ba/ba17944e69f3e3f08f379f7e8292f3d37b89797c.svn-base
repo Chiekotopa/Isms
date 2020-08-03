@@ -1,0 +1,113 @@
+<!DOCTYPE html >
+<html
+	lang="fr"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
+
+<ui:composition template="/WEB-INF/new_templates/template.xhtml">
+
+	<ui:define name="title">iSMS | Mes Contacts</ui:define>
+	<ui:define name="body">
+		<h:form id="FormlisteContacts">
+
+			<p:panel
+				id="listeContactPanel"
+				header="Liste des contacts"
+				style="height:523px">
+
+				<p:dataTable
+					id="contactsData"
+					var="contact"
+					value="#{ismsBean.contacts}"
+					emptyMessage="Pas de contacts dans la BD!"
+					selectionMode="single"
+					selection="#{ismsBean.contactSelectionne}"
+					rowKey="#{contact.idContact}"
+					rowHover="true"
+					rowIndexVar="index"
+					scrollable="true"
+					scrollHeight="375"
+					resizableColumns="true">
+
+
+
+					<p:ajax
+						event="rowSelect"
+						listener="#{ismsBean.onRowSelect}"
+						update="FormlisteContacts"
+						delay="" />
+
+					<p:ajax
+						event="rowUnselect"
+						listener="#{ismsBean.onRowUnselect}"
+						update="FormlisteContacts" />
+
+					<p:column headerText="No">
+						<h:outputText value="#{index + 1}" />						
+					</p:column>
+
+					<p:column
+						headerText="Nom"
+						sortBy="#{contact.nom}"
+						filterBy="#{contact.nom}"
+						filterMatchMode="contains"
+						filterPosition="top">
+						<h:outputText value="#{contact.nom}" />
+					</p:column>
+
+					<p:column headerText="Téléphone">
+						<h:outputText value="#{contact.telephone}" />
+					</p:column>
+				</p:dataTable>
+
+				<f:facet name="footer">
+					<p:commandButton
+						action="#{ismsBean.mCreerContact()}"
+						value="Créer un contact"
+						style="font-weight:bold"
+						icon="ui-icon-plusthick" />
+						
+				    <p:commandButton
+						value="Importer les contacts depuis excel"
+						style="font-weight:bold"
+						immediate="true"
+						action="#{ismsBean.goToExcelImport()}" />	
+
+					<p:commandButton
+						id="modifierBT"
+						action="#{ismsBean.mModifierContact()}"
+						disabled="#{ismsBean.disabled}"
+						value="Modifier"
+						style="font-weight:bold"
+						icon="ui-icon-pencil" />
+
+					<p:commandButton
+						id="supprimerBT"
+						action="#{ismsBean.supprimerContact()}"
+						disabled="#{ismsBean.disabled}"
+						value="Supprimer"
+						update="FormlisteContacts"
+						style="font-weight:bold"
+						icon="ui-icon-trash" />
+						
+					<p:commandButton
+						id="pdf"
+						icon="ui-icon-myExport"
+						ajax="false" value="Exporter">
+						
+						<p:dataExporter
+							type="pdf"
+							target="contactsData"
+							fileName="ContactsList"
+							preProcessor="#{ismsBean.preProcessPDF}" />
+
+					</p:commandButton>
+				</f:facet>
+			</p:panel>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

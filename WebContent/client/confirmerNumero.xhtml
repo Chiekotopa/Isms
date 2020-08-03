@@ -1,0 +1,147 @@
+<!DOCTYPE html >
+<html
+	xmlns:p="http://primefaces.org/ui"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	lang="#{ismsBean.language}"
+	>
+
+<f:view locale="#{ismsBean.locale}" contentType="text/html">
+	<h:head>
+		<title>#{ismsBean.partenaire.appliname} | Confirmer Inscription!</title>
+
+		<h:outputStylesheet
+			library="css"
+			name="index.css" />
+
+		<link
+			rel="shortcut icon"
+			type="image/png"
+			href="#{request.contextPath}/resources/img/iplans_icon.png" />
+
+
+	</h:head>
+
+	<h:body>
+
+		<div id="bloc_page">
+			<header>
+				<div>
+					<h:graphicImage
+						style="margin-top:5px"
+						id="logo"
+						library="img"
+						name="isms_logo_original.png"
+						alt="Enete iSMS" />
+					 <br /> <br /> <br />
+				</div>
+
+			</header>
+
+			<section id="create">
+				<h:form id="ClientCreationForm">
+					<p:panel header="Confirmer numero de telephone">
+
+						<h:panelGrid
+							columns="2"
+							cellpadding="15">
+							<h:outputLabel
+								for="numTelephone"
+								value="Téléphone : *"
+								style="font-weight:bold" />
+							<p:outputLabel
+								id="numTelephone"
+								value="#{ismsBean.clientACreer.telephone}" />
+
+							<h:outputLabel
+								for="email"
+								value="Email : "
+								style="font-weight:bold" />
+							<p:inputText
+								id="email"
+								value="#{ismsBean.clientACreer.email}" />
+
+							<h:outputLabel
+								for="code"
+								value="Code deconfirmation : *"
+								style="font-weight:bold" />
+							<p:inputText
+								id="code"
+								required="true"
+								requiredMessage="Entrez le code de confirmation"
+								value="#{ismsBean.codeConfirmation}" />
+
+							<h:outputLabel
+								for="motdepasse"
+								value="Mot de passe :"
+								style="font-weight:bold" />
+							<p:password
+								id="motdepasse"
+								match="confirmationmdp"
+								label="motdepasse"
+								required="true"
+								maxlength="8"
+								requiredMessage="Entrez un mot de passe!"
+								value="#{ismsBean.clientACreer.password}" />
+
+							<h:outputLabel
+								for="confirmationmdp"
+								value="Confirmer mot de passe :"
+								style="font-weight:bold" />
+							<p:password
+								id="confirmationmdp"
+								label="confirmationmdp"
+								required="true"
+								maxlength="8"
+								requiredMessage="Les mots de passes ne sont pas identiques!"
+								value="#{ismsBean.confirmation}" />
+
+						</h:panelGrid>
+
+
+
+						<f:facet name="footer">
+							<p:commandButton
+							    id="inscripId"
+								value="M'inscrire"
+								action="#{ismsBean.confirmerInscription}"
+								
+								update="ClientCreationForm" />
+
+							<p:messages
+								id="connexionMsg"
+								autoUpdate="true"
+								showIcon="false"
+								showSummary="false"
+								showDetail="true"
+								closable="true" />
+
+						</f:facet>
+
+					</p:panel>
+					<p:blockUI block="ClientCreationForm" trigger="inscripId">
+				        Inscription en cours...<br />
+				        <p:graphicImage name="#{request.contextPath}/resources/img/loader.gif"/>
+				    </p:blockUI>
+				</h:form>
+
+			</section>
+
+			<footer>
+
+				<div id="copyrights">
+					<p>#{ismsBean.partenaire.nom} #{ismsBean.partenaire.adresse} </p>
+					<p>#{ismsBean.partenaire.tel1} #{ismsBean.partenaire.email}</p>
+
+					<p>Copyright iPLANS SA - Tous droits reserves</p>
+				</div>
+			</footer>
+
+		</div>
+	</h:body>
+</f:view>
+
+
+</html>

@@ -1,0 +1,168 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html >
+<html
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	
+<f:view contentType="text/html">
+	<h:head>
+		<title>iSMS | Client Authentication</title>
+
+		<h:outputStylesheet
+			library="css"
+			name="index.css" />
+
+		<link
+			rel="shortcut icon"
+			type="image/png"
+			href="#{request.contextPath}/resources/img/iplans_icon.png" />
+
+
+	</h:head>
+
+	<h:body>
+
+		<div id="bloc_page">
+			<header>
+				<h:form id="ClientConnexionForm">
+
+					<h:panelGrid
+						id="connexion"
+						columns="3"
+						cellpadding="0">
+
+						<h:graphicImage
+							id="logo"
+							style="margin-top:5px"
+							library="img"
+							name="isms_logo_original.png"
+							alt="Enete iSMS" />
+
+						<h:panelGrid width="450px" />
+
+						<p:panel
+							style="background-color:rgba(91, 155, 213, 0.7); margin-top:75px">
+							<h:panelGrid
+								columns="5"
+								cellpadding="2">
+
+								<p:inputText
+									id="telephone"
+									value="#{ismsBean.clientConnecte.telephone}"
+									required="true"
+									requiredMessage="empty telephone" />
+								<p:watermark
+									for="telephone"
+									value="Numero de telephone" />
+
+
+								<p:password
+									id="password"
+									value="#{ismsBean.clientConnecte.password}"
+									required="true"
+									requiredMessage="empty password!" />
+								<p:watermark
+									for="password"
+									value="Mot de passe" />
+
+								<p:commandButton
+									id="auth"
+									value="Connexion"
+									action="#{ismsBean.authentifierClient()}"
+									actionListener="#{ismsBean.onFailed()}"
+									update="connexion"
+									style="font-weight:bold"
+									icon="ui-icon-check" />
+								<p:growl
+									id="growl"
+									showIcon="false"
+									showSummary="false"
+									showDetail="true"
+									sticky="false" />
+
+							</h:panelGrid>
+						</p:panel>
+
+
+					</h:panelGrid>
+				</h:form>
+				<br /> <br /> <br />
+
+			</header>
+
+			<section id="create">
+				<h:form id="ClientCreationForm">
+					<p:fieldset legend="Nouveau ? s'inscrire" toggleable="true" collapsed="true" toggleSpeed="500">
+						<p:panel header="Creer votre compte en 5 minutes">
+						<h:panelGrid
+							columns="2"
+							cellpadding="10">
+							<h:outputLabel
+								for="nomClient"
+								value="Nom : *" />
+							<p:inputText
+								id="nomClient"
+								required="true"
+								requiredMessage="Entrez votre nom!"
+								value="#{ismsBean.clientACreer.noms}" />
+
+
+
+							<h:outputLabel
+								for="telephone"
+								value="Téléphone : *" />
+							<p:inputText
+								id="telephone"
+								required="true"
+								requiredMessage="Entrez un numero de telphone"
+								value="#{ismsBean.clientACreer.telephone}" />
+						</h:panelGrid>
+
+
+
+						<f:facet name="footer">
+							<p:commandButton
+								value="Envoyer"
+								action="#{ismsBean.genererCodeVal()}"
+								actionListener="#{ismsBean.onExist()}"
+								style="font-weight:bold"
+								update="ClientCreationForm" />
+
+							<p:messages
+								id="connexionMsg"
+								showIcon="false"
+								showSummary="false"
+								showDetail="true"
+								closable="true" />
+
+							<div id="signIn">
+								<a href="#{request.contextPath}/security/adminLogin.xhtml">
+									 <h7>Admin user</h7> </a>
+							</div>
+						</f:facet>
+					 </p:panel>
+					</p:fieldset>
+
+				</h:form>
+
+			</section>
+
+			<footer>
+
+				<div id="copyrights">
+					<p>iPLANS SA Head Office, IPLANS building - Bonamoussadi/Denver
+						PO Box: 8215 Douala - Cameroon</p>
+					<p>Tel.: (Std) +237 (2) 33 47 28 66 | Tel.: (Std) +237 (2) 33
+						47 28 75 | Tel.: (Std) +237 (2) 33 47 28 80 | Tel.: (Std) +237 (6)
+						66 00 13 00 | E-mail: info@iplans.cm</p>
+
+					<p>Copyright iPLANS SA - Tous droits reserves</p>
+				</div>
+			</footer>
+
+		</div>
+	</h:body>
+</f:view>
+</html>

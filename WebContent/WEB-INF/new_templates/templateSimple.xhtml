@@ -1,0 +1,51 @@
+<!DOCTYPE html >
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	lang="#{ismsBean.language}"
+	>
+
+<h:head>
+	<title>
+		<ui:insert name="title">
+			#{ismsBean.partenaire.appliname}
+		</ui:insert>
+	</title>
+	<link rel="shortcut icon" type="image/png" href="#{request.contextPath}/resources/img/iplans_icon#{ismsBean.partenaire.id}.png" />
+	<h:outputStylesheet library="css" name="style.css" />
+</h:head>
+
+<h:body>
+	<f:view locale="#{ismsBean.locale}" contentType="text/html">
+		
+		<div id="bloc_page">
+			<header>
+				<div id="titre_principal"> 
+					<ui:insert name="header">
+						<ui:include src="/WEB-INF/new_templates/header.xhtml" />
+					</ui:insert>
+				</div>
+			</header>
+			
+			<nav>
+				<ui:insert name="menuSimple">
+					<ui:include src="/WEB-INF/new_templates/menuSimple.xhtml" />
+				</ui:insert>
+			</nav>
+			
+			<section >
+				<ui:insert name="body">
+					<ui:include src="/WEB-INF/new_templates/body.xhtml" />
+				</ui:insert>
+			</section>
+			
+			<footer>
+				<ui:insert name="footer">
+					<ui:include src="/WEB-INF/new_templates/footer.xhtml" />
+				</ui:insert>
+			</footer>
+		</div>
+	</f:view>
+</h:body>
+</html>

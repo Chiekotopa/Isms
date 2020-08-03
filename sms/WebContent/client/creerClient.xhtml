@@ -1,0 +1,150 @@
+<!DOCTYPE html >
+<html
+	lang="fr"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<!-- 
+		Replace path to template, title, header and body
+		with actual data.
+	 -->
+<ui:composition template="/WEB-INF/new_templates/templateAdmin.xhtml">
+
+	<ui:define name="title">iSMS | Nouveau Client</ui:define>
+
+	<ui:define name="body">
+		<h:form id="FormCreationClient">
+
+			<p:panel
+				id="creationClient"
+				header="Créer un nouveau client"
+				style="height:496px">
+
+				<h:panelGrid
+					id="infos"
+					columns="1"
+					style="margin-bottom:10px; width:975px;margin-bottom:50px"
+					cellpadding="5">
+
+					<!-- fieldset pour les informations personnelles-->
+					<p:fieldset legend="Informations du Client">
+						<h:panelGrid
+							columns="3"
+							cellpadding="5">
+
+							<h:outputLabel
+								for="nomClient"
+								value="Nom :" />
+							<p:inputText
+								id="nomClient"
+								required="true"
+								requiredMessage="Entrez un nom!"
+								value="#{ismsBean.clientACreer.noms}" />
+							<p:message
+								for="nomClient"
+								showIcon="false"
+								showSummary="false"
+								showDetail="true" />
+
+							<h:outputLabel
+								for="emailClient"
+								value="Email :" />
+							<p:inputText
+								id="emailClient"
+								required="true"
+								requiredMessage="Entrez une adresse mail correcte!"
+								value="#{ismsBean.clientACreer.email}" />
+							<p:message
+								for="emailClient"
+								showIcon="false"
+								showSummary="false"
+								showDetail="true" />
+
+
+							<h:outputLabel
+								for="telephoneClient"
+								value="Téléphone : " />
+							<p:inputText
+								id="telephoneClient"
+								required="true"
+								requiredMessage="Entrez un numéro de téléphone"
+								value="#{ismsBean.clientACreer.telephone}" />
+							<p:message
+								id="telephoneClientMsg"
+								for="telephoneClient"
+								showIcon="false"
+								showSummary="false"
+								showDetail="true" />
+
+						</h:panelGrid>
+
+					</p:fieldset>
+
+					<!-- fieldset pour les informations de connexion-->
+
+					<p:fieldset legend="Informations de connexion">
+
+						<p:message
+							for="motdepasse"
+							showIcon="false"
+							showSummary="false"
+							showDetail="true"
+							autoUpdate="true" />
+
+						<p:message
+							for="confirmationmdp"
+							showIcon="false"
+							showSummary="false"
+							showDetail="true"
+							autoUpdate="true" />
+
+						<h:panelGrid
+							id="infoConn"
+							columns="2"
+							cellpadding="5">
+
+							<h:outputLabel
+								for="motdepasse"
+								value="Mot de passe :" />
+							<p:password
+								id="motdepasse"
+								match="confirmationmdp"
+								label="motdepasse"
+								required="true"
+								requiredMessage="Entrez un mot de passe!"
+								value="#{ismsBean.clientACreer.password}" />
+
+							<h:outputLabel
+								for="confirmationmdp"
+								value="Confirmer mot de passe :" />
+							<p:password
+								id="confirmationmdp"
+								label="confirmationmdp"
+								required="true"
+								requiredMessage="Les mots de passes ne sont pas identiques!"
+								value="#{ismsBean.confirmation}" />
+
+						</h:panelGrid>
+					</p:fieldset>
+
+				</h:panelGrid>
+
+
+
+				<f:facet name="footer">
+					<p:commandButton
+						value="Créer"
+						action="#{ismsBean.creerClient}"
+						style="font-weight:bold"
+						update="infos" />
+				</f:facet>
+			</p:panel>
+
+		</h:form>
+	</ui:define>
+</ui:composition>
+
+</html>

@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PROCESS model-entity="JSFProcess">
+ <PROCESS-ITEM NAME="rules:" SHAPE="32,17,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules::0" NAME="item" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="excelImport::#contact#excelImport.xhtml"
+    NAME="output" PATH="/contact/excelImport.xhtml"
+    TARGET="rules:#contact#excelImport.xhtml" TITLE="excelImport" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="envoiGroupe::#sms#envoiGroupe.xhtml"
+    NAME="output1" PATH="/sms/envoiGroupe.xhtml"
+    TARGET="rules:#sms#envoiGroupe.xhtml" TITLE="envoiGroupe" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="clientDashboard::#dashboard#clientDashboard.xhtml"
+    NAME="output2" PATH="/dashboard/clientDashboard.xhtml"
+    TARGET="rules:#dashboard#clientDashboard.xhtml"
+    TITLE="clientDashboard" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="adminDashBoard::#dashboard#adminDashboard.xhtml" NAME="output3"
+    PATH="/dashboard/adminDashboard.xhtml"
+    TARGET="rules:#dashboard#adminDashboard.xhtml"
+    TITLE="adminDashBoard" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="creerUtilisateur::#utilisateur#creerUtilisateur.xhtml"
+    NAME="output4" PATH="/utilisateur/creerUtilisateur.xhtml"
+    TARGET="rules:#utilisateur#creerUtilisateur.xhtml"
+    TITLE="creerUtilisateur" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="sauvegarderModification::#utilisateur#sauvegarderModificationU.xhtml"
+    NAME="output5" PATH="/utilisateur/sauvegarderModificationU.xhtml"
+    TARGET="rules:#utilisateur#sauvegarderModificationU.xhtml"
+    TITLE="sauvegarderModification" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="listeUtilisateurs::#utilisateur#listeUtilisateurs.xhtml"
+    NAME="output6" PATH="/utilisateur/listeUtilisateurs.xhtml"
+    TARGET="rules:#utilisateur#listeUtilisateurs.xhtml"
+    TITLE="listeUtilisateurs" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="creerClient::#client#creerClient.xhtml"
+    NAME="output7" PATH="/client/creerClient.xhtml"
+    TARGET="rules:#client#creerClient.xhtml" TITLE="creerClient" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="modifierClient::#client#sauvegarderModificationC.xhtml"
+    NAME="output8" PATH="/client/sauvegarderModificationC.xhtml"
+    TARGET="rules:#client#sauvegarderModificationC.xhtml"
+    TITLE="modifierClient" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="confirmerNumero::#client#confirmerNumero.xhtml" NAME="output9"
+    PATH="/client/confirmerNumero.xhtml"
+    TARGET="rules:#client#confirmerNumero.xhtml" TITLE="confirmerNumero" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="creerContact::#contact#creerContact.xhtml"
+    NAME="output10" PATH="/contact/creerContact.xhtml"
+    TARGET="rules:#contact#creerContact.xhtml" TITLE="creerContact" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="listeContacts::#contact#listeContacts.xhtml"
+    NAME="output11" PATH="/contact/listeContacts.xhtml"
+    TARGET="rules:#contact#listeContacts.xhtml" TITLE="listeContacts" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="journalLogs::#security#afficherLogs.xhtml"
+    NAME="output12" PATH="/security/afficherLogs.xhtml"
+    TARGET="rules:#security#afficherLogs.xhtml" TITLE="journalLogs" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="adminDeconnexion::#security#adminLogin.xhtml" NAME="output13"
+    PATH="/security/adminLogin.xhtml"
+    TARGET="rules:#security#adminLogin.xhtml" TITLE="adminDeconnexion" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="clientDeconnexion::#security#clientLogin.xhtml" NAME="output14"
+    PATH="/security/clientLogin.xhtml"
+    TARGET="rules:#security#clientLogin.xhtml" TITLE="clientDeconnexion" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="creerSenderID::#senderID#creerSenderID.xhtml" NAME="output15"
+    PATH="/senderID/creerSenderID.xhtml"
+    TARGET="rules:#senderID#creerSenderID.xhtml" TITLE="creerSenderID" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="listeSenderIDs::#senderID#listeSenderIDs.xhtml" NAME="output16"
+    PATH="/senderID/listeSenderIDs.xhtml"
+    TARGET="rules:#senderID#listeSenderIDs.xhtml" TITLE="listeSenderIDs" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="apiInfos::#api#apiInfos.xhtml"
+    NAME="output17" PATH="/api/apiInfos.xhtml"
+    TARGET="rules:#api#apiInfos.xhtml" TITLE="apiInfos" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="envoyerSMS::#sms#envoyerSMS.xhtml"
+    NAME="output18" PATH="/sms/envoyerSMS.xhtml"
+    TARGET="rules:#sms#envoyerSMS.xhtml" TITLE="envoyerSMS" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="envoyerPlusSMS::#sms#envoyerPlusSMS.xhtml"
+    NAME="output19" PATH="/sms/envoyerPlusSMS.xhtml"
+    TARGET="rules:#sms#envoyerPlusSMS.xhtml" TITLE="envoyerPlusSMS" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="historiqueEnvoi::#sms#historiqueEnvoi.xhtml"
+    NAME="output20" PATH="/sms/historiqueEnvoi.xhtml"
+    TARGET="rules:#sms#historiqueEnvoi.xhtml" TITLE="historiqueEnvoi" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="crediterCompte::#admin#crediterCompte.xhtml"
+    NAME="output21" PATH="/admin/crediterCompte.xhtml"
+    TARGET="rules:#admin#crediterCompte.xhtml" TITLE="crediterCompte" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="statistiquesAchats::#admin#statistiquesAchats.xhtml"
+    NAME="output22" PATH="/admin/statistiquesAchats.xhtml"
+    TARGET="rules:#admin#statistiquesAchats.xhtml"
+    TITLE="statistiquesAchats" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="statistiquesSMS::#admin#statistiquesSMS.xhtml" NAME="output23"
+    PATH="/admin/statistiquesSMS.xhtml"
+    TARGET="rules:#admin#statistiquesSMS.xhtml" TITLE="statistiquesSMS" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="acheterCredit::#compte#acheterCredit.xhtml"
+    NAME="output24" PATH="/compte/acheterCredit.xhtml"
+    TARGET="rules:#compte#acheterCredit.xhtml" TITLE="acheterCredit" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="changerMDP::#compte#changerMDP.xhtml"
+    NAME="output25" PATH="/compte/changerMDP.xhtml"
+    TARGET="rules:#compte#changerMDP.xhtml" TITLE="changerMDP" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="listeAchats::#compte#listeAchats.xhtml"
+    NAME="output26" PATH="/compte/listeAchats.xhtml"
+    TARGET="rules:#compte#listeAchats.xhtml" TITLE="listeAchats" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#security#clientLogin.xhtml"
+  PATH="/security/clientLogin.xhtml" SHAPE="304,2433,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#utilisateur#listeUtilisateurs.xhtml"
+  PATH="/utilisateur/listeUtilisateurs.xhtml" SHAPE="304,1313,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#admin#statistiquesSMS.xhtml"
+  PATH="/admin/statistiquesSMS.xhtml" SHAPE="304,33,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#compte#acheterCredit.xhtml"
+  PATH="/compte/acheterCredit.xhtml" SHAPE="304,33,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#security#afficherLogs.xhtml"
+  PATH="/security/afficherLogs.xhtml" SHAPE="304,2209,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#client#sauvegarderModificationC.xhtml"
+  PATH="/client/sauvegarderModificationC.xhtml" SHAPE="304,1537,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#utilisateur#sauvegarderModificationU.xhtml"
+  PATH="/utilisateur/sauvegarderModificationU.xhtml"
+  SHAPE="304,1201,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#admin#crediterCompte.xhtml"
+  PATH="/admin/crediterCompte.xhtml" SHAPE="304,33,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#compte#changerMDP.xhtml"
+  PATH="/compte/changerMDP.xhtml" SHAPE="304,33,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#sms#historiqueEnvoi.xhtml"
+  PATH="/sms/historiqueEnvoi.xhtml" SHAPE="304,33,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#client#listeClients.xhtml"
+  PATH="/client/listeClients.xhtml" SHAPE="304,1649,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#security#adminLogin.xhtml"
+  PATH="/security/adminLogin.xhtml" SHAPE="304,2321,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#contact#listeContacts.xhtml"
+  PATH="/contact/listeContacts.xhtml" SHAPE="304,2097,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#compte#listeAchats.xhtml"
+  PATH="/compte/listeAchats.xhtml" SHAPE="304,33,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#admin#statistiquesAchats.xhtml"
+  PATH="/admin/statistiquesAchats.xhtml" SHAPE="304,33,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#dashboard#adminDashboard.xhtml"
+  PATH="/dashboard/adminDashboard.xhtml" SHAPE="304,977,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#utilisateur#creerUtilisateur.xhtml"
+  PATH="/utilisateur/creerUtilisateur.xhtml" SHAPE="304,1089,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#senderID#listeSenderIDs.xhtml"
+  PATH="/senderID/listeSenderIDs.xhtml" SHAPE="304,2657,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#dashboard#clientDashboard.xhtml"
+  PATH="/dashboard/clientDashboard.xhtml" SHAPE="304,33,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#api#apiInfos.xhtml"
+  PATH="/api/apiInfos.xhtml" SHAPE="304,2769,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#sms#envoyerPlusSMS.xhtml"
+  PATH="/sms/envoyerPlusSMS.xhtml" SHAPE="304,2993,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#client#creerClient.xhtml"
+  PATH="/client/creerClient.xhtml" SHAPE="304,1425,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#contact#sauvegarderModificationCo.xhtml"
+  PATH="/contact/sauvegarderModificationCo.xhtml" SHAPE="304,1985,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#senderID#creerSenderID.xhtml"
+  PATH="/senderID/creerSenderID.xhtml" SHAPE="304,2545,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#client#confirmerNumero.xhtml"
+  PATH="/client/confirmerNumero.xhtml" SHAPE="304,1761,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#sms#envoyerSMS.xhtml"
+  PATH="/sms/envoyerSMS.xhtml" SHAPE="304,2881,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#contact#creerContact.xhtml"
+  PATH="/contact/creerContact.xhtml" SHAPE="304,1873,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#contact#excelImport.xhtml"
+  PATH="/contact/excelImport.xhtml" SHAPE="304,977,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#sms#envoiGroupe.xhtml"
+  PATH="/sms/envoiGroupe.xhtml" SHAPE="304,977,0,0" model-entity="JSFProcessGroup"/>
+</PROCESS>

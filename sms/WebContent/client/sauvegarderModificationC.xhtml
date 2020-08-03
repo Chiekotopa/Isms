@@ -1,0 +1,129 @@
+<!DOCTYPE html >
+<html
+	lang="fr"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<!-- 
+		Replace path to template, title, header and body
+		with actual data.
+	 -->
+<ui:composition template="/WEB-INF/new_templates/templateAdmin.xhtml">
+
+	<ui:define name="title">iSMS | Edition de client </ui:define>
+
+	<ui:define name="body">
+		<h:form id="FormSauvegarderModification">
+			<p:panel
+				id="toggleable"
+				header="Modifier un client : sauvegarde des modifications"
+				style="height:496px">
+
+				<h:panelGrid
+					columns="1"
+					style="width:975px;margin-bottom:40px"
+					cellpadding="5">
+
+					<!-- fieldset pour les informations personnelles-->
+					<p:fieldset legend="Informations du Client">
+						<h:panelGrid
+							columns="3"
+							style="margin-bottom:10px"
+							cellpadding="5">
+
+							<h:outputLabel
+								for="nomClient"
+								value="Nom :" />
+							<p:inputText
+								id="nomClient"
+								required="true"
+								value="#{ismsBean.clientSelectionne.noms}" />
+							<p:messages for="nomClient" />
+
+							<h:outputLabel
+								for="emailClient"
+								value="Email : *" />
+							<p:inputText
+								id="emailClient"
+								required="true"
+								value="#{ismsBean.clientSelectionne.email}" />
+							<p:message for="emailClient" />
+
+							<h:outputLabel
+								for="telephoneClient"
+								value="Téléphone : " />
+							<p:inputText
+								id="telephoneClient"
+								value="#{ismsBean.clientSelectionne.telephone}" />
+							<p:messages for="nomClient" />
+
+						</h:panelGrid>
+					</p:fieldset>
+
+					<!-- fieldset pour les informations de connexion-->
+
+					<p:fieldset legend="Informations de connexion">
+
+						<p:message
+							for="motdepasse"
+							showSummary="true"
+							showDetail="false"
+							autoUpdate="true" />
+
+						<p:message
+							for="confirmationmdp"
+							showSummary="true"
+							showDetail="false"
+							autoUpdate="true" />
+
+						<h:panelGrid
+							id="infoConn"
+							columns="2"
+							cellpadding="5">
+
+							<h:outputLabel
+								for="motdepasse"
+								value="Mot de passe :" />
+							<p:password
+								id="motdepasse"
+								match="confirmationmdp"
+								label="motdepasse"
+								required="true"
+								requiredMessage="Entrez un mot de passe!"
+								value="#{ismsBean.clientSelectionne.password}" />
+
+							<h:outputLabel
+								for="confirmationmdp"
+								value="Confirmer mot de passe :" />
+							<p:password
+								id="confirmationmdp"
+								label="confirmationmdp"
+								required="true"
+								requiredMessage="Les mots de passes ne sont pas identiques!"
+								value="#{ismsBean.confirmation}" />
+
+						</h:panelGrid>
+					</p:fieldset>
+
+				</h:panelGrid>
+
+				<f:facet name="footer">
+					<p:commandButton
+						action="#{ismsBean.sauvegarderModificationC}"
+						style="font-weight:bold"
+						value="Sauvegarder" />
+					<p:commandButton
+						action="#{ismsBean.annulerModifClient}"
+						style="font-weight:bold"
+						value="Annuler" />
+				</f:facet>
+			</p:panel>
+		</h:form>
+	</ui:define>
+
+</ui:composition>
+
+</html>

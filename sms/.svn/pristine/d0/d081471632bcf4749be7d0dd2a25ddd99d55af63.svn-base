@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<faces-config
+	version="2.0"
+	xmlns="http://java.sun.com/xml/ns/javaee"
+	xmlns:xi="http://www.w3.org/2001/XInclude"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd">
+	<navigation-rule>
+		<display-name>navigation</display-name>
+		
+		
+	    <navigation-case>
+			<from-outcome>excelImport</from-outcome>
+			<to-view-id>/contact/excelImport.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		
+	    <navigation-case>
+			<from-outcome>envoiGroupe</from-outcome>
+			<to-view-id>/sms/envoiGroupe.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+
+		<!-- DASHBOARD -->
+
+		<navigation-case>
+			<from-outcome>clientDashboard</from-outcome>
+			<to-view-id>/dashboard/clientDashboard.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+
+	<!--	<navigation-case>
+			<from-action>#{ismsBean.dashboard()}</from-action>
+			<from-outcome>clientDashboard</from-outcome>
+			<to-view-id>/dashboard/clientDashboard.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+
+		<navigation-case>
+			<from-action>#{ismsBean.dashboard()}</from-action>
+			<from-outcome>adminDashBoard</from-outcome>
+			<to-view-id>/dashboard/adminDashboard.xhtml</to-view-id>
+			<redirect />
+		</navigation-case> -->
+		
+		<navigation-case>
+			<from-outcome>adminDashBoard</from-outcome>
+			<to-view-id>/dashboard/adminDashboard.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+
+		<!-- Gestion des utilisateurs -->
+		<navigation-case>
+			<from-outcome>creerUtilisateur</from-outcome>
+			<to-view-id>/utilisateur/creerUtilisateur.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+
+		<navigation-case>
+			<from-outcome>sauvegarderModification</from-outcome>
+			<to-view-id>/utilisateur/sauvegarderModificationU.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+
+		<navigation-case>
+			<from-outcome>listeUtilisateurs</from-outcome>
+			<to-view-id>/utilisateur/listeUtilisateurs.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+
+		<!-- Gestion des clients -->
+		<navigation-case>
+			<from-outcome>creerClient</from-outcome>
+			<to-view-id>/client/creerClient.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+
+		<navigation-case>
+			<from-outcome>modifierClient</from-outcome>
+			<to-view-id>/client/sauvegarderModificationC.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+
+		<navigation-case>
+			<from-outcome>listeClients</from-outcome>
+			<to-view-id>/client/listeClients.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+
+		<navigation-case>
+			<from-outcome>confirmerNumero</from-outcome>
+			<to-view-id>/client/confirmerNumero.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+
+		<!-- CONTACT -->
+		<navigation-case>
+			<from-outcome>creerContact</from-outcome>
+			<to-view-id>/contact/creerContact.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+
+		<navigation-case>
+			<from-outcome>modifierContact</from-outcome>
+			<to-view-id>/contact/sauvegarderModificationCo.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+
+		<navigation-case>
+			<from-outcome>listeContacts</from-outcome>
+			<to-view-id>/contact/listeContacts.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+
+		<!-- Authentification -->
+
+		<navigation-case>
+			<from-outcome>journalLogs</from-outcome>
+			<to-view-id>/security/afficherLogs.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+
+		<navigation-case>
+			<from-outcome>adminDeconnexion</from-outcome>
+			<to-view-id>/security/adminLogin.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+
+		<navigation-case>
+			<from-outcome>clientDeconnexion</from-outcome>
+			<to-view-id>/security/clientLogin.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+
+		<!-- SENDERID -->
+		<navigation-case>
+			<from-outcome>creerSenderID</from-outcome>
+			<to-view-id>/senderID/creerSenderID.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+
+		<navigation-case>
+			<from-outcome>listeSenderIDs</from-outcome>
+			<to-view-id>/senderID/listeSenderIDs.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+
+		<!-- API SMS & SMS -->
+
+		<navigation-case>
+			<from-outcome>apiInfos</from-outcome>
+			<to-view-id>/api/apiInfos.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+
+		<navigation-case>
+			<from-outcome>envoyerSMS</from-outcome>
+			<to-view-id>/sms/envoyerSMS.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+
+		<navigation-case>
+			<from-outcome>envoyerPlusSMS</from-outcome>
+			<to-view-id>/sms/envoyerPlusSMS.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+
+		<navigation-case>
+			<from-outcome>historiqueEnvoi</from-outcome>
+			<to-view-id>/sms/historiqueEnvoi.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+
+		<!-- ADMIN -->
+
+		<navigation-case>
+			<from-outcome>crediterCompte</from-outcome>
+			<to-view-id>/admin/crediterCompte.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+
+		<navigation-case>
+			<from-outcome>statistiquesAchats</from-outcome>
+			<to-view-id>/admin/statistiquesAchats.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+
+		<navigation-case>
+			<from-outcome>statistiquesSMS</from-outcome>
+			<to-view-id>/admin/statistiquesSMS.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+
+		<!-- COMPTE -->
+
+		<navigation-case>
+			<from-outcome>acheterCredit</from-outcome>
+			<to-view-id>/compte/acheterCredit.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+
+		<navigation-case>
+			<from-outcome>changerMDP</from-outcome>
+			<to-view-id>/compte/changerMDP.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+
+		<navigation-case>
+			<from-outcome>listeAchats</from-outcome>
+			<to-view-id>/compte/listeAchats.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+
+	</navigation-rule>
+
+	<application>
+		<resource-bundle>
+			<base-name>messages</base-name>
+			<var>msg</var>
+		</resource-bundle>
+
+		<resource-bundle>
+			<base-name>api</base-name>
+			<var>api</var>
+		</resource-bundle>
+	</application>
+</faces-config>

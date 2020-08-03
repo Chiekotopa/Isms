@@ -1,0 +1,112 @@
+<!DOCTYPE html >
+<html 
+	xmlns:p="http://primefaces.org/ui"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	lang="#{ismsBean.language}"
+	>
+
+<ui:composition template="/WEB-INF/new_templates/template.xhtml">
+
+	<ui:define name="title">#{ismsBean.partenaire.appliname} | #{msg['clientDashboard.title']}</ui:define>
+	<ui:define name="body">
+		<h:form
+			id="FormClientBord"
+			onsubmit="#{ismsBean.resetIndex()}">
+
+			<p:scrollPanel
+				mode="native"
+				style="height:529px">
+
+				<p:panel
+					id="dashBPanel"
+					header="#{msg['clientDashboard.scrollPanel.client']}">
+
+					<p:chart
+						type="line"
+						model="#{ismsBean.lineClient}" />
+
+					<h:panelGrid
+						columns="2"
+						cellpadding="10">
+
+						<p:panel
+							id="sms"
+							style="width:450px;height:250px"
+							header="#{msg['clientDashboard.panel.smsenvoyes']}">
+
+							<h:panelGrid
+								columns="2"
+								cellpadding="10"
+								style="margin-top:30px">
+
+								<p:outputLabel value="#{msg['clientDashboard.panelGrid.cettesemaine']} : " />
+								<h:outputText value="#{ismsBean.nbSemaineClient} sms" />
+
+								<p:outputLabel value="#{msg['clientDashboard.panelGrid.cemois']} : " />
+								<h:outputText value="#{ismsBean.nbMoisClient} sms" />
+
+								<p:outputLabel value="#{msg['clientDashboard.panelGrid.cetteannee']} : " />
+								<h:outputText value="#{ismsBean.nbAnneeClient} sms" />
+
+							</h:panelGrid>
+
+						</p:panel>
+
+						<p:panel
+							id="clients"
+							style="width:450px;height:250px"
+							header="#{msg['clientDashboard.panel.CREDITS']}">
+
+							<h:panelGrid
+								columns="2"
+								cellpadding="5">
+								<p:outputLabel value="#{msg['clientDashboard.panelGrid.Solde']} : " />
+								<h:outputText value="#{ismsBean.solde} crédits" />
+
+								<p:outputLabel value="#{msg['clientDashboard.panelGrid.creditvalide']}. : " />
+								<h:outputText value="#{ismsBean.creditsValides.size()}" />
+							</h:panelGrid>
+
+							<h:panelGrid columns="1">
+
+								<p:dataTable
+									var="credit"
+									value="#{ismsBean.credits}"
+									scrollable="true"
+									scrollHeight="100"
+									rowIndexVar="index"
+									rowStyleClass="#{credit.validite le '0' ? 'colored' : null}#{credit.valeur le '0' ? 'colored' : null}">
+
+									<p:column
+										headerText="#{msg['clientDashboard.dataTable.No']}"
+										width="30">
+										<h:outputText value=" #{index + 1}" />
+									</p:column>
+
+									<p:column headerText="#{msg['clientDashboard.dataTable.Valeur']}">
+										<h:outputText value="#{credit.valeur}" />
+									</p:column>
+
+									<p:column
+										headerText="#{msg['clientDashboard.dataTable.validite']}"
+										width="60">
+										<h:outputText value="#{credit.validite}" />
+									</p:column>
+								</p:dataTable>
+
+							</h:panelGrid>
+
+						</p:panel>
+
+					</h:panelGrid>
+
+				</p:panel>
+			</p:scrollPanel>
+
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

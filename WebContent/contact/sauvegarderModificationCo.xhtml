@@ -1,0 +1,75 @@
+<!DOCTYPE html >
+<html 
+	xmlns:p="http://primefaces.org/ui"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	lang="#{ismsBean.language}"
+	>
+
+<ui:composition template="/WEB-INF/new_templates/template.xhtml">
+
+	<ui:define name="title">#{ismsBean.partenaire.appliname} | Edition de contact</ui:define>
+	<ui:define name="body">
+		<h:form id="FormModifContact">
+
+			<p:panel
+				id="toggleable"
+				style="height:354px"
+				header="Modifier un contact : sauvegarde des modifications">
+
+				<h:panelGrid
+					id="infos"
+					columns="3"
+					cellpadding="10">
+
+					<h:outputLabel
+						for="nomContact"
+						value="Nom :"
+						style="font-weight:bold" />
+					<p:inputText
+						id="nomContact"
+						required="true"
+						requiredMessage="Entrez un nom!"
+						value="#{ismsBean.contactSelectionne.nom}" />
+					<p:message
+						for="nomContact"
+						showIcon="false"
+						showSummary="false"
+						showDetail="true" />
+
+					<h:outputLabel
+						for="telephoneContact"
+						value="Telephone :"
+						style="font-weight:bold" />
+					<p:inputText
+						id="telephoneContact"
+						required="true"
+						requiredMessage="Entrez une adresse mail correcte!"
+						value="#{ismsBean.contactSelectionne.telephone}" />
+					<p:message
+						for="telephoneContact"
+						showIcon="false"
+						showSummary="false"
+						showDetail="true" />
+
+				</h:panelGrid>
+
+				<f:facet name="footer">
+					<p:commandButton
+						action="#{ismsBean.sauvegarderModificationCo()}"
+						style="font-weight:bold"
+						value="Sauvegarder" />
+					<p:commandButton
+						action="#{ismsBean.annulerModifContact()}"
+						style="font-weight:bold"
+						value="Annuler" />
+				</f:facet>
+
+			</p:panel>
+
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

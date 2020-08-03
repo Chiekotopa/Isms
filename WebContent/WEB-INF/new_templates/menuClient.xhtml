@@ -1,0 +1,127 @@
+<!DOCTYPE html >
+<html
+	xmlns:p="http://primefaces.org/ui"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	lang="#{ismsBean.language}"
+	>
+
+<f:view locale="#{ismsBean.locale}" contentType="text/html">
+	<h:body>
+
+		<ui:composition>
+
+			<h:form>
+
+				<p:panel
+					id="accueil"
+					header="#{msg['menuClient.title']}!"
+					style="margin-bottom:5px">
+					<h:panelGrid>
+
+						<h:outputText value="#{ismsBean.clientConnecte.noms}" />
+					</h:panelGrid>
+				</p:panel>
+
+				<p:menu style="width:200px">
+
+					<p:submenu
+						label="#{msg['menuClient.label']}"
+						style="font-weight:bold">
+						
+						<p:menuitem
+							value="#{msg['menuClient.menuitem.sendsms']}"
+							action="#{ismsBean.mEnvoyerSMS()}" />
+							
+						<p:menuitem
+							value="#{msg['menuClient.menuitem.sendplusms']}"
+							action="#{ismsBean.mEnvoyerPlusSMS()}" />
+
+						<p:menuitem
+							value="#{msg['menuClient.menuitem.Historique']}"
+							action="#{ismsBean.mHistoriqueEnvoi()}" />
+							
+						<p:menuitem
+							value="Synthèse"
+							action="#{ismsBean.synthese()}" />
+							
+						<p:menuitem
+							value="#{msg['menuClient.menuitem.API']}"
+							action="#{ismsBean.mApiInfos()}" />
+					</p:submenu>
+
+					<p:submenu
+						label="#{msg['menuClient.label.Contacts']}"
+						style="font-weight:bold">
+						<p:menuitem
+							value="#{msg['menuClient.menuitem.newContacts']}"
+							action="#{ismsBean.mCreerContact()}" />
+							
+					    <p:menuitem
+							value="#{msg['menuClient.menuitem.Importer']}"
+							action="#{ismsBean.goToExcelImport()}"/>		
+							
+						<p:menuitem
+							value="#{msg['menuClient.menuitem.Afficher']}"
+							action="#{ismsBean.mListeContacts()}" />
+					</p:submenu>
+
+					<p:submenu
+						label="#{msg['menuClient.label.Compte']}"
+						style="font-weight:bold">
+
+						<p:menuitem
+							value="#{msg['menuClient.menuitem.Dashboard']}"
+							action="#{ismsBean.mClientDashBoard()}" />
+
+						<p:menuitem
+							value="#{msg['menuClient.menuitem.Sender']}"
+							action="#{ismsBean.mListeSenderIDs()}" />
+
+						<p:menuitem
+							value="#{msg['menuClient.menuitem.Acheter']}"
+							action="#{ismsBean.mAcheterCredit()}" />
+						<p:menuitem
+							value="#{msg['menuClient.menuitem.achats']}"
+							action="#{ismsBean.mListeAchats()}" />
+
+						<p:menuitem
+							value="#{msg['menuClient.menuitem.Changer']}"
+							action="#{ismsBean.mChangerMDP()}" />
+
+						<p:menuitem
+							value="#{msg['menuClient.menuitem.Deconnexion']}"
+							action="#{ismsBean.clientDeconnexion()}" />
+					</p:submenu>
+					
+					<p:submenu
+						label="Fonctions revendeurs"
+						rendered="#{ismsBean.clientConnecte.revendeur}"
+						style="font-weight:bold">
+
+						<p:menuitem
+							value="Créditer un client"
+							action="#{ismsBean.goToCrediterCompte()}" />
+
+						<p:menuitem
+							value="Mes Opérations"
+							action="#{ismsBean.gotToTransactions()}" />
+
+						<p:menuitem
+							value="Solde client"
+							action="#{ismsBean.gotToSoldeClient()}" /> 
+					</p:submenu>
+
+				</p:menu>
+
+			</h:form>
+
+		</ui:composition>
+
+	</h:body>
+
+</f:view>
+
+</html>
